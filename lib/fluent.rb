@@ -1,4 +1,5 @@
 require 'fluent/version'
+require 'fluent/logger'
 
 module Fluent
   
@@ -14,7 +15,7 @@ module Fluent
   #
   # @param caller [Class] the class including the library
   def self.included(caller)
-    puts 'Fluent has been included.'
+    Fluent.trace("#{caller.class} #{caller} is now Fluent.")
   end
   
 end
