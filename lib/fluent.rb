@@ -1,10 +1,18 @@
 require 'fluent/version'
+require 'fluent/errors'
 require 'fluent/logger'
+require 'fluent/generators'
 
 require 'watir-webdriver'
 require 'selenium-webdriver'
 
 module Fluent
+  
+  # Browser drivers will be:
+  # [Watir::Browser] or [Selenium::WebDriver::Driver]
+  #
+  # @return [Object] browser driver reference
+  attr_reader :browser
   
   def self.version
     "Fluent v#{Fluent::VERSION}"
@@ -18,6 +26,8 @@ module Fluent
   #
   # @param caller [Class] the class including the library
   def self.included(caller)
+    caller.extend Fluent::Generators
+    
     Fluent.trace("#{caller.class} #{caller} is now Fluent.")
   end
 
