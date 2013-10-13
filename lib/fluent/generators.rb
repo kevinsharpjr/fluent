@@ -11,6 +11,9 @@ module Fluent
     end
     
     def title_is(title=nil)
+      msg = "The title_is assertion is empty on the definition #{self}."
+      raise Fluent::NoTitleForDefinition, msg if title.nil?
+      
       define_method('check_title') do
         msg  = "Expected title: '#{title}'; Actual title: '#{browser.title}'"
         valid_title = title == browser.title if title.kind_of?(String)
