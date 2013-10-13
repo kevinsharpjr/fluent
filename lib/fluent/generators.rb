@@ -14,6 +14,7 @@ module Fluent
       define_method('check_title') do
         msg  = "Expected title: '#{title}'; Actual title: '#{browser.title}'"
         valid_title = title == browser.title if title.kind_of?(String)
+        valid_title = title =~ browser.title if title.kind_of?(Regexp)
         raise Fluent::TitleNotMatched, msg unless valid_title
         valid_title
       end
