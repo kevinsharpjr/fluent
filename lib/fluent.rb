@@ -1,4 +1,5 @@
 require 'fluent/version'
+require 'fluent/errors'
 require 'fluent/logger'
 require 'fluent/generators'
 
