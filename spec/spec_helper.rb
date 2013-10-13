@@ -1,6 +1,12 @@
 require 'simplecov'
+require 'coveralls'
 
-SimpleCov.start
+Coveralls.wear!
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
 
 SimpleCov.at_exit do
   SimpleCov.result.format!
