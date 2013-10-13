@@ -1,7 +1,7 @@
 module Fluent
-
-  class NoUrlForDefinition < StandardError; end
-  class NoTitleForDefinition < StandardError; end
-  class TitleNotMatched < StandardError; end
-  
+  module Errors
+    class NoUrlForDefinition < StandardError; end
+    class NoTitleForDefinition < StandardError; end
+    class TitleNotMatched < StandardError; end
+  end
 end
