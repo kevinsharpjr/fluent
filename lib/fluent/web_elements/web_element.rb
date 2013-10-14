@@ -2,6 +2,12 @@ module Fluent
   module WebElements
     class WebElement
       
+      attr_reader :web_element
+      
+      def click
+        web_element.click
+      end
+      
       def include_platform_specifics_for(platform)
         if platform[:platform] == :watir_webdriver
           require 'fluent/platform_watir/platform_web_elements/web_element'

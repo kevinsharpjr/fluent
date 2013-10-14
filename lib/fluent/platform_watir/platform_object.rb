@@ -18,13 +18,16 @@ module Fluent
         ## Generator Actions ##
         
         def link(locator)
-          element_object = browser.instance_eval('link(locator)')
-          WebElements::Link.new(element_object, :platform => :watir_webdriver)
+          reference_web_element('link(locator)', WebElements::Link, locator)
         end
         
         def paragraph(locator)
-          element_object = browser.instance_eval('p(locator)')
-          WebElements::Paragraph.new(element_object, :platform => :watir_webdriver)
+          reference_web_element('p(locator)', WebElements::Paragraph, locator)
+        end
+        
+        def reference_web_element(action, object, locator)
+          element_object = browser.instance_eval(action)
+          object.new(element_object, :platform => :watir_webdriver)
         end
         
       end

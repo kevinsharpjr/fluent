@@ -4,15 +4,15 @@ module Fluent
       module WebElement
 
         def text
-          @web_element.text
+          web_element.text
         end
 
         def exists?
-          @web_element.exists?
+          web_element.exists?
         end
 
         def visible?
-          @web_element.present?
+          web_element.present?
         end
         
       end
