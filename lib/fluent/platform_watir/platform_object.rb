@@ -22,6 +22,11 @@ module Fluent
           WebElements::Link.new(element_object, :platform => :watir_webdriver)
         end
         
+        def paragraph(locator)
+          element_object = browser.instance_eval('p(locator)')
+          WebElements::Paragraph.new(element_object, :platform => :watir_webdriver)
+        end
+        
       end
     end
   end

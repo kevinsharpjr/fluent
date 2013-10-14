@@ -24,8 +24,16 @@ module Fluent
     end
     
     def link(identifier, locator)
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def paragraph(identifier, locator)
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
-        platform.send('link', locator)
+        platform.send(method, locator)
       end
 
       alias_method "#{identifier}_element".to_sym, "#{identifier}_object".to_sym
