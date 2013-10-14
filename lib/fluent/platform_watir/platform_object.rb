@@ -19,10 +19,12 @@ module Fluent
         
         def link(locator)
           element_object = browser.instance_eval('link(locator)')
-          #WebElement::Link.new(element_object)
+          WebElements::Link.new(element_object)
         end
         
       end
     end
   end
 end
+
+Dir["#{File.dirname(__FILE__)}/../web_elements/**/*.rb"].each { |file| require file }
