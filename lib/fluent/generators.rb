@@ -6,7 +6,7 @@ module Fluent
       raise Fluent::Errors::NoUrlForDefinition, msg if url.nil?
       
       define_method('view') do
-        browser.goto(url)
+        platform.visit(url)
       end
     end
     
