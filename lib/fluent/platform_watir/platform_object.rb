@@ -15,6 +15,13 @@ module Fluent
           browser.goto(url)
         end
         
+        ## Generator Actions ##
+        
+        def link(locator)
+          element_object = browser.instance_eval('link(locator)')
+          #WebElement::Link.new(element_object)
+        end
+        
       end
     end
   end

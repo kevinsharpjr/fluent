@@ -23,5 +23,13 @@ module Fluent
       end
     end
     
+    def link(identifier, locator)
+      define_method("#{identifier}_object") do
+        platform.send('link', locator)
+      end
+
+      alias_method "#{identifier}_element".to_sym, "#{identifier}_object".to_sym
+    end
+    
   end
 end
