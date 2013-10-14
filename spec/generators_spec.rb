@@ -28,12 +28,15 @@ describe Fluent::Generators do
         QuickDefinition.new(watir_browser).check_title
       end
     end
-    
-    context 'providing a url' do
-      it 'should navigate to the page when viewed' do
-        watir_browser.should_receive(:goto)
-        watir_definition.view
+
+    context 'a definition using watir-webdriver' do
+      context 'providing a url' do
+        it 'should navigate to the page when viewed' do
+          watir_browser.should_receive(:goto)
+          watir_definition.view
+        end
       end
     end
+    
   end
 end
