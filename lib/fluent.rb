@@ -54,7 +54,7 @@ module Fluent
 
     Fluent::trace("Fluent attached to browser: #{@browser}")
     
-    establish_platform_object_for browser
+    establish_platform_object_for @browser
   end
   
   private
@@ -67,5 +67,8 @@ module Fluent
   # @return [Object] a platform object to execute tests against
   def establish_platform_object_for(browser)
     @platform = get_platform_for browser
+
+    Fluent::trace("Fluent platform object: #{@platform}")
+    @platform
   end
 end

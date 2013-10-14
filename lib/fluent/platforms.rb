@@ -19,8 +19,10 @@ module Fluent
     # @return [Object] a platform object to execute tests against
     def get_platform_for(browser)
       Fluent::Platforms.list.each_value do |driver|
-        return driver.create_platform_object_for(browser)
+        return driver.create_platform_object_for(browser) if driver.works_with?(browser)
       end
+      msg = "Unable to create a platform object for #{browser}."
+      raise Fluent::Errors::UnableToCreatePlatform, msg
     end
     
   end

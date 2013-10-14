@@ -7,6 +7,10 @@ module Fluent
         return WatirWebDriver::PlatformObject.new(browser)
       end
       
+      def self.works_with?(browser)
+        browser.is_a?(::Watir::Browser)
+      end
+      
     end
   end
 end
