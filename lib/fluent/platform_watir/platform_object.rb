@@ -19,7 +19,7 @@ module Fluent
         
         def link(locator)
           element_object = browser.instance_eval('link(locator)')
-          WebElements::Link.new(element_object)
+          WebElements::Link.new(element_object, :platform => :watir_webdriver)
         end
         
       end
@@ -27,4 +27,6 @@ module Fluent
   end
 end
 
-Dir["#{File.dirname(__FILE__)}/../web_elements/**/*.rb"].each { |file| require file }
+require 'fluent/web_elements/web_element'
+file_list = Dir["#{File.dirname(__FILE__)}/../web_elements/**/*.rb"].reject { |file| file =~ /web_element.rb/ }
+file_list.each { |file| require file }

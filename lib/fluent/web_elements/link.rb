@@ -1,21 +1,14 @@
 module Fluent
   module WebElements
-    class Link
+    class Link < WebElement
       
-      def initialize(web_element)
-        @web_element = web_element        
+      def initialize(web_element, platform)
+        @web_element = web_element
+        include_platform_specifics_for platform
       end
       
-      def text
-        @web_element.text
-      end
-      
-      def exists?
-        @web_element.exists?
-      end
-      
-      def visible?
-        @web_element.present?
+      def include_platform_specifics_for(platform)
+        super
       end
       
     end
