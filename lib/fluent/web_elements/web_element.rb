@@ -4,6 +4,11 @@ module Fluent
       
       attr_reader :web_element
       
+      def initialize(web_element, platform)
+        @web_element = web_element
+        include_platform_specifics_for platform
+      end
+      
       def click
         web_element.click
       end
