@@ -16,6 +16,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:contact_object)
         watir_definition.should respond_to(:contact_element)
       end
+
+      it 'should generate methods for interacting with the link' do
+        watir_definition.should respond_to(:contact)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -24,6 +28,11 @@ describe Fluent::Generators do
         web_element = watir_definition.contact_object
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::Link
+      end
+
+      it 'should click the link' do
+        watir_browser.stub_chain(:link, :click)
+        watir_definition.contact
       end
     end
   end

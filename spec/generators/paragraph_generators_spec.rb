@@ -25,6 +25,16 @@ describe Fluent::Generators do
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::Paragraph
       end
+
+      it 'should generate methods for interacting with the paragraph' do
+        watir_definition.should respond_to(:purpose)
+      end
+
+      it 'should return the text of a paragraph' do
+        watir_browser.should_receive(:p).and_return(watir_browser)
+        watir_browser.should_receive(:text).and_return('testing')
+        watir_definition.purpose.should == 'testing'
+      end
     end
   end
 end

@@ -21,8 +21,16 @@ module Fluent
           reference_web_element('link(locator)', WebElements::Link, locator)
         end
         
+        def link_click(locator)
+          browser.instance_eval('link(locator).click')
+        end
+        
         def paragraph(locator)
           reference_web_element('p(locator)', WebElements::Paragraph, locator)
+        end
+        
+        def paragraph_text(locator)
+          browser.instance_eval('p(locator).text')
         end
         
         def reference_web_element(action, object, locator)

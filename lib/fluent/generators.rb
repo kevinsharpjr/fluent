@@ -24,10 +24,18 @@ module Fluent
     end
     
     def link(identifier, locator)
+      define_method(identifier) do
+        return platform.link_click(locator)
+      end
+      
       common_definition_methods(identifier, locator, __method__)
     end
     
     def paragraph(identifier, locator)
+      define_method(identifier) do
+        return platform.paragraph_text(locator)
+      end
+      
       common_definition_methods(identifier, locator, __method__)
     end
     
