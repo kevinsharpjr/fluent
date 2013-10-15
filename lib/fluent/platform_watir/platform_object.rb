@@ -33,6 +33,18 @@ module Fluent
           browser.instance_eval('button(locator).click')
         end
         
+        def text_field(locator)
+          reference_web_element('text_field(locator)', WebElements::TextField, locator)
+        end
+        
+        def text_field_set(locator, value)
+          browser.instance_eval('text_field(locator).set(value)')
+        end
+        
+        def text_field_get(locator)
+          browser.instance_eval('text_field(locator).value')
+        end
+        
         def paragraph(locator)
           reference_web_element('p(locator)', WebElements::Paragraph, locator)
         end

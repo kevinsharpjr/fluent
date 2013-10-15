@@ -47,6 +47,18 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def text_field(identifier, locator)
+      define_method(identifier) do
+        return platform.text_field_get(locator)
+      end
+      
+      define_method("#{identifier}=") do |value|
+        return platform.text_field_set(locator, value)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
         platform.send(method, locator)

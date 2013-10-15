@@ -58,7 +58,7 @@ module Fluent
   end
   
   def self.can_be_enabled
-    @can_be_enabled ||= [:button]
+    @can_be_enabled ||= [:button, :text_field]
   end
   
   def self.can_be_enabled?(method)
