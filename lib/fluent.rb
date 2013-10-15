@@ -57,6 +57,14 @@ module Fluent
     establish_platform_object_for @browser
   end
   
+  def self.can_be_enabled
+    @can_be_enabled ||= []
+  end
+  
+  def self.can_be_enabled?(method)
+    can_be_enabled.include? method.to_sym
+  end
+  
   private
 
   # This method is crucial in that it sets up the platform instance that
