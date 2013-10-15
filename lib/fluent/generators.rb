@@ -39,6 +39,14 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def button(identifier, locator)
+      define_method(identifier) do
+        return platform.button_click(locator)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
         platform.send(method, locator)
@@ -65,11 +73,13 @@ module Fluent
       alias_method "#{identifier}_#{method}_?".to_sym, "#{identifier}_visible?".to_sym
       
       if Fluent.can_be_enabled?(method)
-        alias_method "#{identifier}!".to_sym, "#{identifier}_enabled?".to_sym
-
         define_method("#{identifier}_enabled?") do
           platform.send(method, locator).enabled?
         end
+
+        alias_method "#{identifier}!".to_sym, "#{identifier}_enabled?".to_sym
+        alias_method "#{identifier}_#{method}_enabled?".to_sym, "#{identifier}_enabled?".to_sym
+        alias_method "#{identifier}_#{method}!".to_sym, "#{identifier}_exists?".to_sym
       end
     end
     
