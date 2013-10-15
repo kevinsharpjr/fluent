@@ -43,8 +43,31 @@ module Fluent
       define_method("#{identifier}_object") do
         platform.send(method, locator)
       end
+      
+      define_method("#{identifier}_exists?") do
+        platform.send(method, locator).exists?
+      end
 
+      define_method("#{identifier}_visible?") do
+        platform.send(method, locator).visible?
+      end
+
+      define_method("#{identifier}_enabled?") do
+        platform.send(method, locator).enabled?
+      end
+      
+      alias_method "#{identifier}_#{method}".to_sym, "#{identifier}_object".to_sym
       alias_method "#{identifier}_element".to_sym, "#{identifier}_object".to_sym
+
+      alias_method "#{identifier}?".to_sym, "#{identifier}_exists?".to_sym
+      alias_method "#{identifier}_?".to_sym, "#{identifier}_visible?".to_sym
+      alias_method "#{identifier}!".to_sym, "#{identifier}_enabled?".to_sym
+      
+      alias_method "#{identifier}_#{method}_exists?".to_sym, "#{identifier}_exists?".to_sym
+      alias_method "#{identifier}_#{method}_visible?".to_sym, "#{identifier}_visible?".to_sym
+      
+      alias_method "#{identifier}_#{method}?".to_sym, "#{identifier}_exists?".to_sym
+      alias_method "#{identifier}_#{method}_?".to_sym, "#{identifier}_visible?".to_sym
     end
     
   end
