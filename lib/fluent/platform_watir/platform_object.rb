@@ -45,6 +45,22 @@ module Fluent
           browser.instance_eval('text_field(locator).value')
         end
         
+        def checkbox(locator)
+          reference_web_element('checkbox(locator)', WebElements::CheckBox, locator)
+        end
+        
+        def checkbox_check_state(locator)
+          browser.instance_eval('checkbox(locator).set?')
+        end
+        
+        def checkbox_check(locator)
+          browser.instance_eval('checkbox(locator).set')
+        end
+        
+        def checkbox_uncheck(locator)
+          browser.instance_eval('checkbox(locator).clear')
+        end
+        
         def paragraph(locator)
           reference_web_element('p(locator)', WebElements::Paragraph, locator)
         end

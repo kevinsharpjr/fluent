@@ -59,6 +59,22 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def checkbox(identifier, locator)
+      define_method("#{identifier}_checked?") do
+        return platform.checkbox_check_state(locator)
+      end
+
+      define_method("check_#{identifier}") do
+        return platform.checkbox_check(locator)
+      end
+
+      define_method("uncheck_#{identifier}") do
+        return platform.checkbox_uncheck(locator)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
         platform.send(method, locator)
