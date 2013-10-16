@@ -75,6 +75,29 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def select_list(identifier, locator)
+      define_method(identifier) do
+        return platform.select_list_get_selected(locator)
+      end
+
+      alias_method "#{identifier}_option?".to_sym, "#{identifier}".to_sym
+      
+      define_method("#{identifier}=") do |value|
+        return platform.select_list_set(locator, value)
+      end
+
+      define_method("#{identifier}_options?") do
+        web_object = self.send("#{identifier}_object")
+        (web_object && web_object.options) ? web_object.options.collect(&:text) : []
+      end
+
+      define_method("#{identifier}_value?") do
+        return platform.select_list_get_value(locator)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
         platform.send(method, locator)

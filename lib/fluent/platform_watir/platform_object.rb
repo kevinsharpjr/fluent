@@ -61,6 +61,22 @@ module Fluent
           browser.instance_eval('checkbox(locator).clear')
         end
         
+        def select_list(locator)
+          reference_web_element('select_list(locator)', WebElements::SelectList, locator)
+        end
+        
+        def select_list_get_selected(locator)
+          browser.instance_eval('select_list(locator).selected_options[0].text')
+        end
+        
+        def select_list_set(locator, value)
+          browser.instance_eval('select_list(locator).select(value)')
+        end
+        
+        def select_list_get_value(locator)
+          browser.instance_eval('select_list(locator).value')
+        end
+        
         def paragraph(locator)
           reference_web_element('p(locator)', WebElements::Paragraph, locator)
         end
