@@ -98,6 +98,23 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def radio(identifier, locator)
+      define_method("select_#{identifier}") do
+        return platform.radio_select(locator)
+      end
+
+      define_method("#{identifier}_selected?") do
+        return platform.radio_check_state(locator)
+      end
+
+      alias_method "#{identifier}_set?".to_sym, "#{identifier}_selected?".to_sym
+      alias_method "set_#{identifier}".to_sym, "select_#{identifier}".to_sym
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+
+    alias_method :radio_button, :radio
+    
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
         platform.send(method, locator)

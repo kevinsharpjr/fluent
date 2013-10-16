@@ -77,6 +77,18 @@ module Fluent
           browser.instance_eval('select_list(locator).value')
         end
         
+        def radio(locator)
+          reference_web_element('radio(locator)', WebElements::Radio, locator)
+        end
+        
+        def radio_select(locator)
+          browser.instance_eval('radio(locator).set')
+        end
+        
+        def radio_check_state(locator)
+          browser.instance_eval('radio(locator).set?')
+        end
+        
         def paragraph(locator)
           reference_web_element('p(locator)', WebElements::Paragraph, locator)
         end
