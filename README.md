@@ -1,33 +1,29 @@
 Fluent
 ======
 
-Fluent is a Ruby gem that provides a way to describe your application in terms of activity and page definitions. Those definitions can be referenced by test libraries using the DSL that Fluent provides. The initial focus will be to hook into browser driver libraries in order to test browser-based applications. The browser driver libraries that are currently supported by Fluent are [watir-webdriver](http://watirwebdriver.com/) and [selenium-webdriver](http://docs.seleniumhq.org/projects/webdriver/). (For the most part, Watir-WebDriver is just a friendly API around Selenium-WebDriver.)
+[![Build Status](https://secure.travis-ci.org/jnyman/fluent.png)](http://travis-ci.org/jnyman/fluent)
+[![Dependency Status](https://gemnasium.com/jnyman/fluent.png)](https://gemnasium.com/jnyman/fluent)
+[![Gem Version](https://badge.fury.io/rb/fluent.png)](http://badge.fury.io/rb/fluent)
+[![Coverage Status](https://coveralls.io/repos/jnyman/fluent/badge.png?branch=master)](https://coveralls.io/r/jnyman/fluent)
 
-The concept of "activity definitions" and "page definitions" are conceptually similar if not identical to the concept of [page objects](http://martinfowler.com/bliki/PageObject.html).
+Fluent provides a semantic domain-specific language that can be used to construct a fluent interface for test execution libraries.
 
-The goal of Fluent is to provide a DSL so that a [fluent interface](http://martinfowler.com/bliki/FluentInterface.html) can be used for constructing test execution logic. This fluent interface provides for compressibility of your test logic, allowing for more factoring, more reuse, and less repetition.
-
-You can use Fluent directly as an automated testing solution or you can use it with other tools such as [RSpec](http://rspec.info/), [Cucumber](http://cukes.info/), or my own [Lucid](https://github.com/jnyman/lucid) tool.
+See the [Fluent wiki](https://github.com/jnyman/fluent/wiki) for details on how to use the framework.
 
 Installation
 ------------
 
-Add this line to your application's Gemfile:
+Generally you will just install Fluent as a gem:
+
+    $ gem install fluent
+
+If your application uses a Gemfile, add the following line to it:
 
     gem 'fluent'
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install fluent
-
-Using Fluent
-------------
-
-Details on how to use Fluent will be coming soon.
 
 Contributing
 ------------
