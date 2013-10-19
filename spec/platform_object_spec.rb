@@ -6,7 +6,10 @@ end
 
 describe Fluent do
   let(:watir_browser)    { mock_browser_for_watir }
+  let(:selenium_browser) { mock_browser_for_selenium }
+  
   let(:watir_definition) { PageDefinition.new(watir_browser) }
+  let(:selenium_definition) { PageDefinition.new(selenium_browser) }
 
   context 'a definition using watir-webdriver' do
     it 'should return a watir platform object' do
@@ -14,6 +17,12 @@ describe Fluent do
     end
   end
 
+  context 'a definition using selenium-webdriver' do
+    it 'should return a selenium platform object' do
+      selenium_definition.platform.should be_kind_of Fluent::Platforms::SeleniumWebDriver::PlatformObject
+    end
+  end
+  
   context 'a definition using an unrecognized driver' do
     it 'should raise an exception' do
       msg = 'Unable to create a platform object for unknown_browser.'
