@@ -23,6 +23,12 @@ module Fluent
       end
     end
     
+    def within_frame(locator, &block)
+      frame = []
+      frame << locator
+      block.call(frame)
+    end
+    
     def link(identifier, locator)
       define_method(identifier) do
         return platform.link_click(locator)

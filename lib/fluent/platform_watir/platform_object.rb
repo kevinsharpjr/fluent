@@ -34,6 +34,7 @@ module Fluent
         end
         
         def text_field(locator)
+          puts "Platform object text field locator: #{locator}"
           reference_web_element('text_field(locator)', WebElements::TextField, locator)
         end
         
@@ -98,8 +99,18 @@ module Fluent
         end
         
         def reference_web_element(action, object, locator)
-          element_object = browser.instance_eval(action)
+          encloser = locator.delete(:frame)
+          element_object = browser.instance_eval("#{enclosed_by(encloser)}#{action}")
           object.new(element_object, :platform => :watir_webdriver)
+        end
+        
+        def enclosed_by(encloser)
+          return if encloser.nil?
+
+          key = encloser[0].keys.first
+          value = encloser[0].values.first
+          
+          "frame(:#{key} => '#{value}')."
         end
         
       end
