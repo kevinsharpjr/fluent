@@ -1,6 +1,7 @@
 require 'fluent/version'
 require 'fluent/errors'
 require 'fluent/logger'
+require 'fluent/factory'
 require 'fluent/platforms'
 require 'fluent/generators'
 
@@ -47,7 +48,7 @@ module Fluent
   #   (2) A platform object is created for that browser.
   #
   # @param browser [Object] a browser instance with a tool driver
-  def initialize(browser=nil)
+  def initialize(browser=nil, visit=nil)
     @browser = browser
     @browser = Watir::Browser.new if browser.nil? or browser == :watir
     @browser = Selenium::WebDriver.for :firefox if browser == :selenium
@@ -55,6 +56,8 @@ module Fluent
     Fluent::trace("Fluent attached to browser: #{@browser}")
     
     establish_platform_object_for @browser
+    
+    view if visit && respond_to?(:view)
   end
   
   def self.can_be_enabled
