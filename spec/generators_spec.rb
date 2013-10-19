@@ -27,6 +27,14 @@ describe Fluent::Generators do
         watir_browser.should_receive(:title).twice.and_return('Symbiote')
         QuickDefinition.new(watir_browser).check_title
       end
+
+      it 'should allow frames to act as a context' do
+        watir_browser.should_receive(:frame).with(id: 'frame').and_return(watir_browser)
+        watir_browser.should_receive(:text_field).and_return(watir_browser)
+        web_element = watir_definition.framedName_text_field
+        web_element.should_not be_nil
+        web_element.should be_instance_of Fluent::WebElements::TextField
+      end
     end
 
     context 'a definition using watir-webdriver' do

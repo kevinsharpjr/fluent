@@ -34,16 +34,11 @@ module Fluent
         end
         
         def text_field(locator)
-          puts "Platform object text field locator: #{locator}"
-          
           reference_web_element('text_field(locator)', WebElements::TextField, locator)
         end
         
         def text_field_set(locator, value)
-          puts "Platform object text field set locator: #{locator}"
-          
           access_web_element('text_field(locator).set(value)', locator, value)
-          #browser.instance_eval('text_field(locator).set(value)')
         end
         
         def text_field_get(locator)
@@ -103,23 +98,13 @@ module Fluent
         end
         
         def reference_web_element(action, object, locator)
-          puts "Reference web element | locator = #{locator}"
-          
           encloser = locator.delete(:frame)
-
-          puts "ACCESS STRING: #{enclosed_by(encloser)}#{action}"
-          
           element_object = browser.instance_eval("#{enclosed_by(encloser)}#{action}")
           object.new(element_object, :platform => :watir_webdriver)
         end
         
         def access_web_element(action, locator, value=nil)
-          puts "Access web element | locator = #{locator}"
-          
           encloser = locator.delete(:frame)
-          
-          puts "ACCESS STRING: #{enclosed_by(encloser)}#{action}"
-          
           browser.instance_eval("#{enclosed_by(encloser)}#{action}")
         end
         
