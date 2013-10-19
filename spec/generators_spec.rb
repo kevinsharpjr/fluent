@@ -3,13 +3,19 @@ require 'mock_app'
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
+  let(:selenium_browser) { mock_browser_for_selenium }
+  
   let(:watir_definition) { TestDefinition.new(watir_browser) }
+  let(:selenium_definition) { TestDefinition.new(selenium_browser) }
   
   context 'any page definition' do
     context 'providing a page title to be verified' do
       it 'should specify and verify the page title' do
         watir_browser.should_receive(:title).twice.and_return('Test App')
         watir_definition.check_title
+
+        selenium_browser.should_receive(:title).twice.and_return('Test App')
+        selenium_definition.check_title
       end
 
       it 'should raise an error if the page title is not verified' do
@@ -42,6 +48,16 @@ describe Fluent::Generators do
         it 'should navigate to the page when viewed' do
           watir_browser.should_receive(:goto)
           watir_definition.view
+        end
+      end
+    end
+
+    context 'a definition using selenium-webdriver' do
+      context 'providing a url' do
+        it 'should navigate to the page when viewed' do
+          selenium_browser.should_receive(:navigate).and_return(selenium_browser)
+          selenium_browser.should_receive(:to)
+          selenium_definition.view
         end
       end
     end
