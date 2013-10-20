@@ -71,6 +71,15 @@ module Fluent
           value
         end
         
+        def will_prompt(response, &block)
+          cmd = "window.prompt = function(text, value) {window.__lastWatirPrompt = {message: text, default_value: value}; return #{!!response};}"
+          browser.wd.execute_script(cmd)
+          yield
+          result = browser.wd.execute_script('return window.__lastWatirPrompt')
+          result && result.dup.each_key { |k| result[k.to_sym] = result.delete(k) }
+          result
+        end
+        
         ## Generator Actions ##
         
         def link(locator)

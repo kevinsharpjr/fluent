@@ -27,5 +27,12 @@ describe Fluent::Enclosers do
       watir_definition.will_confirm(true) do
       end
     end
+
+    it 'should handle prompt message boxes' do
+      watir_browser.should_receive(:wd).twice.and_return(watir_browser)
+      watir_browser.should_receive(:execute_script).twice
+      watir_definition.will_prompt('Testing') do
+      end
+    end
   end
 end
