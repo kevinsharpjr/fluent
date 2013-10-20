@@ -48,6 +48,37 @@ module Fluent
         def text
           browser.text
         end
+
+        ## Encloser Actions ##
+        
+        def will_alert(&block)
+          yield
+          value = nil
+          if browser.alert.exists?
+            value = browser.alert.text
+            browser.alert.ok
+          end
+          value
+        end
+        
+        def will_confirm(response, &block)
+          yield
+          value = nil
+          if browser.alert.exists?
+            value = browser.alert.text
+            response ? browser.alert.ok : browser.alert.close
+          end
+          value
+        end
+        
+        def will_prompt(response, &block)
+          cmd = "window.prompt = function(text, value) {window.__lastWatirPrompt = {message: text, default_value: value}; return #{!!response};}"
+          browser.wd.execute_script(cmd)
+          yield
+          result = browser.wd.execute_script('return window.__lastWatirPrompt')
+          result && result.dup.each_key { |k| result[k.to_sym] = result.delete(k) }
+          result
+        end
         
         ## Generator Actions ##
         
@@ -56,7 +87,7 @@ module Fluent
         end
         
         def link_click(locator)
-          browser.instance_eval('link(locator).click')
+          access_web_element('link(locator).click', locator)
         end
         
         def button(locator)
@@ -64,7 +95,7 @@ module Fluent
         end
         
         def button_click(locator)
-          browser.instance_eval('button(locator).click')
+          access_web_element('button(locator).click', locator)
         end
         
         def text_field(locator)
@@ -76,7 +107,7 @@ module Fluent
         end
         
         def text_field_get(locator)
-          browser.instance_eval('text_field(locator).value')
+          access_web_element('text_field(locator).value', locator)
         end
         
         def checkbox(locator)
@@ -84,15 +115,15 @@ module Fluent
         end
         
         def checkbox_check_state(locator)
-          browser.instance_eval('checkbox(locator).set?')
+          access_web_element('checkbox(locator).set?', locator)
         end
         
         def checkbox_check(locator)
-          browser.instance_eval('checkbox(locator).set')
+          access_web_element('checkbox(locator).set', locator)
         end
         
         def checkbox_uncheck(locator)
-          browser.instance_eval('checkbox(locator).clear')
+          access_web_element('checkbox(locator).clear', locator)
         end
         
         def select_list(locator)
@@ -100,15 +131,15 @@ module Fluent
         end
         
         def select_list_get_selected(locator)
-          browser.instance_eval('select_list(locator).selected_options[0].text')
+          access_web_element('select_list(locator).selected_options[0].text', locator)
         end
         
         def select_list_set(locator, value)
-          browser.instance_eval('select_list(locator).select(value)')
+          access_web_element('select_list(locator).select(value)', locator, value)
         end
         
         def select_list_get_value(locator)
-          browser.instance_eval('select_list(locator).value')
+          access_web_element('select_list(locator).value', locator)
         end
         
         def radio(locator)
@@ -116,11 +147,11 @@ module Fluent
         end
         
         def radio_select(locator)
-          browser.instance_eval('radio(locator).set')
+          access_web_element('radio(locator).set', locator)
         end
         
         def radio_check_state(locator)
-          browser.instance_eval('radio(locator).set?')
+          access_web_element('radio(locator).set?', locator)
         end
         
         def paragraph(locator)
@@ -128,15 +159,30 @@ module Fluent
         end
         
         def paragraph_text(locator)
-          browser.instance_eval('p(locator).text')
+          access_web_element('p(locator).text', locator)
         end
-        
+
+        # This method is called by any platform methods that require getting
+        # an object reference.
+        #
+        # @param action [String] the driver logic to be sent to the browser
+        # @param object [Object] the type of web object that will receive the action
+        # @param locator [Hash] the specific web object selector
+        # @return [Object] the web object identified by the action
         def reference_web_element(action, object, locator)
           encloser = locator.delete(:frame)
           element_object = browser.instance_eval("#{enclosed_by(encloser)}#{action}")
           object.new(element_object, :platform => :watir_webdriver)
         end
-        
+
+        # This method is called by any platform methods that require accessing
+        # a web object with the intent of manipulating it or getting information
+        # from it.
+        #
+        # @param action [String] the driver logic to be sent to the browser
+        # @param locator [Hash] the specific web object selector
+        # @param value [String] any specific information that must be sent to the web object
+        # @return [Any] the information or object returned by the action
         def access_web_element(action, locator, value=nil)
           encloser = locator.delete(:frame)
           browser.instance_eval("#{enclosed_by(encloser)}#{action}")

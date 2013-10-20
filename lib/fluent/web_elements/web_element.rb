@@ -8,6 +8,10 @@ module Fluent
         @web_element = web_element
         include_platform_specifics_for platform
       end
+
+      def text
+        web_element.text
+      end
       
       def click
         web_element.click
@@ -19,6 +23,14 @@ module Fluent
       
       def disabled?
         not enabled?
+      end
+      
+      def style(property)
+        web_element.style property
+      end
+
+      def class_name
+        attribute('class')
       end
       
       def include_platform_specifics_for(platform)

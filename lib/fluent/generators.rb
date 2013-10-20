@@ -23,6 +23,9 @@ module Fluent
       end
     end
     
+    # This is required to allow declaring element definitions as being
+    # within a frame in a page definition. The logic here makes sure that
+    # the enclosed element definitions have their actions generated.
     def within_frame(locator, &block)
       frame = []
       frame << locator

@@ -3,6 +3,7 @@ require 'fluent/errors'
 require 'fluent/logger'
 require 'fluent/factory'
 require 'fluent/platforms'
+require 'fluent/enclosers'
 require 'fluent/evaluators'
 require 'fluent/generators'
 
@@ -12,6 +13,7 @@ require 'selenium-webdriver'
 module Fluent
   include Platforms
   include Evaluators
+  include Enclosers
   
   # Browser drivers will be:
   # [Watir::Browser] or [Selenium::WebDriver::Driver]
@@ -42,7 +44,7 @@ module Fluent
     
     Fluent.trace("#{caller.class} #{caller} is now Fluent.")
   end
-
+  
   # The initialize method will be invoked when a definition includes Fluent.
   # A few key things are happening here that are critical to everything
   # working properly:
