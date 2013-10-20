@@ -48,6 +48,18 @@ module Fluent
         def text
           browser.text
         end
+
+        ## Encloser Actions ##
+        
+        def will_alert(&block)
+          yield
+          value = nil
+          if browser.alert.exists?
+            value = browser.alert.text
+            browser.alert.ok
+          end
+          value
+        end
         
         ## Generator Actions ##
         
