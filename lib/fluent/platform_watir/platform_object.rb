@@ -161,20 +161,30 @@ module Fluent
         def paragraph_text(locator)
           access_web_element('p(locator).text', locator)
         end
-        
+
+        # This method is called by any platform methods that require getting
+        # an object reference.
+        #
+        # @param action [String] the driver logic to be sent to the browser
+        # @param object [Object] the type of web object that will receive the action
+        # @param locator [Hash] the specific web object selector
+        # @return [Object] the web object identified by the action
         def reference_web_element(action, object, locator)
           encloser = locator.delete(:frame)
           element_object = browser.instance_eval("#{enclosed_by(encloser)}#{action}")
-          #puts "Element Object (evaluated): #{enclosed_by(encloser)}#{action}"
-          #puts "Element Object (locator): #{locator}"
-          #puts "Element Object (reference): #{element_object.inspect}"
           object.new(element_object, :platform => :watir_webdriver)
         end
-        
+
+        # This method is called by any platform methods that require accessing
+        # a web object with the intent of manipulating it or getting information
+        # from it.
+        #
+        # @param action [String] the driver logic to be sent to the browser
+        # @param locator [Hash] the specific web object selector
+        # @param value [String] any specific information that must be sent to the web object
+        # @return [Any] the information or object returned by the action
         def access_web_element(action, locator, value=nil)
           encloser = locator.delete(:frame)
-          #puts "Element Object (accessing): #{enclosed_by(encloser)}#{action}"
-          #puts "Element Object (locator): #{locator}"
           browser.instance_eval("#{enclosed_by(encloser)}#{action}")
         end
         
