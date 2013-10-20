@@ -61,6 +61,16 @@ module Fluent
           value
         end
         
+        def will_confirm(response, &block)
+          yield
+          value = nil
+          if browser.alert.exists?
+            value = browser.alert.text
+            response ? browser.alert.ok : browser.alert.close
+          end
+          value
+        end
+        
         ## Generator Actions ##
         
         def link(locator)
@@ -68,7 +78,7 @@ module Fluent
         end
         
         def link_click(locator)
-          browser.instance_eval('link(locator).click')
+          access_web_element('link(locator).click', locator)
         end
         
         def button(locator)
@@ -76,7 +86,7 @@ module Fluent
         end
         
         def button_click(locator)
-          browser.instance_eval('button(locator).click')
+          access_web_element('button(locator).click', locator)
         end
         
         def text_field(locator)
@@ -88,7 +98,7 @@ module Fluent
         end
         
         def text_field_get(locator)
-          browser.instance_eval('text_field(locator).value')
+          access_web_element('text_field(locator).value', locator)
         end
         
         def checkbox(locator)
@@ -96,15 +106,15 @@ module Fluent
         end
         
         def checkbox_check_state(locator)
-          browser.instance_eval('checkbox(locator).set?')
+          access_web_element('checkbox(locator).set?', locator)
         end
         
         def checkbox_check(locator)
-          browser.instance_eval('checkbox(locator).set')
+          access_web_element('checkbox(locator).set', locator)
         end
         
         def checkbox_uncheck(locator)
-          browser.instance_eval('checkbox(locator).clear')
+          access_web_element('checkbox(locator).clear', locator)
         end
         
         def select_list(locator)
@@ -112,15 +122,15 @@ module Fluent
         end
         
         def select_list_get_selected(locator)
-          browser.instance_eval('select_list(locator).selected_options[0].text')
+          access_web_element('select_list(locator).selected_options[0].text', locator)
         end
         
         def select_list_set(locator, value)
-          browser.instance_eval('select_list(locator).select(value)')
+          access_web_element('select_list(locator).select(value)', locator, value)
         end
         
         def select_list_get_value(locator)
-          browser.instance_eval('select_list(locator).value')
+          access_web_element('select_list(locator).value', locator)
         end
         
         def radio(locator)
@@ -128,11 +138,11 @@ module Fluent
         end
         
         def radio_select(locator)
-          browser.instance_eval('radio(locator).set')
+          access_web_element('radio(locator).set', locator)
         end
         
         def radio_check_state(locator)
-          browser.instance_eval('radio(locator).set?')
+          access_web_element('radio(locator).set?', locator)
         end
         
         def paragraph(locator)
@@ -140,17 +150,22 @@ module Fluent
         end
         
         def paragraph_text(locator)
-          browser.instance_eval('p(locator).text')
+          access_web_element('p(locator).text', locator)
         end
         
         def reference_web_element(action, object, locator)
           encloser = locator.delete(:frame)
           element_object = browser.instance_eval("#{enclosed_by(encloser)}#{action}")
+          #puts "Element Object (evaluated): #{enclosed_by(encloser)}#{action}"
+          #puts "Element Object (locator): #{locator}"
+          #puts "Element Object (reference): #{element_object.inspect}"
           object.new(element_object, :platform => :watir_webdriver)
         end
         
         def access_web_element(action, locator, value=nil)
           encloser = locator.delete(:frame)
+          #puts "Element Object (accessing): #{enclosed_by(encloser)}#{action}"
+          #puts "Element Object (locator): #{locator}"
           browser.instance_eval("#{enclosed_by(encloser)}#{action}")
         end
         
