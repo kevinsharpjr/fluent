@@ -3,6 +3,7 @@ require 'fluent/errors'
 require 'fluent/logger'
 require 'fluent/factory'
 require 'fluent/platforms'
+require 'fluent/evaluators'
 require 'fluent/generators'
 
 require 'watir-webdriver'
@@ -10,6 +11,7 @@ require 'selenium-webdriver'
 
 module Fluent
   include Platforms
+  include Evaluators
   
   # Browser drivers will be:
   # [Watir::Browser] or [Selenium::WebDriver::Driver]

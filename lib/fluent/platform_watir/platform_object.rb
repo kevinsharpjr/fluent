@@ -15,6 +15,40 @@ module Fluent
           browser.goto(url)
         end
         
+        def url
+          browser.url
+        end
+
+        def remove_cookies
+          browser.cookies.clear
+        end
+
+        def refresh
+          browser.refresh
+        end
+
+        def run_script(script)
+          browser.execute_script(script)
+        end
+
+        def screenshot(file)
+          browser.wd.save_screenshot(file)
+        end
+        
+        ## Page-Level Actions ##
+
+        def markup
+          browser.html
+        end
+        
+        def title
+          browser.title
+        end
+        
+        def text
+          browser.text
+        end
+        
         ## Generator Actions ##
         
         def link(locator)
