@@ -25,6 +25,14 @@ module Fluent
         not enabled?
       end
       
+      def style(property)
+        web_element.style property
+      end
+
+      def class_name
+        attribute('class')
+      end
+      
       def include_platform_specifics_for(platform)
         if platform[:platform] == :watir_webdriver
           require 'fluent/platform_watir/platform_web_elements/web_element'
