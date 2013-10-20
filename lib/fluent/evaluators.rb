@@ -47,6 +47,11 @@ module Fluent
       sleep value
     end
     
+    # Attempts to wait for pending jQuery requests and indicate if the
+    # requests did not occur in a given time period.
+    #
+    # @param time_limit [Numeric] time to wait for the block to return true
+    # @param message_if_timeout [String] the message to include with the error
     def wait_for_pending_requests(time_limit=30, message_if_timeout=nil)
       end_time = ::Time.now + time_limit
       until ::Time.now > end_time

@@ -2,11 +2,7 @@ module Fluent
   module Platforms
     module WatirWebDriver
       module WebElement
-
-        def text
-          web_element.text
-        end
-
+        
         def exists?
           web_element.exists?
         end
