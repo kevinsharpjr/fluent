@@ -11,6 +11,14 @@ module Fluent
           web_element.present?
         end
         
+        def double_click
+          web_element.double_click
+        end
+        
+        def clear
+          web_element.clear
+        end
+        
         def flash(value=5)
           1.upto(value) { web_element.flash }
           web_element.exists?
