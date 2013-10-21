@@ -70,6 +70,19 @@ describe Fluent::Evaluators do
         watir_browser.should_receive(:execute_script).at_least(1).times.with('return jQuery.active').and_return(1)
         expect { watir_definition.wait_for_pending_requests(0.1) }.to raise_error
       end
+
+      it 'should wait for a condition to be true' do
+        watir_browser.should_receive(:wait_until).with(5, 'some condition')
+        watir_definition.wait_until(5, 'some condition')
+      end
+
+      it 'should wait for a condition to be true with any page level timeout' do
+        Fluent.page_level_wait = 30
+        watir_browser.should_receive(:wait_until).with(30, nil)
+        watir_definition.wait_until
+      end
+      
+      
     end
   end
 end

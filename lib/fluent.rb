@@ -64,6 +64,16 @@ module Fluent
     view if visit && respond_to?(:view)
   end
 
+  # Returns the default wait value for pages. This value is the default
+  # value beyond which a timeout is assumed.
+  def self.page_level_wait
+    @page_wait ||= 15
+  end
+
+  def self.page_level_wait=(value)
+    @page_wait = value
+  end
+  
   # Returns the default wait value for elements on a page. This value is
   # the default value beyond which a timeout is assumed.
   def self.element_level_wait

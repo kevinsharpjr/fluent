@@ -21,4 +21,20 @@ describe Fluent do
     value = Fluent.instance_variable_get('@element_wait')
     value.should == 10
   end
+
+  it 'should set the page level wait default to 15' do
+    Fluent.instance_variable_set('@page_wait', nil)
+    Fluent.page_level_wait.should == 15
+  end
+
+  it 'should allow the page level wait to be set' do
+    Fluent.instance_variable_set('@page_wait', 10)
+    Fluent.page_level_wait.should == 10
+  end
+
+  it 'should be able to set a page level wait value' do
+    Fluent.page_level_wait = 30
+    value = Fluent.instance_variable_get('@page_wait')
+    value.should == 30
+  end
 end
