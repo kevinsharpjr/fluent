@@ -25,6 +25,16 @@ describe 'Web Elements for Watir' do
     watir_definition.visible?.should == false
   end
 
+  it 'should simulate a double-click event on a web element' do
+    watir_browser.should_receive(:double_click)
+    watir_definition.double_click
+  end
+
+  it 'should allow a clear event on a web element' do
+    watir_browser.should_receive(:clear)
+    watir_definition.clear
+  end
+  
   it 'should be able to flash a web element' do
     watir_browser.should_receive(:flash).exactly(5).times.and_return(watir_definition)
     watir_browser.should_receive(:exists?).and_return(watir_definition)
