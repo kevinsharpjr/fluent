@@ -63,6 +63,16 @@ module Fluent
     
     view if visit && respond_to?(:view)
   end
+
+  # Returns the default wait value for elements on a page. This value is
+  # the default value beyond which a timeout is assumed.
+  def self.element_level_wait
+    @element_wait ||= 5
+  end
+
+  def self.element_level_wait=(value)
+    @element_wait = value
+  end
   
   def self.can_be_enabled
     @can_be_enabled ||= [:button, :text_field, :checkbox, :select_list, :radio]
