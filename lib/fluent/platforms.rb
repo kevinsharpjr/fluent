@@ -29,3 +29,4 @@ module Fluent
 end
 
 require 'fluent/platform_watir'
+require 'fluent/platform_selenium'

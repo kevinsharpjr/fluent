@@ -1,7 +1,10 @@
 require 'fluent/version'
 require 'fluent/errors'
 require 'fluent/logger'
+require 'fluent/factory'
 require 'fluent/platforms'
+require 'fluent/enclosers'
+require 'fluent/evaluators'
 require 'fluent/generators'
 
 require 'watir-webdriver'
@@ -9,6 +12,8 @@ require 'selenium-webdriver'
 
 module Fluent
   include Platforms
+  include Evaluators
+  include Enclosers
   
   # Browser drivers will be:
   # [Watir::Browser] or [Selenium::WebDriver::Driver]
@@ -39,7 +44,7 @@ module Fluent
     
     Fluent.trace("#{caller.class} #{caller} is now Fluent.")
   end
-
+  
   # The initialize method will be invoked when a definition includes Fluent.
   # A few key things are happening here that are critical to everything
   # working properly:
@@ -47,7 +52,7 @@ module Fluent
   #   (2) A platform object is created for that browser.
   #
   # @param browser [Object] a browser instance with a tool driver
-  def initialize(browser=nil)
+  def initialize(browser=nil, visit=nil)
     @browser = browser
     @browser = Watir::Browser.new if browser.nil? or browser == :watir
     @browser = Selenium::WebDriver.for :firefox if browser == :selenium
@@ -55,6 +60,28 @@ module Fluent
     Fluent::trace("Fluent attached to browser: #{@browser}")
     
     establish_platform_object_for @browser
+    
+    view if visit && respond_to?(:view)
+  end
+
+  # Returns the default wait value for pages. This value is the default
+  # value beyond which a timeout is assumed.
+  def self.page_level_wait
+    @page_wait ||= 15
+  end
+
+  def self.page_level_wait=(value)
+    @page_wait = value
+  end
+  
+  # Returns the default wait value for elements on a page. This value is
+  # the default value beyond which a timeout is assumed.
+  def self.element_level_wait
+    @element_wait ||= 5
+  end
+
+  def self.element_level_wait=(value)
+    @element_wait = value
   end
   
   def self.can_be_enabled

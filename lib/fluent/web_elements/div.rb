@@ -1,6 +1,6 @@
 module Fluent
   module WebElements
-    class CheckBox < WebElement
+    class Div < WebElement
 
       def initialize(web_element, platform)
         @web_element = web_element
@@ -9,12 +9,8 @@ module Fluent
 
       def include_platform_specifics_for(platform)
         super
-        if platform[:platform] == :watir_webdriver
-          require 'fluent/platform_watir/platform_web_elements/checkbox'
-          self.class.send :include, Fluent::Platforms::WatirWebDriver::CheckBox
-        end
       end
-
+      
     end
   end
 end
