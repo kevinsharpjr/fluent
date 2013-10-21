@@ -149,8 +149,41 @@ module Fluent
       
       common_definition_methods(identifier, locator, __method__)
     end
+    
+    def ordered_list(identifier, locator)
+      define_method(identifier) do
+        return platform.ordered_list_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'ol')
+    end
 
-    alias_method :radio_button, :radio
+    def unordered_list(identifier, locator)
+      define_method(identifier) do
+        return platform.unordered_list_text(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'ul')
+    end
+    
+    def list_item(identifier, locator)
+      define_method(identifier) do
+        return platform.list_item_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'li')
+    end
+    
+    alias_method :radio_button, :radio ###
+    alias_method :textarea, :text_area ###
+    alias_method :textfield, :text_field ###
+    alias_method :a, :link ###
+    alias_method :ol, :ordered_list
+    alias_method :ul, :unordered_list
+    alias_method :li, :list_item ###
     
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do

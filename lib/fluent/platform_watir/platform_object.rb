@@ -194,6 +194,30 @@ module Fluent
           access_web_element('span(locator).text', locator)
         end
         
+        def ordered_list(locator)
+          reference_web_element('ol(locator)', WebElements::OrderedList, locator)
+        end
+        
+        def ordered_list_text(locator)
+          access_web_element('ol(locator).text', locator)
+        end
+
+        def unordered_list(locator)
+          reference_web_element('ul(locator)', WebElements::UnorderedList, locator)
+        end
+
+        def unordered_list_text(locator)
+          access_web_element('ul(locator).text', locator)
+        end
+
+        def list_item(locator)
+          reference_web_element('li(locator)', WebElements::ListItem, locator)
+        end
+
+        def list_item_text(locator)
+          access_web_element('li(locator).text', locator)
+        end
+        
         # This method is called by any platform methods that require getting
         # an object reference.
         #
