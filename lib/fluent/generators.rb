@@ -48,6 +48,22 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def div(identifier, locator)
+      define_method(identifier) do
+        return platform.div_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def span(identifier, locator)
+      define_method(identifier) do
+        return platform.span_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     def button(identifier, locator)
       define_method(identifier) do
         return platform.button_click(locator.clone)

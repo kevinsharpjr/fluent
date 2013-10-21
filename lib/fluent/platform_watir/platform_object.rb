@@ -166,6 +166,22 @@ module Fluent
           access_web_element('p(locator).text', locator)
         end
 
+        def div(locator)
+          reference_web_element('div(locator)', WebElements::Div, locator)
+        end
+
+        def div_text(locator)
+          access_web_element('div(locator).text', locator)
+        end
+
+        def span(locator)
+          reference_web_element('span(locator)', WebElements::Span, locator)
+        end
+
+        def span_text(locator)
+          access_web_element('span(locator).text', locator)
+        end
+        
         # This method is called by any platform methods that require getting
         # an object reference.
         #
