@@ -87,4 +87,54 @@ describe 'Web Elements for Watir' do
     watir_browser.should_receive(:hover).and_return(watir_definition)
     watir_definition.hover
   end
+
+  it 'should wait for a web element to be present' do
+    watir_browser.should_receive(:wait_until_present).twice.with(5)
+    watir_definition.when_actionable(5)
+    watir_definition.when_present(5)
+  end
+
+  it 'should use the provided element wait time for presence checks' do
+    Fluent.element_level_wait = 30
+    watir_browser.should_receive(:wait_until_present).with(30)
+    watir_definition.when_present
+  end
+
+  it 'should reference a web element when it is present' do
+    watir_browser.should_receive(:wait_until_present).with(5)
+    web_element = watir_definition.when_actionable(5)
+    web_element.should === watir_definition
+  end
+
+  it 'should wait for a web element to become non-present' do
+    watir_browser.should_receive(:wait_while_present).and_return(false)
+    watir_definition.when_not_present(5)
+  end
+
+  it 'should wait for a web element to become visible' do
+    watir_browser.should_receive(:present?).and_return(true)
+    watir_definition.when_visible(5)
+  end
+
+  it 'should reference a web element when it is visible' do
+    watir_browser.should_receive(:present?).and_return(true)
+    web_element = watir_definition.when_visible(5)
+    web_element.should === watir_definition
+  end
+
+  it 'should wait for a web element to become invisible' do
+    watir_browser.should_receive(:present?).and_return(false)
+    watir_definition.when_not_visible(5)
+  end
+
+  it 'should reference a web element when it is not visible' do
+    watir_browser.stub(:present?).and_return(false)
+    web_element = watir_definition.when_not_visible(5)
+    web_element.should === watir_definition
+  end
+
+  it 'should wait until a specific condition occurs' do
+    Object::Watir::Wait.stub(:until).with(5, 'Condition occurred.')
+    watir_definition.wait_until(5, 'Condition occurred.') { true }
+  end
 end
