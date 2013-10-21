@@ -84,6 +84,18 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def text_area(identifier, locator)
+      define_method(identifier) do
+        return platform.text_area_get(locator.clone)
+      end
+
+      define_method("#{identifier}=") do |value|
+        return platform.text_area_set(locator.clone, value)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     def checkbox(identifier, locator)
       define_method("#{identifier}_checked?") do
         return platform.checkbox_check_state(locator.clone)

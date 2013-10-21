@@ -113,6 +113,18 @@ module Fluent
         def text_field_get(locator)
           access_web_element('text_field(locator).value', locator)
         end
+
+        def text_area(locator)
+          reference_web_element('text_area(locator)', WebElements::TextArea, locator)
+        end
+        
+        def text_area_set(locator, value)
+          access_web_element('text_area(locator).set(value)', locator, value)
+        end
+        
+        def text_area_get(locator)
+          access_web_element('text_area(locator).value', locator)
+        end
         
         def checkbox(locator)
           reference_web_element('checkbox(locator)', WebElements::CheckBox, locator)
