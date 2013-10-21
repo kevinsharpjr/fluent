@@ -113,6 +113,18 @@ module Fluent
         def text_field_get(locator)
           access_web_element('text_field(locator).value', locator)
         end
+
+        def text_area(locator)
+          reference_web_element('text_area(locator)', WebElements::TextArea, locator)
+        end
+        
+        def text_area_set(locator, value)
+          access_web_element('text_area(locator).set(value)', locator, value)
+        end
+        
+        def text_area_get(locator)
+          access_web_element('text_area(locator).value', locator)
+        end
         
         def checkbox(locator)
           reference_web_element('checkbox(locator)', WebElements::CheckBox, locator)
@@ -166,6 +178,62 @@ module Fluent
           access_web_element('p(locator).text', locator)
         end
 
+        def div(locator)
+          reference_web_element('div(locator)', WebElements::Div, locator)
+        end
+
+        def div_text(locator)
+          access_web_element('div(locator).text', locator)
+        end
+
+        def span(locator)
+          reference_web_element('span(locator)', WebElements::Span, locator)
+        end
+
+        def span_text(locator)
+          access_web_element('span(locator).text', locator)
+        end
+        
+        def ordered_list(locator)
+          reference_web_element('ol(locator)', WebElements::OrderedList, locator)
+        end
+        
+        def ordered_list_text(locator)
+          access_web_element('ol(locator).text', locator)
+        end
+
+        def unordered_list(locator)
+          reference_web_element('ul(locator)', WebElements::UnorderedList, locator)
+        end
+
+        def unordered_list_text(locator)
+          access_web_element('ul(locator).text', locator)
+        end
+
+        def list_item(locator)
+          reference_web_element('li(locator)', WebElements::ListItem, locator)
+        end
+
+        def list_item_text(locator)
+          access_web_element('li(locator).text', locator)
+        end
+
+        def table(locator)
+          reference_web_element('table(locator)', WebElements::Table, locator)
+        end
+
+        def table_text(locator)
+          access_web_element('table(locator).text', locator)
+        end
+
+        def cell(locator)
+          reference_web_element('td(locator)', WebElements::Cell, locator)
+        end
+
+        def cell_text(locator)
+          access_web_element('td(locator).text', locator)
+        end
+        
         # This method is called by any platform methods that require getting
         # an object reference.
         #

@@ -48,6 +48,22 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def div(identifier, locator)
+      define_method(identifier) do
+        return platform.div_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def span(identifier, locator)
+      define_method(identifier) do
+        return platform.span_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     def button(identifier, locator)
       define_method(identifier) do
         return platform.button_click(locator.clone)
@@ -63,6 +79,18 @@ module Fluent
       
       define_method("#{identifier}=") do |value|
         return platform.text_field_set(locator.clone, value)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def text_area(identifier, locator)
+      define_method(identifier) do
+        return platform.text_area_get(locator.clone)
+      end
+
+      define_method("#{identifier}=") do |value|
+        return platform.text_area_set(locator.clone, value)
       end
       
       common_definition_methods(identifier, locator, __method__)
@@ -121,8 +149,59 @@ module Fluent
       
       common_definition_methods(identifier, locator, __method__)
     end
+    
+    def ordered_list(identifier, locator)
+      define_method(identifier) do
+        return platform.ordered_list_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'ol')
+    end
 
-    alias_method :radio_button, :radio
+    def unordered_list(identifier, locator)
+      define_method(identifier) do
+        return platform.unordered_list_text(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'ul')
+    end
+    
+    def list_item(identifier, locator)
+      define_method(identifier) do
+        return platform.list_item_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'li')
+    end
+    
+    def table(identifier, locator)
+      define_method(identifier) do
+        return platform.table_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+
+    def cell(identifier, locator)
+      define_method(identifier) do
+        return platform.cell_text(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'td')
+    end
+    
+    alias_method :radio_button, :radio ###
+    alias_method :textarea, :text_area ###
+    alias_method :textfield, :text_field ###
+    alias_method :a, :link ###
+    alias_method :ol, :ordered_list
+    alias_method :ul, :unordered_list
+    alias_method :li, :list_item
+    alias_method :td, :cell
     
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
