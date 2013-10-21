@@ -217,6 +217,22 @@ module Fluent
         def list_item_text(locator)
           access_web_element('li(locator).text', locator)
         end
+
+        def table(locator)
+          reference_web_element('table(locator)', WebElements::Table, locator)
+        end
+
+        def table_text(locator)
+          access_web_element('table(locator).text', locator)
+        end
+
+        def cell(locator)
+          reference_web_element('td(locator)', WebElements::Cell, locator)
+        end
+
+        def cell_text(locator)
+          access_web_element('td(locator).text', locator)
+        end
         
         # This method is called by any platform methods that require getting
         # an object reference.

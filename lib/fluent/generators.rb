@@ -177,13 +177,31 @@ module Fluent
       common_definition_methods(identifier, locator, 'li')
     end
     
+    def table(identifier, locator)
+      define_method(identifier) do
+        return platform.table_text(locator.clone)
+      end
+      
+      common_definition_methods(identifier, locator, __method__)
+    end
+
+    def cell(identifier, locator)
+      define_method(identifier) do
+        return platform.cell_text(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'td')
+    end
+    
     alias_method :radio_button, :radio ###
     alias_method :textarea, :text_area ###
     alias_method :textfield, :text_field ###
     alias_method :a, :link ###
     alias_method :ol, :ordered_list
     alias_method :ul, :unordered_list
-    alias_method :li, :list_item ###
+    alias_method :li, :list_item
+    alias_method :td, :cell
     
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do
