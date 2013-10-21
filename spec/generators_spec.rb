@@ -41,6 +41,22 @@ describe Fluent::Generators do
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::TextField
       end
+
+      context 'automatically looking for an element' do
+        it 'should specify and verify an expected elements' do
+          watir_definition.should_receive(:name_object).and_return(watir_browser)
+          watir_browser.should_receive(:when_present).with(5).and_return(watir_browser)
+          watir_definition.check_objects
+        end
+
+        it 'should raise an error if an expected elements are not verified' do
+          class QuickDefinition
+            include Fluent
+            look_for :fakeLink
+          end
+          expect { QuickDefinition.new(watir_browser).check_objects }.to raise_error
+        end
+      end
     end
 
     context 'a definition using watir-webdriver' do

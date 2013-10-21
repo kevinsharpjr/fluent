@@ -20,7 +20,11 @@ class TestDefinition
 
   url_is 'http://localhost:4567'
   title_is 'Test App'
-
+  
+  look_for :name
+  
+  text_field :name, id: 'name'
+  
   within_frame(id: 'frame') do |frame|
     text_field :framedName, id: 'framedName', frame: frame
   end

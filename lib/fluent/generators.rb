@@ -22,6 +22,16 @@ module Fluent
         valid_title
       end
     end
+
+    def look_for(widget, timeout=::Fluent.element_level_wait)
+      define_method('check_objects') do
+        if self.respond_to? "#{widget}_object"
+          self.send("#{widget}_object").when_present(timeout)
+        else
+          raise "\n\nThe '#{widget}' object was not declared and could not be checked."
+        end
+      end
+    end
     
     # This is required to allow declaring element definitions as being
     # within a frame in a page definition. The logic here makes sure that
