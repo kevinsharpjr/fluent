@@ -49,6 +49,10 @@ module Fluent
           browser.text
         end
 
+        def wait_until(timeout, message='wait condition was not found', &block)
+          browser.wait_until(timeout, message, &block)
+        end
+        
         ## Encloser Actions ##
         
         def will_alert(&block)

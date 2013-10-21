@@ -55,7 +55,37 @@ module Fluent
         def hover
           web_element.hover
         end
+
+        def when_present(timeout=::Fluent.element_level_wait)
+          web_element.wait_until_present(timeout)
+          self
+        end
         
+        def when_not_present(timeout=::Fluent.element_level_wait)
+          web_element.wait_while_present(timeout)
+          self
+        end
+
+        def when_visible(timeout=::Fluent.element_level_wait)
+          Object::Watir::Wait.until(timeout, "Object not visible within #{timeout} seconds.") do
+            visible?
+          end
+          self
+        end
+
+        def when_not_visible(timeout=::Fluent.element_level_wait)
+          Object::Watir::Wait.while(timeout, "Object still visible after #{timeout} seconds.") do
+            visible?
+          end
+          self
+        end
+
+        def wait_until(timeout=::Fluent.element_level_wait, message=nil, &block)
+          Object::Watir::Wait.until(timeout, message, &block)
+        end
+        
+        alias_method :when_actionable, :when_present
+        alias_method :when_not_actionable, :when_not_present
       end
     end
   end

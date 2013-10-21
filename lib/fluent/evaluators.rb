@@ -61,9 +61,22 @@ module Fluent
       message = 'Pending jQuery requests never indicated completion.' unless message_if_timeout
       raise message
     end
+
+    # Provides a context for an action that must succeed within a given time
+    # period. The logic here is simply that the result of the action will be
+    # true (meaning the action was carried out) or false, which means the
+    # action did not succeed in the time allotted.
+    #
+    # @param timeout [Integer] the amount of time in seconds to wait
+    # @param message [String] the text to return if the action did not occur in time
+    # @param block [Proc] the code that calls the desired action
+    def wait_until(timeout=Fluent.page_level_wait, message=nil, &block)
+      platform.wait_until(timeout, message, &block)
+    end
     
     alias_method :html, :markup
     alias_method :page_title, :title
-    alias_method :page_text, :text 
+    alias_method :page_text, :text
+    alias_method :wait_for, :wait_until
   end
 end
