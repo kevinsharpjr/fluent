@@ -48,6 +48,7 @@ module Fluent
       end
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'a')
     end
     
     def paragraph(identifier, locator)
@@ -92,6 +93,7 @@ module Fluent
       end
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'textfield')
     end
     
     def text_area(identifier, locator)
@@ -104,6 +106,7 @@ module Fluent
       end
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'textarea')
     end
     
     def checkbox(identifier, locator)
@@ -158,6 +161,7 @@ module Fluent
       alias_method "set_#{identifier}".to_sym, "select_#{identifier}".to_sym
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'radio_button')
     end
     
     def ordered_list(identifier, locator)
@@ -204,10 +208,10 @@ module Fluent
       common_definition_methods(identifier, locator, 'td')
     end
     
-    alias_method :radio_button, :radio ###
-    alias_method :textarea, :text_area ###
-    alias_method :textfield, :text_field ###
-    alias_method :a, :link ###
+    alias_method :radio_button, :radio
+    alias_method :textarea, :text_area
+    alias_method :textfield, :text_field
+    alias_method :a, :link
     alias_method :ol, :ordered_list
     alias_method :ul, :unordered_list
     alias_method :li, :list_item

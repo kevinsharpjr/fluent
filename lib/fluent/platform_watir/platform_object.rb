@@ -115,7 +115,7 @@ module Fluent
         end
 
         def text_area(locator)
-          reference_web_element('text_area(locator)', WebElements::TextArea, locator)
+          reference_web_element('textarea(locator)', WebElements::TextArea, locator)
         end
         
         def text_area_set(locator, value)
@@ -233,6 +233,15 @@ module Fluent
         def cell_text(locator)
           access_web_element('td(locator).text', locator)
         end
+
+        alias_method :radio_button, :radio
+        alias_method :textarea, :text_area
+        alias_method :textfield, :text_field
+        alias_method :a, :link
+        alias_method :ol, :ordered_list
+        alias_method :ul, :unordered_list
+        alias_method :li, :list_item
+        alias_method :td, :cell
         
         # This method is called by any platform methods that require getting
         # an object reference.
