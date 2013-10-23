@@ -241,6 +241,14 @@ module Fluent
         def label_text(locator)
           access_web_element('label(locator).text', locator)
         end
+
+        def hidden(locator)
+          reference_web_element('hidden(locator)', WebElements::Hidden, locator)
+        end
+
+        def hidden_value(locator)
+          access_web_element('hidden(locator).value', locator)
+        end
         
         alias_method :radio_button, :radio
         alias_method :textarea, :text_area

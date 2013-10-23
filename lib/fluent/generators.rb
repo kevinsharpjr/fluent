@@ -217,6 +217,14 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def hidden(identifier, locator)
+      define_method(identifier) do
+        return platform.hidden_value(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     alias_method :radio_button, :radio
     alias_method :textarea, :text_area
     alias_method :textfield, :text_field
