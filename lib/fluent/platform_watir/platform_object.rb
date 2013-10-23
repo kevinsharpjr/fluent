@@ -238,6 +238,7 @@ module Fluent
         alias_method :textarea, :text_area
         alias_method :textfield, :text_field
         alias_method :a, :link
+        alias_method :p, :paragraph
         alias_method :ol, :ordered_list
         alias_method :ul, :unordered_list
         alias_method :li, :list_item
