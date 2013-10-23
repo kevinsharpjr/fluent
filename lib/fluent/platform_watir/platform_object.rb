@@ -119,11 +119,11 @@ module Fluent
         end
         
         def text_area_set(locator, value)
-          access_web_element('text_area(locator).set(value)', locator, value)
+          access_web_element('textarea(locator).set(value)', locator, value)
         end
         
         def text_area_get(locator)
-          access_web_element('text_area(locator).value', locator)
+          access_web_element('textarea(locator).value', locator)
         end
         
         def checkbox(locator)
