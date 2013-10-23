@@ -233,7 +233,15 @@ module Fluent
         def cell_text(locator)
           access_web_element('td(locator).text', locator)
         end
-
+        
+        def label(locator)
+          reference_web_element('label(locator)', WebElements::Label, locator)
+        end
+        
+        def label_text(locator)
+          access_web_element('label(locator).text', locator)
+        end
+        
         alias_method :radio_button, :radio
         alias_method :textarea, :text_area
         alias_method :textfield, :text_field

@@ -209,6 +209,14 @@ module Fluent
       common_definition_methods(identifier, locator, 'td')
     end
     
+    def label(identifier, locator)
+      define_method(identifier) do
+        return platform.label_text(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
     alias_method :radio_button, :radio
     alias_method :textarea, :text_area
     alias_method :textfield, :text_field
