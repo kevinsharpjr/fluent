@@ -91,6 +91,13 @@ module Fluent
         def wait_until(timeout=::Fluent.element_level_wait, message=nil, &block)
           Object::Watir::Wait.until(timeout, message, &block)
         end
+
+        def parent
+          parent = web_element.parent
+          type = web_element.type if parent.tag_name.to_sym == :input
+          object_class = ::Fluent::WebElements.get_class_for(parent.tag_name, type)
+          object_class.new(parent, :platform => :watir_webdriver)
+        end
         
         alias_method :when_actionable, :when_present
         alias_method :when_not_actionable, :when_not_present
