@@ -20,5 +20,7 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:select] = ::Fluent::WebElements::SelectList
   end
 end

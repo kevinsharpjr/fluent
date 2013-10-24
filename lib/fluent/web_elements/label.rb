@@ -12,5 +12,7 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:label] = ::Fluent::WebElements::Label
   end
 end

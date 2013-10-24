@@ -12,5 +12,7 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:img] = ::Fluent::WebElements::Image
   end
 end

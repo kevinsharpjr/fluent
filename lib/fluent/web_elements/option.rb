@@ -12,5 +12,7 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:option] = ::Fluent::WebElements::Option
   end
 end

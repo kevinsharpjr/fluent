@@ -12,5 +12,8 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:td] = ::Fluent::WebElements::Cell
+    ::Fluent::WebElements.class_for_tag[:th] = ::Fluent::WebElements::Cell
   end
 end

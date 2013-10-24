@@ -38,4 +38,8 @@ describe 'WebElements::SelectList' do
     select_list_object.stub(:include?).with('testing').and_return(true)
     select_list_definition.include?('testing')
   end
+
+  it 'should register with a select list tag' do
+    ::Fluent::WebElements.get_class_for(:select).should == ::Fluent::WebElements::SelectList
+  end
 end
