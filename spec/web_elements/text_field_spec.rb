@@ -13,4 +13,12 @@ describe 'WebElements::TextField' do
     text_field_object.should_receive(:set).with('testing')
     text_field_definition.value = 'testing'
   end
+
+  it 'should register with a text tag' do
+    ::Fluent::WebElements.get_class_for(:input, :text).should == ::Fluent::WebElements::TextField
+  end
+
+  it 'should register with a password tag' do
+    ::Fluent::WebElements.get_class_for(:input, :password).should == ::Fluent::WebElements::TextField
+  end
 end

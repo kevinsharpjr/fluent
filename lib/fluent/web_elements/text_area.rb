@@ -12,5 +12,7 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:textarea] = ::Fluent::WebElements::TextArea
   end
 end

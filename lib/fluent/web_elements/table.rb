@@ -12,5 +12,7 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:table] = ::Fluent::WebElements::Table
   end
 end

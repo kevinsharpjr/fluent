@@ -8,6 +8,12 @@ module Fluent
       define_method('view') do
         platform.visit(url)
       end
+      
+      define_method('check_url') do
+        msg  = "Expected url: '#{url}'; Actual url: '#{browser.url}'"
+        valid_url = url == browser.url
+        raise Fluent::Errors::UrlNotMatched, msg unless valid_url
+      end
     end
     
     def title_is(title=nil)

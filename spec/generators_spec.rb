@@ -18,6 +18,11 @@ describe Fluent::Generators do
         selenium_definition.check_title
       end
 
+      it 'should specify and verify the page url' do
+        watir_browser.should_receive(:url).twice.and_return('http://localhost:4567')
+        watir_definition.check_url
+      end
+      
       it 'should raise an error if the page title is not verified' do
         msg = "Expected title: 'Test App'; Actual title: 'Testing'"
         watir_browser.should_receive(:title).twice.and_return('Testing')

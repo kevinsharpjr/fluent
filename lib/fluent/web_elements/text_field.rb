@@ -20,5 +20,8 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_type[:text] = ::Fluent::WebElements::TextField
+    ::Fluent::WebElements.class_for_type[:password] = ::Fluent::WebElements::TextField
   end
 end

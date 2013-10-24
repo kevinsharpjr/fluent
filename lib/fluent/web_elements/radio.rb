@@ -14,7 +14,9 @@ module Fluent
           self.class.send :include, Fluent::Platforms::WatirWebDriver::Radio
         end
       end
-
+      
     end
+
+    ::Fluent::WebElements.class_for_type[:radio] = ::Fluent::WebElements::Radio
   end
 end

@@ -12,5 +12,8 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:ul] = ::Fluent::WebElements::UnorderedList
+    
   end
 end

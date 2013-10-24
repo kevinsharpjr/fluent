@@ -357,6 +357,12 @@ module Fluent
   end
 end
 
+# This require brings in the high-level web element mapping calls.
+require 'fluent/web_elements'
+
+# The statements below are used to bring in all of the web elements that
+# Fluent recognizes. /web_elements/web_element must be brought in first
+# so that happens and then it is rejected from being required twice.
 require 'fluent/web_elements/web_element'
 file_list = Dir["#{File.dirname(__FILE__)}/../web_elements/**/*.rb"].reject { |file| file =~ /web_element.rb/ }
 file_list.each { |file| require file }

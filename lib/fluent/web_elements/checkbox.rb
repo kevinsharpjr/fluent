@@ -14,7 +14,9 @@ module Fluent
           self.class.send :include, Fluent::Platforms::WatirWebDriver::CheckBox
         end
       end
-
+      
     end
+
+    ::Fluent::WebElements.class_for_type[:checkbox] = ::Fluent::WebElements::CheckBox
   end
 end

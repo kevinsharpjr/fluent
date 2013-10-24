@@ -147,4 +147,10 @@ describe 'Web Elements for Watir' do
     Object::Watir::Wait.stub(:until).with(5, 'Condition occurred.')
     watir_definition.wait_until(5, 'Condition occurred.') { true }
   end
+
+  it 'should find the parent for a web element' do
+    watir_browser.should_receive(:tag_name).twice.and_return(:p)
+    watir_browser.should_receive(:parent).and_return(watir_definition)
+    watir_definition.parent
+  end
 end
