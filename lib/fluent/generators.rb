@@ -225,6 +225,15 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    def form(identifier, locator)
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def image(identifier, locator)
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'img')
+    end
+    
     [:h1, :h2, :h3, :h4, :h5, :h6].each do |method|
       define_method(method) do |identifier, locator|
         define_method(identifier) do
@@ -257,6 +266,7 @@ module Fluent
     alias_method :ul, :unordered_list
     alias_method :li, :list_item
     alias_method :td, :cell
+    alias_method :img, :image
     
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do

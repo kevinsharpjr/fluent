@@ -18,7 +18,7 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:topic_label)
       end
 
-      it 'should generate methods for interacting with the text area' do
+      it 'should generate methods for interacting with the label' do
         watir_definition.should respond_to(:topic)
         watir_definition.should respond_to(:topic_exists?)
         watir_definition.should respond_to(:topic_visible?)

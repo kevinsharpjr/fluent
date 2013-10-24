@@ -298,6 +298,14 @@ module Fluent
           access_web_element('h6(locator).text', locator)
         end
         
+        def form(locator)
+          reference_web_element('form(locator)', WebElements::Form, locator)
+        end
+        
+        def image(locator)
+          reference_web_element('image(locator)', WebElements::Image, locator)
+        end
+        
         alias_method :radio_button, :radio
         alias_method :textarea, :text_area
         alias_method :textfield, :text_field
@@ -307,6 +315,7 @@ module Fluent
         alias_method :ul, :unordered_list
         alias_method :li, :list_item
         alias_method :td, :cell
+        alias_method :img, :image
         
         # This method is called by any platform methods that require getting
         # an object reference.
