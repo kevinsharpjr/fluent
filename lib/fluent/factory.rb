@@ -7,9 +7,12 @@ module Fluent
     # @param block [Proc] logic to execute within the context of the definition
     # @return [Object] instance of the definition
     def on(definition, visit=false, &block)
+      definition = get_object_for(definition) if definition.is_a? String
+      
       return @active if @active.kind_of?(definition)
       @active = definition.new(@browser, visit)
       block.call @active if block
+      
       @active
     end
 
@@ -26,6 +29,12 @@ module Fluent
     end
 
     alias_method :on_visit, :on_view
+
+    def get_object_for(definition)
+      definition.split('::').inject(Object) do |obj, name|
+        obj.const_get(name)
+      end
+    end
     
   end
 end
