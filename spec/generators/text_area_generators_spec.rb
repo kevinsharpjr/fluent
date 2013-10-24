@@ -33,20 +33,20 @@ describe Fluent::Generators do
 
     context 'when used by the watir platform' do
       it 'should locate the text area' do
-        watir_browser.should_receive(:text_area).and_return(watir_browser)
+        watir_browser.should_receive(:textarea).and_return(watir_browser)
         web_element = watir_definition.summary_object
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::TextArea
       end
 
       it 'should retrieve text from the text area' do
-        watir_browser.should_receive(:text_area).and_return(watir_browser)
+        watir_browser.should_receive(:textarea).and_return(watir_browser)
         watir_browser.should_receive(:value).and_return('testing')
         watir_definition.summary.should == 'testing'
       end
 
       it 'should enter text into a text area' do
-        watir_browser.should_receive(:text_area).and_return(watir_browser)
+        watir_browser.should_receive(:textarea).and_return(watir_browser)
         watir_browser.should_receive(:set).with('testing')
         watir_definition.summary = 'testing'
       end
