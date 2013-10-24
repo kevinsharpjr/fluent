@@ -250,6 +250,54 @@ module Fluent
           access_web_element('hidden(locator).value', locator)
         end
         
+        def h1(locator)
+          reference_web_element('h1(locator)', WebElements::Heading, locator)
+        end
+        
+        def h1_text(locator)
+          access_web_element('h1(locator).text', locator)
+        end
+
+        def h2(locator)
+          reference_web_element('h2(locator)', WebElements::Heading, locator)
+        end
+
+        def h2_text(locator)
+          access_web_element('h2(locator).text', locator)
+        end
+
+        def h3(locator)
+          reference_web_element('h3(locator)', WebElements::Heading, locator)
+        end
+
+        def h3_text(locator)
+          access_web_element('h3(locator).text', locator)
+        end
+
+        def h4(locator)
+          reference_web_element('h4(locator)', WebElements::Heading, locator)
+        end
+
+        def h4_text(locator)
+          access_web_element('h4(locator).text', locator)
+        end
+
+        def h5(locator)
+          reference_web_element('h5(locator)', WebElements::Heading, locator)
+        end
+
+        def h5_text(locator)
+          access_web_element('h5(locator).text', locator)
+        end
+
+        def h6(locator)
+          reference_web_element('h6(locator)', WebElements::Heading, locator)
+        end
+
+        def h6_text(locator)
+          access_web_element('h6(locator).text', locator)
+        end
+        
         alias_method :radio_button, :radio
         alias_method :textarea, :text_area
         alias_method :textfield, :text_field

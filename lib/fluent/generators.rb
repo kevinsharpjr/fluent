@@ -225,6 +225,29 @@ module Fluent
       common_definition_methods(identifier, locator, __method__)
     end
     
+    [:h1, :h2, :h3, :h4, :h5, :h6].each do |method|
+      define_method(method) do |identifier, locator|
+        define_method(identifier) do
+          platform_method = "#{method.to_s}_text"
+          return platform.send(platform_method, locator.clone)
+        end
+        
+        common_definition_methods(identifier, locator, method)
+      end
+    end
+    
+    #def h1(identifier, locator)
+      
+    #end
+
+    #def h2(identifier, locator)
+      
+    #end
+
+    #def h3(identifier, locator)
+      
+    #end
+    
     alias_method :radio_button, :radio
     alias_method :textarea, :text_area
     alias_method :textfield, :text_field
