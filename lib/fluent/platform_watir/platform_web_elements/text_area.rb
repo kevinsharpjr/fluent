@@ -1,14 +1,18 @@
 module Fluent
   module Platforms
     module WatirWebDriver
-      module TextField
+      module TextArea
 
         def value
           web_element.value
         end
         
-        def value=(text)
-          web_element.set(text)
+        def value=(value)
+          web_element.set(value)
+        end
+        
+        def clear
+          web_element.wd.clear
         end
         
       end

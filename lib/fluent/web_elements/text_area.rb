@@ -9,6 +9,10 @@ module Fluent
 
       def include_platform_specifics_for(platform)
         super
+        if platform[:platform] == :watir_webdriver
+          require 'fluent/platform_watir/platform_web_elements/text_area'
+          self.class.send :include, Fluent::Platforms::WatirWebDriver::TextArea
+        end
       end
 
     end
