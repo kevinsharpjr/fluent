@@ -14,6 +14,11 @@ describe 'WebElements::TextField' do
     text_field_definition.value = 'testing'
   end
 
+  it 'should get the value of a text field' do
+    text_field_object.should_receive(:value).and_return('testing')
+    text_field_definition.value.should == 'testing'
+  end
+  
   it 'should register with a text tag' do
     ::Fluent::WebElements.get_class_for(:input, :text).should == ::Fluent::WebElements::TextField
   end

@@ -3,6 +3,8 @@ require 'coveralls'
 
 Coveralls.wear!
 
+SimpleCov.add_filter '/spec'
+
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
