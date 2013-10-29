@@ -1,6 +1,15 @@
 Change Log and History
 ======================
 
+Version 0.3.0 / 2013-10-29
+--------------------------
+
+This release has some added generators: label, hidden, headings (h1 through h6), form, and image. That means you can now interact with those elements via the Fluent interface.
+
+Elements now map their type (i.e., Button) and their tag (i.e., "submit"). This allows for certain actions like getting the parent of elements, which is now an action that is available on each element.
+
+Tables rows have been added as an element and that was done so that tables could be enumerated. This means table rows and columns can be more easily discovered. Finally, lists (unordered and ordered) have also been enumerated so that it is possible to get the text contents of those lists.
+
 Version 0.2.0 / 2013-10-21
 --------------------------
 
