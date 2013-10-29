@@ -115,15 +115,15 @@ module Fluent
         end
 
         def text_area(locator)
-          reference_web_element('text_area(locator)', WebElements::TextArea, locator)
+          reference_web_element('textarea(locator)', WebElements::TextArea, locator)
         end
         
         def text_area_set(locator, value)
-          access_web_element('text_area(locator).set(value)', locator, value)
+          access_web_element('textarea(locator).set(value)', locator, value)
         end
         
         def text_area_get(locator)
-          access_web_element('text_area(locator).value', locator)
+          access_web_element('textarea(locator).value', locator)
         end
         
         def checkbox(locator)
@@ -234,6 +234,89 @@ module Fluent
           access_web_element('td(locator).text', locator)
         end
         
+        def label(locator)
+          reference_web_element('label(locator)', WebElements::Label, locator)
+        end
+        
+        def label_text(locator)
+          access_web_element('label(locator).text', locator)
+        end
+
+        def hidden(locator)
+          reference_web_element('hidden(locator)', WebElements::Hidden, locator)
+        end
+
+        def hidden_value(locator)
+          access_web_element('hidden(locator).value', locator)
+        end
+        
+        def h1(locator)
+          reference_web_element('h1(locator)', WebElements::Heading, locator)
+        end
+        
+        def h1_text(locator)
+          access_web_element('h1(locator).text', locator)
+        end
+
+        def h2(locator)
+          reference_web_element('h2(locator)', WebElements::Heading, locator)
+        end
+
+        def h2_text(locator)
+          access_web_element('h2(locator).text', locator)
+        end
+
+        def h3(locator)
+          reference_web_element('h3(locator)', WebElements::Heading, locator)
+        end
+
+        def h3_text(locator)
+          access_web_element('h3(locator).text', locator)
+        end
+
+        def h4(locator)
+          reference_web_element('h4(locator)', WebElements::Heading, locator)
+        end
+
+        def h4_text(locator)
+          access_web_element('h4(locator).text', locator)
+        end
+
+        def h5(locator)
+          reference_web_element('h5(locator)', WebElements::Heading, locator)
+        end
+
+        def h5_text(locator)
+          access_web_element('h5(locator).text', locator)
+        end
+
+        def h6(locator)
+          reference_web_element('h6(locator)', WebElements::Heading, locator)
+        end
+
+        def h6_text(locator)
+          access_web_element('h6(locator).text', locator)
+        end
+        
+        def form(locator)
+          reference_web_element('form(locator)', WebElements::Form, locator)
+        end
+        
+        def image(locator)
+          reference_web_element('image(locator)', WebElements::Image, locator)
+        end
+        
+        alias_method :radio_button, :radio
+        alias_method :textarea, :text_area
+        alias_method :textfield, :text_field
+        alias_method :a, :link
+        alias_method :p, :paragraph
+        alias_method :ol, :ordered_list
+        alias_method :ul, :unordered_list
+        alias_method :li, :list_item
+        alias_method :td, :cell
+        alias_method :img, :image
+        
         # This method is called by any platform methods that require getting
         # an object reference.
         #
@@ -274,6 +357,12 @@ module Fluent
   end
 end
 
+# This require brings in the high-level web element mapping calls.
+require 'fluent/web_elements'
+
+# The statements below are used to bring in all of the web elements that
+# Fluent recognizes. /web_elements/web_element must be brought in first
+# so that happens and then it is rejected from being required twice.
 require 'fluent/web_elements/web_element'
 file_list = Dir["#{File.dirname(__FILE__)}/../web_elements/**/*.rb"].reject { |file| file =~ /web_element.rb/ }
 file_list.each { |file| require file }

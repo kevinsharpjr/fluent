@@ -8,6 +8,12 @@ module Fluent
       define_method('view') do
         platform.visit(url)
       end
+      
+      define_method('check_url') do
+        msg  = "Expected url: '#{url}'; Actual url: '#{browser.url}'"
+        valid_url = url == browser.url
+        raise Fluent::Errors::UrlNotMatched, msg unless valid_url
+      end
     end
     
     def title_is(title=nil)
@@ -48,6 +54,7 @@ module Fluent
       end
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'a')
     end
     
     def paragraph(identifier, locator)
@@ -56,6 +63,7 @@ module Fluent
       end
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'p')
     end
     
     def div(identifier, locator)
@@ -92,6 +100,7 @@ module Fluent
       end
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'textfield')
     end
     
     def text_area(identifier, locator)
@@ -104,6 +113,7 @@ module Fluent
       end
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'textarea')
     end
     
     def checkbox(identifier, locator)
@@ -158,6 +168,7 @@ module Fluent
       alias_method "set_#{identifier}".to_sym, "select_#{identifier}".to_sym
       
       common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'radio_button')
     end
     
     def ordered_list(identifier, locator)
@@ -204,14 +215,64 @@ module Fluent
       common_definition_methods(identifier, locator, 'td')
     end
     
-    alias_method :radio_button, :radio ###
-    alias_method :textarea, :text_area ###
-    alias_method :textfield, :text_field ###
-    alias_method :a, :link ###
+    def label(identifier, locator)
+      define_method(identifier) do
+        return platform.label_text(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def hidden(identifier, locator)
+      define_method(identifier) do
+        return platform.hidden_value(locator.clone)
+      end
+
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def form(identifier, locator)
+      common_definition_methods(identifier, locator, __method__)
+    end
+    
+    def image(identifier, locator)
+      common_definition_methods(identifier, locator, __method__)
+      common_definition_methods(identifier, locator, 'img')
+    end
+    
+    [:h1, :h2, :h3, :h4, :h5, :h6].each do |method|
+      define_method(method) do |identifier, locator|
+        define_method(identifier) do
+          platform_method = "#{method.to_s}_text"
+          return platform.send(platform_method, locator.clone)
+        end
+        
+        common_definition_methods(identifier, locator, method)
+      end
+    end
+    
+    #def h1(identifier, locator)
+      
+    #end
+
+    #def h2(identifier, locator)
+      
+    #end
+
+    #def h3(identifier, locator)
+      
+    #end
+    
+    alias_method :radio_button, :radio
+    alias_method :textarea, :text_area
+    alias_method :textfield, :text_field
+    alias_method :a, :link
+    alias_method :p, :paragraph
     alias_method :ol, :ordered_list
     alias_method :ul, :unordered_list
     alias_method :li, :list_item
     alias_method :td, :cell
+    alias_method :img, :image
     
     def common_definition_methods(identifier, locator, method)
       define_method("#{identifier}_object") do

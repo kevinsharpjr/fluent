@@ -18,4 +18,8 @@ describe 'WebElements::CheckBox' do
     checkbox_object.should_receive(:clear)
     checkbox_definition.uncheck
   end
+
+  it 'should register with a checkbox tag' do
+    ::Fluent::WebElements.get_class_for(:input, :checkbox).should == ::Fluent::WebElements::CheckBox
+  end
 end

@@ -39,4 +39,11 @@ describe Fluent::Factory do
     current.should === active
   end
   
+  it 'should create a new definition based on a string' do
+    @factory.browser.should_receive(:goto)
+    @factory.on_view "DefinitionTest" do |page|
+      page.should be_instance_of DefinitionTest
+    end
+  end
+  
 end

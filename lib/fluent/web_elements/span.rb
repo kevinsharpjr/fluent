@@ -12,5 +12,8 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:span] = ::Fluent::WebElements::Span
+    
   end
 end

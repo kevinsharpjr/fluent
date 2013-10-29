@@ -10,7 +10,12 @@ module Fluent
       def include_platform_specifics_for(platform)
         super
       end
-
+      
     end
+
+    ::Fluent::WebElements.class_for_type[:submit] = ::Fluent::WebElements::Button
+    ::Fluent::WebElements.class_for_type[:button] = ::Fluent::WebElements::Button
+    ::Fluent::WebElements.class_for_type[:image]  = ::Fluent::WebElements::Button
+    ::Fluent::WebElements.class_for_type[:reset]  = ::Fluent::WebElements::Button
   end
 end

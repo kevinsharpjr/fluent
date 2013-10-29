@@ -12,5 +12,7 @@ module Fluent
       end
       
     end
+
+    ::Fluent::WebElements.class_for_tag[:a] = ::Fluent::WebElements::Link
   end
 end

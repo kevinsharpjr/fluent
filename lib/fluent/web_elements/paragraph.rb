@@ -12,5 +12,7 @@ module Fluent
       end
 
     end
+
+    ::Fluent::WebElements.class_for_tag[:p] = ::Fluent::WebElements::Paragraph
   end
 end

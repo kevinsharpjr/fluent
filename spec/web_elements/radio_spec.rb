@@ -18,4 +18,8 @@ describe 'WebElements::Radio' do
     radio_object.should_receive(:clear).and_return(true)
     radio_definition.clear
   end
+
+  it 'should register with a radio type' do
+    ::Fluent::WebElements.get_class_for(:input, :radio).should == ::Fluent::WebElements::Radio
+  end
 end
