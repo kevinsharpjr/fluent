@@ -10,8 +10,8 @@ module Fluent
       end
       
       define_method('check_url') do
-        msg  = "Expected url: '#{url}'; Actual url: '#{browser.url}'"
-        valid_url = url == browser.url
+        msg  = "Expected url: '#{url}'; Actual url: '#{driver.url}'"
+        valid_url = url == driver.url
         raise Fluent::Errors::UrlNotMatched, msg unless valid_url
       end
     end
@@ -21,9 +21,9 @@ module Fluent
       raise Fluent::Errors::NoTitleForDefinition, msg if title.nil?
       
       define_method('check_title') do
-        msg  = "Expected title: '#{title}'; Actual title: '#{browser.title}'"
-        valid_title = title == browser.title if title.kind_of?(String)
-        valid_title = title =~ browser.title if title.kind_of?(Regexp)
+        msg  = "Expected title: '#{title}'; Actual title: '#{driver.title}'"
+        valid_title = title == driver.title if title.kind_of?(String)
+        valid_title = title =~ driver.title if title.kind_of?(Regexp)
         raise Fluent::Errors::TitleNotMatched, msg unless valid_title
         valid_title
       end

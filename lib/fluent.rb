@@ -20,7 +20,7 @@ module Fluent
   # [Watir::Browser] or [Selenium::WebDriver::Driver]
   #
   # @return [Object] browser driver reference
-  attr_reader :browser
+  attr_reader :driver
 
   # Platform references will be:
   # [Fluent::Platforms::WatirWebDriver::PlatformObject]
@@ -52,22 +52,13 @@ module Fluent
   #   (1) A browser instance is being created.
   #   (2) A platform object is created for that browser.
   #
-  # @param browser [Object] a browser instance with a tool driver
-  def initialize(browser=nil, visit=nil)
-    Fluent::trace("Fluent initialized with driver: #{browser}")
+  # @param driver [Object] a tool driver instance
+  def initialize(driver=nil, visit=nil)
+    @driver = driver
     
-    @browser = browser
-    #@browser = Watir::Browser.new if browser == :watir
-    #@browser = Selenium::WebDriver.for :firefox if browser == :selenium
-    #@browser = Mechanize.new if browser == :mechanize
-
-    #Fluent::trace("Browser driver reference: #{@browser}")
+    Fluent::trace("Fluent attached to driver: #{@driver}")
     
-    #@browser = Watir::Browser.new if browser.nil?
-    
-    Fluent::trace("Fluent attached to browser: #{@browser}")
-    
-    establish_platform_object_for @browser
+    establish_platform_object_for @driver
     
     view if visit && respond_to?(:view)
   end
