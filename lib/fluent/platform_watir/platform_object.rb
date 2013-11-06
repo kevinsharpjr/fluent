@@ -3,54 +3,54 @@ module Fluent
     module WatirWebDriver
       class PlatformObject
         
-        attr_reader :browser
+        attr_reader :driver
         
-        def initialize(browser)
-          @browser = browser
+        def initialize(driver)
+          @driver = driver
         end
         
         ## Browser-Level Actions ##
         
         def visit(url)
-          browser.goto(url)
+          driver.goto(url)
         end
         
         def url
-          browser.url
+          driver.url
         end
 
         def remove_cookies
-          browser.cookies.clear
+          driver.cookies.clear
         end
 
         def refresh
-          browser.refresh
+          driver.refresh
         end
 
         def run_script(script)
-          browser.execute_script(script)
+          driver.execute_script(script)
         end
 
         def screenshot(file)
-          browser.wd.save_screenshot(file)
+          driver.wd.save_screenshot(file)
         end
         
         ## Page-Level Actions ##
 
         def markup
-          browser.html
+          driver.html
         end
         
         def title
-          browser.title
+          driver.title
         end
         
         def text
-          browser.text
+          driver.text
         end
 
         def wait_until(timeout, message='wait condition was not found', &block)
-          browser.wait_until(timeout, message, &block)
+          driver.wait_until(timeout, message, &block)
         end
         
         ## Encloser Actions ##
@@ -58,9 +58,9 @@ module Fluent
         def will_alert(&block)
           yield
           value = nil
-          if browser.alert.exists?
-            value = browser.alert.text
-            browser.alert.ok
+          if driver.alert.exists?
+            value = driver.alert.text
+            driver.alert.ok
           end
           value
         end
@@ -68,18 +68,18 @@ module Fluent
         def will_confirm(response, &block)
           yield
           value = nil
-          if browser.alert.exists?
-            value = browser.alert.text
-            response ? browser.alert.ok : browser.alert.close
+          if driver.alert.exists?
+            value = driver.alert.text
+            response ? driver.alert.ok : driver.alert.close
           end
           value
         end
         
         def will_prompt(response, &block)
-          cmd = "window.prompt = function(text, value) {window.__lastWatirPrompt = {message: text, default_value: value}; return #{!!response};}"
-          browser.wd.execute_script(cmd)
+          cmd = "window.prompt = function(text, value) {window.__lastWatirPrompt = {message: text, default_value: value}; return '#{response}';}"
+          driver.wd.execute_script(cmd)
           yield
-          result = browser.wd.execute_script('return window.__lastWatirPrompt')
+          result = driver.wd.execute_script('return window.__lastWatirPrompt')
           result && result.dup.each_key { |k| result[k.to_sym] = result.delete(k) }
           result
         end
@@ -326,7 +326,7 @@ module Fluent
         # @return [Object] the web object identified by the action
         def reference_web_element(action, object, locator)
           encloser = locator.delete(:frame)
-          element_object = browser.instance_eval("#{enclosed_by(encloser)}#{action}")
+          element_object = driver.instance_eval("#{enclosed_by(encloser)}#{action}")
           object.new(element_object, :platform => :watir_webdriver)
         end
 
@@ -340,7 +340,7 @@ module Fluent
         # @return [Any] the information or object returned by the action
         def access_web_element(action, locator, value=nil)
           encloser = locator.delete(:frame)
-          browser.instance_eval("#{enclosed_by(encloser)}#{action}")
+          driver.instance_eval("#{enclosed_by(encloser)}#{action}")
         end
         
         def enclosed_by(encloser)

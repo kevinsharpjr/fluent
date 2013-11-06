@@ -1,10 +1,10 @@
 module Fluent
   module Platforms
-    module SeleniumWebDriver
+    module MechanizeDriver
       class PlatformObject
 
         attr_reader :driver
-        
+
         def initialize(driver)
           @driver = driver
         end
@@ -12,9 +12,9 @@ module Fluent
         ## Browser-Level Actions ##
 
         def visit(url)
-          driver.navigate.to(url)
+          driver.get(url)
         end
-        
+
       end
     end
   end
