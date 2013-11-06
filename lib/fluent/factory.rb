@@ -10,7 +10,7 @@ module Fluent
       definition = get_object_for(definition) if definition.is_a? String
       
       return @active if @active.kind_of?(definition)
-      @active = definition.new(@browser, visit)
+      @active = definition.new(@driver, visit)
       block.call @active if block
       
       @active
