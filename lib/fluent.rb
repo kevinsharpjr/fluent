@@ -9,6 +9,7 @@ require 'fluent/generators'
 
 require 'watir-webdriver'
 require 'selenium-webdriver'
+require 'mechanize'
 
 module Fluent
   include Platforms
@@ -56,9 +57,14 @@ module Fluent
     Fluent::trace("Fluent initialized with driver: #{browser}")
     
     @browser = browser
-    @browser = Watir::Browser.new if browser.nil? or browser == :watir
-    @browser = Selenium::WebDriver.for :firefox if browser == :selenium
+    #@browser = Watir::Browser.new if browser == :watir
+    #@browser = Selenium::WebDriver.for :firefox if browser == :selenium
+    #@browser = Mechanize.new if browser == :mechanize
 
+    #Fluent::trace("Browser driver reference: #{@browser}")
+    
+    #@browser = Watir::Browser.new if browser.nil?
+    
     Fluent::trace("Fluent attached to browser: #{@browser}")
     
     establish_platform_object_for @browser
