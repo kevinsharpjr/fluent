@@ -1,6 +1,15 @@
 module Fluent
   module Generators
     
+    def driver(drv=nil)
+      Fluent.trace("Driver from definition: #{drv}.")
+
+      msg = "The driver assertion is empty on the definition #{self}."
+      raise Fluent::Errors::NoDriverForDefinition, msg if drv.nil?
+      
+      @browser = drv
+    end
+    
     def url_is(url=nil)
       msg = "The url_is assertion is empty on the definition #{self}."
       raise Fluent::Errors::NoUrlForDefinition, msg if url.nil?

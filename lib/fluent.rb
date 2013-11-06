@@ -53,6 +53,8 @@ module Fluent
   #
   # @param browser [Object] a browser instance with a tool driver
   def initialize(browser=nil, visit=nil)
+    Fluent::trace("Fluent initialized with driver: #{browser}")
+    
     @browser = browser
     @browser = Watir::Browser.new if browser.nil? or browser == :watir
     @browser = Selenium::WebDriver.for :firefox if browser == :selenium
