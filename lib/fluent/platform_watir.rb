@@ -2,13 +2,13 @@ module Fluent
   module Platforms
     module WatirWebDriver
       
-      def self.create_platform_object_for(browser)
+      def self.create_platform_object_for(driver)
         require 'fluent/platform_watir/platform_object'
-        return WatirWebDriver::PlatformObject.new(browser)
+        return WatirWebDriver::PlatformObject.new(driver)
       end
       
-      def self.works_with?(browser)
-        browser.is_a?(::Watir::Browser)
+      def self.works_with?(driver)
+        driver.is_a?(::Watir::Browser)
       end
       
     end
