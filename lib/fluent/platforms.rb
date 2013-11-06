@@ -30,3 +30,4 @@ end
 
 require 'fluent/platform_watir'
 require 'fluent/platform_selenium'
+require 'fluent/platform_mechanize'
