@@ -3,16 +3,16 @@ module Fluent
     module SeleniumWebDriver
       class PlatformObject
 
-        attr_reader :browser
+        attr_reader :driver
         
-        def initialize(browser)
-          @browser = browser
+        def initialize(driver)
+          @driver = driver
         end
 
         ## Browser-Level Actions ##
 
         def visit(url)
-          browser.navigate.to(url)
+          driver.navigate.to(url)
         end
         
       end
