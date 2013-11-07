@@ -4,7 +4,7 @@ require 'mock_app'
 class TestFactory
   include Fluent::Factory
 
-  attr_accessor :browser
+  attr_accessor :driver
 end
 
 class DefinitionTest
@@ -16,18 +16,18 @@ end
 describe Fluent::Factory do
   before(:each) do
     @factory = TestFactory.new
-    @factory.browser = mock_browser_for_watir
+    @factory.driver = mock_browser_for_watir
   end
   
   it 'should create a new definition object and view it, using on_view' do
-    @factory.browser.should_receive(:goto)
+    @factory.driver.should_receive(:goto)
     @factory.on_view DefinitionTest do |page|
       page.should be_instance_of DefinitionTest
     end
   end
 
   it 'should create a new definition object, using on' do
-    @factory.browser.should_not_receive(:goto)
+    @factory.driver.should_not_receive(:goto)
     @factory.on DefinitionTest do |page|
       page.should be_instance_of DefinitionTest
     end
@@ -40,7 +40,7 @@ describe Fluent::Factory do
   end
   
   it 'should create a new definition based on a string' do
-    @factory.browser.should_receive(:goto)
+    @factory.driver.should_receive(:goto)
     @factory.on_view "DefinitionTest" do |page|
       page.should be_instance_of DefinitionTest
     end
