@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'watir-webdriver', '0.6.4'
   spec.add_runtime_dependency 'selenium-webdriver', '2.37.0'
+  spec.add_runtime_dependency 'mechanize', '2.7.2'
 end

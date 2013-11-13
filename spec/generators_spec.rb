@@ -17,12 +17,7 @@ describe Fluent::Generators do
         selenium_browser.should_receive(:title).twice.and_return('Test App')
         selenium_definition.check_title
       end
-
-      it 'should specify and verify the page url' do
-        watir_browser.should_receive(:url).twice.and_return('http://localhost:4567')
-        watir_definition.check_url
-      end
-      
+    
       it 'should raise an error if the page title is not verified' do
         msg = "Expected title: 'Test App'; Actual title: 'Testing'"
         watir_browser.should_receive(:title).twice.and_return('Testing')
@@ -38,29 +33,34 @@ describe Fluent::Generators do
         watir_browser.should_receive(:title).twice.and_return('Symbiote')
         QuickDefinition.new(watir_browser).check_title
       end
+    end
+    
+    it 'should specify and verify the page url' do
+      watir_browser.should_receive(:url).twice.and_return('http://localhost:4567')
+      watir_definition.check_url
+    end
 
-      it 'should allow frames to act as a context' do
-        watir_browser.should_receive(:frame).with(id: 'frame').and_return(watir_browser)
-        watir_browser.should_receive(:text_field).and_return(watir_browser)
-        web_element = watir_definition.framedName_text_field
-        web_element.should_not be_nil
-        web_element.should be_instance_of Fluent::WebElements::TextField
+    it 'should allow frames to act as a context' do
+      watir_browser.should_receive(:frame).with(id: 'frame').and_return(watir_browser)
+      watir_browser.should_receive(:text_field).and_return(watir_browser)
+      web_element = watir_definition.framedName_text_field
+      web_element.should_not be_nil
+      web_element.should be_instance_of Fluent::WebElements::TextField
+    end
+
+    context 'automatically looking for an element' do
+      it 'should specify and verify an expected elements' do
+        watir_definition.should_receive(:name_object).and_return(watir_browser)
+        watir_browser.should_receive(:when_present).with(5).and_return(watir_browser)
+        watir_definition.check_objects
       end
-
-      context 'automatically looking for an element' do
-        it 'should specify and verify an expected elements' do
-          watir_definition.should_receive(:name_object).and_return(watir_browser)
-          watir_browser.should_receive(:when_present).with(5).and_return(watir_browser)
-          watir_definition.check_objects
+      
+      it 'should raise an error if an expected elements are not verified' do
+        class QuickDefinition
+          include Fluent
+          look_for :fakeLink
         end
-
-        it 'should raise an error if an expected elements are not verified' do
-          class QuickDefinition
-            include Fluent
-            look_for :fakeLink
-          end
-          expect { QuickDefinition.new(watir_browser).check_objects }.to raise_error
-        end
+        expect { QuickDefinition.new(watir_browser).check_objects }.to raise_error
       end
     end
 
@@ -82,6 +82,6 @@ describe Fluent::Generators do
         end
       end
     end
-    
+ 
   end
 end

@@ -55,7 +55,7 @@ module Fluent
     def wait_for_pending_requests(time_limit=30, message_if_timeout=nil)
       end_time = ::Time.now + time_limit
       until ::Time.now > end_time
-        return if browser.execute_script('return jQuery.active') == 0
+        return if driver.execute_script('return jQuery.active') == 0
         wait_for_app 0.5
       end
       message = 'Pending jQuery requests never indicated completion.' unless message_if_timeout
