@@ -1,6 +1,13 @@
 Change Log and History
 ======================
 
+Version 0.4.0 / 2013-11-13
+--------------------------
+
+This release is relatively minor in terms of number of changes but it does change some aspects of how drivers are specified. Prior to this release, Fluent counted on there being a @browser instance in order to create a platform object. That is now a @driver instance. Further, Fluent used to default solely to testing with browsers and thus Watir WebDriver was used as a default. The ability to support drivers by default is now removed.
+
+The reason for that is Fluent is now supporting Mechanize. While that is technically "just another browser" it is different enough in interface implementation, that it was no longer feasible to assume GUI-based browsers as a default option. What this means is that Fluent can now create a platform object for Mechanize.
+
 Version 0.3.0 / 2013-10-29
 --------------------------
 
