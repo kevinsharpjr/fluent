@@ -25,6 +25,7 @@ module Fluent
   # Platform references will be:
   # [Fluent::Platforms::WatirWebDriver::PlatformObject]
   # [Fluent::Platforms::SeleniumWebDriver::PlatformObject]
+  # [Fluent::Platforms::MechanizeDriver::PlatformObject]
   #
   # @return [Object] platform reference
   attr_reader :platform
@@ -61,6 +62,9 @@ module Fluent
     establish_platform_object_for @driver
     
     view if visit && respond_to?(:view)
+    
+    initialize_page if respond_to?(:initialize_page)
+    initialize_activity if respond_to?(:initialize_activity)
   end
 
   # Returns the default wait value for pages. This value is the default
