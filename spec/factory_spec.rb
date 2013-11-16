@@ -33,6 +33,27 @@ describe Fluent::Factory do
     end
   end
   
+  it 'should create a new definition object, using on_new' do
+    @factory.driver.should_not_receive(:goto)
+    @factory.on_new DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+    end
+  end
+  
+  it 'should use an existing object reference with on' do
+    @factory.driver.should_receive(:goto)
+    obj1 = @factory.on_view DefinitionTest
+    obj2 = @factory.on DefinitionTest
+    obj1.should == obj2
+  end
+  
+  it 'should not use an existing object reference with on_new' do
+    @factory.driver.should_receive(:goto)
+    obj1 = @factory.on_view DefinitionTest
+    obj2 = @factory.on_new DefinitionTest
+    obj1.should_not == obj2
+  end
+  
   it 'should set a reference to be used outside the factory' do
     active = @factory.on DefinitionTest
     current = @factory.instance_variable_get '@active'
@@ -41,7 +62,7 @@ describe Fluent::Factory do
   
   it 'should create a new definition based on a string' do
     @factory.driver.should_receive(:goto)
-    @factory.on_view "DefinitionTest" do |page|
+    @factory.on_view 'DefinitionTest' do |page|
       page.should be_instance_of DefinitionTest
     end
   end
