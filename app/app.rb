@@ -8,6 +8,7 @@ module Fluency
     register Sinatra::Reloader
     
     get '/' do
+      @title = 'Home'
       erb :index
     end
   end

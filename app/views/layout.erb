@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title><%= @title + ' | Fluency' %></title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/site.css">
+    
+    <!--if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+    <![endif]-->
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an extremely <strong>outdated</strong> browser and you should be ashamed of yourself. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+    
+    <header>
+      <h1 class="logo">Fluency <span id="subtitle" name="subtitle" class="subtitle">Fluent<br />Testing<br />Application</span></h1>
+    </header>
+    
+    <article>
+      <%= yield %>
+    </article>
+    
+    <footer>
+      <p>Fluency - Fluent Testing App, by <a href="http://testerstories.com/" id="blog">Jeff Nyman</a>. For use with <a href="https://github.com/jnyman/fluent" id="app">Fluent</a>.</p>
+    </footer>
+  </body>
+</html>
