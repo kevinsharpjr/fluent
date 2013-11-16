@@ -26,6 +26,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'rspec', '~> 2.0'
   spec.add_development_dependency 'simplecov', '0.7.1'
+  
+  spec.add_development_dependency 'sinatra', '1.4.4'
+  spec.add_development_dependency 'sinatra-reloader', '1.0'
+  spec.add_development_dependency 'thin', '1.6.1'
 
   spec.add_runtime_dependency 'watir-webdriver', '0.6.4'
   spec.add_runtime_dependency 'selenium-webdriver', '2.37.0'
