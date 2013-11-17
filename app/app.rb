@@ -21,6 +21,11 @@ module Fluency
       @title = 'Warp Speed Calculator'
       erb :warp
     end
+    
+    get '/novels' do
+      @title = 'Star Trek Novels'
+      erb :novels
+    end
   end
 end
 
