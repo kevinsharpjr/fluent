@@ -91,6 +91,15 @@ fieldset {
 	margin: 25px 0;
 }
 
+#stardate_error {
+	margin-top: 2px;
+	font-size: 0.8em;
+	color: rgb(395,151,51);
+	font-weight: bold;
+	margin-left: 215px;
+	margin-left: 0;
+}
+
 .colorLabel {
 	color: rgb(227,198,133);
 	text-shadow: 1px 1px 1px rgba(0,0,0,.75);

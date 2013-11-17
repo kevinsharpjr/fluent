@@ -40,7 +40,30 @@ $(document).ready(function() {
     return outdate;
   }
   
+  $.validator.setDefaults({
+    submitHandler: function() { }
+  });
+  
+  $('#computeStardate').validate({
+    rules: {
+      stardateValue: {
+        required: true,
+        number: true,
+        minlength: 4,
+      },
+    }, // end rules
+    messages: {
+      stardateValue: {
+        required: "Please supply stardate or there is sorta no point.",
+        number: "Stardates have to be a number.",
+        minlength: "Stardates must be four (TOS) or five (TNG) digits.",
+      },
+    }, // end messages
+    errorLabelContainer: "#stardate_error"
+  });
+  
   $('#stardateForm').hide();
+  $('#stardate_error').hide();
   $('#tngEra').hide();
   $('#tosEra').hide();
   $('#tngEraLabel').hide();
@@ -107,10 +130,8 @@ $(document).ready(function() {
     if ($("#tngEra").is(":checked")) {
       
       if ($("#stardatesPerYear").is(":checked")) {
-        alert("per year was checked");
         result = calculateTNG_Calc01();
       } else {
-        alert("per year was not checked");
         result = calculateTNG_Calc02();
       }
       

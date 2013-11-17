@@ -13,7 +13,7 @@ module Fluency
     end
 
     get '/stardate' do
-      @title = "Stardate Calculator"
+      @title = 'Stardate Calculator'
       erb :stardate
     end
   end

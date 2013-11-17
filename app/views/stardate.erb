@@ -1,15 +1,16 @@
 
 <section>
 
-<form id="computeStardate" name="computeStardate">
+<form id="computeStardate" name="computeStardate" method="get" action="">
   <fieldset>
     <legend>Stardate Calculator</legend>
     
     <div id="stardateForm">
       <span id="stardate_instruct">Choose a stardate era.</span>
       <br />
-      <input id="stardateValue" name="stardateValue" size="15" type="text" class="required">
-      <input id="convert" type="button" class="site_button" value="Convert">
+      <input id="stardateValue" name="stardateValue" size="15" type="text" required>
+      <input id="convert" type="submit" class="site_button" value="Convert">
+      <span id="stardate_error"></span>
       <br/><br/>
       <input id="calendarValue" name="calendarValue" size="70" type="text" readonly="readonly" class="stardateFormat">
     </div>
