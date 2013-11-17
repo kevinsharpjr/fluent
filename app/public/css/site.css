@@ -111,10 +111,174 @@ fieldset {
 	text-decoration: underline;
 }
 
+#test_guide {
+	max-width: 330px;
+	padding-right: 10px;
+	position: absolute;
+	padding-bottom: 50px;
+	right: 0px;
+	bottom: 0px;
+}
+
 .stardateFormat {
 	background-color: #000000;
 	color: yellow;
 }
+
+table, td, th {
+	border: 1px solid black;
+}
+
+/* Start: Warp Calc Table */
+
+.warpTable td {
+	text-align: center;
+	padding: 10pt 2pt;
+	vertical-align: middle;
+	
+	background: -o-linear-gradient(bottom, #56beff 5%, #ffffff 100%);
+	background: -o-linear-gradient(top,#56beff,ffffff);
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #56beff), color-stop(1, #ffffff) );
+	background: -moz-linear-gradient( center top, #56beff 5%, #ffffff 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#56beff", endColorstr="#ffffff");
+	
+	background-color: #56beff;
+	border: 1px solid #000000;
+	border-width: 0px 1px 1px 0px;
+	
+	padding: 7px;
+	
+	font-family: Arial;
+	font-weight: normal;
+	color: #000000;
+}
+
+.warpTable input {
+	text-align: center;
+}
+
+.warpTable {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	box-shadow: 10px 10px 5px #888888;
+	border: 1px solid #000000;
+	
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	
+	-moz-border-radius-bottomright: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	
+	-moz-border-radius-topright: 0px;
+	-webkit-border-top-right-radius: 0px;
+	border-top-right-radius: 0px;
+	
+	-moz-border-radius-topleft: 0px;
+	-webkit-border-top-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+/* Finish: Warp Calc Table */
+
+/* Start: Warp Factor Table */
+
+.warpfactor {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	border: 0px solid #000000;
+	
+	-moz-border-radius-bottomleft: 25px;
+	-webkit-border-bottom-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+	
+	-moz-border-radius-bottomright: 25px;
+	-webkit-border-bottom-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	
+	-moz-border-radius-topright: 25px;
+	-webkit-border-top-right-radius: 25px;
+	border-top-right-radius: 25px;
+	
+	-moz-border-radius-topleft: 25px;
+	-webkit-border-top-left-radius: 25px;
+	border-top-left-radius: 25px;
+}
+
+.warpfactor table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.warpfactor tr:last-child td:last-child {
+	-moz-border-radius-bottomright: 25px;
+	-webkit-border-bottom-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+}
+
+.warpfactor table tr:first-child td:first-child {
+	-moz-border-radius-topleft: 25px;
+	-webkit-border-top-left-radius: 25px;
+	border-top-left-radius: 25px;
+}
+
+.warpfactor table tr:first-child td:last-child {
+	-moz-border-radius-topright: 25px;
+	-webkit-border-top-right-radius: 25px;
+	border-top-right-radius: 25px;
+}
+
+.warpfactor tr:last-child td:first-child {
+	-moz-border-radius-bottomleft: 25px;
+	-webkit-border-bottom-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+}
+
+.warpfactor tr:nth-child(odd) { background-color:#56aaff; }
+.warpfactor tr:nth-child(even) { background-color:#007fff; }
+
+.warpfactor td {
+	vertical-align: middle;
+	border: 1px solid #000000;
+	border-width: 0px 1px 1px 0px;
+	text-align: left;
+	padding: 8px;
+	font-size: 12px;
+	font-family: Arial;
+	font-weight: normal;
+	color: #ffffff;
+}
+
+.warpfactor tr:last-child td { border-width: 0px 1px 0px 0px; }
+.warpfactor tr td:last-child { border-width: 0px 0px 1px 0px; }
+.warpfactor tr:last-child td:last-child { border-width: 0px 0px 0px 0px; }
+
+/*.warpfactor th:first-child td {*/
+.warpfactor thead:first-child th {
+	background: -o-linear-gradient(bottom, #0000bf 5%, #5656ff 100%);
+	background: -o-linear-gradient(top,#0000bf,5656ff);
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0000bf), color-stop(1, #5656ff) );
+	background: -moz-linear-gradient( center top, #0000bf 5%, #5656ff 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0000bf", endColorstr="#5656ff");
+	
+	background-color: #0000bf;
+	border: 0px solid #000000;
+	text-align: center;
+	border-width: 0px 0px 1px 1px;
+	font-size: 14px;
+	font-family: Arial;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+/* Finish: Warp Factor Table */
 
 .site_button {
 	-moz-box-shadow: inset 0px 1px 0px 0px #bbdaf7;
@@ -163,7 +327,6 @@ fieldset {
 	position: relative;
 	top: 1px;
 }
-/* This button was generated using CSSButtonGenerator.com */
 
 /* Start: Header Logo */
 

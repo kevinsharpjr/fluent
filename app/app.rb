@@ -16,6 +16,11 @@ module Fluency
       @title = 'Stardate Calculator'
       erb :stardate
     end
+    
+    get '/warp' do
+      @title = 'Warp Speed Calculator'
+      erb :warp
+    end
   end
 end
 
