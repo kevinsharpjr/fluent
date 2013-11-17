@@ -11,6 +11,11 @@ module Fluency
       @title = 'Home'
       erb :index
     end
+
+    get '/stardate' do
+      @title = "Stardate Calculator"
+      erb :stardate
+    end
   end
 end
 
