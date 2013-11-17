@@ -1,11 +1,42 @@
 require 'spec_helper'
 
 describe Fluent do
+  let(:watir_browser) { mock_browser_for_watir }
   
   it 'should return version information' do
     Fluent.version.should == "Fluent v#{Fluent::VERSION}"
   end
 
+  it 'should call initialize_page if it exists' do
+    class QuickDefinition
+      include Fluent
+      
+      attr_reader :page_initialized
+      
+      def initialize_page
+        @page_initialized = true
+      end
+    end
+    
+    @def = QuickDefinition.new(watir_browser)
+    @def.page_initialized.should be_true
+  end
+
+  it 'should call initialize_activity if it exists' do
+    class QuickDefinition
+      include Fluent
+
+      attr_reader :activity_initialized
+
+      def initialize_activity
+        @activity_initialized = true
+      end
+    end
+
+    @def = QuickDefinition.new(watir_browser)
+    @def.activity_initialized.should be_true
+  end
+  
   it 'should set the element level wait default to 5' do
     Fluent.instance_variable_set('@element_wait', nil)
     Fluent.element_level_wait.should == 5

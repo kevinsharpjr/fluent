@@ -1,6 +1,17 @@
 Change Log and History
 ======================
 
+Version 0.5.0 / 2013-11-17
+--------------------------
+
+This releases introduces two specific elements:
+
+* A new factory called on_new() has been added. This factory complements the on() factory. The on() factory will reuse an existing definition instance if an instance of definition being referenced already exists. The on_new() factory will always create a new instance of a definition, even if one is already existing.
+
+* It is now possible to provide an initialize_page or initialize_activity methods on page or activity definitions. This effectively allows you to create your own constructors on your definitions. Those constructors will be executed if they exist.
+
+Also added into this release is a test application (in the app directory) called Fluency that can be used for learning how Fluent works. Right now this application directory is not distributed as part of the gem but is available via the repository.
+
 Version 0.4.0 / 2013-11-13
 --------------------------
 

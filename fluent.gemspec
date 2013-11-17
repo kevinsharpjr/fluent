@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
   spec.platform      = Gem::Platform::RUBY
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = Dir.glob('lib/**/*') + %w(LICENSE.txt README.md HISTORY.md)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = %w(lib)
@@ -25,9 +25,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
 
   spec.add_development_dependency 'rspec', '~> 2.0'
-  spec.add_development_dependency 'simplecov', '~> 0.7'
+  spec.add_development_dependency 'simplecov', '0.7.1'
+  
+  spec.add_development_dependency 'sinatra', '1.4.4'
+  spec.add_development_dependency 'sinatra-reloader', '1.0'
+  spec.add_development_dependency 'thin', '1.6.1'
 
   spec.add_runtime_dependency 'watir-webdriver', '0.6.4'
   spec.add_runtime_dependency 'selenium-webdriver', '2.37.0'
-  spec.add_runtime_dependency 'mechanize', '2.7.2'
+  spec.add_runtime_dependency 'mechanize', '>= 2.7.3'
 end
