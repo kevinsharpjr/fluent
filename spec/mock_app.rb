@@ -15,6 +15,14 @@ def mock_browser_for_selenium
   selenium_browser
 end
 
+def mock_browser_for_mechanize
+  mechanize_browser = double('mechanize')
+  mechanize_browser.stub(:is_a?).with(Watir::Browser).and_return(false)
+  mechanize_browser.stub(:is_a?).with(Selenium::WebDriver::Driver).and_return(false)
+  mechanize_browser.stub(:is_a?).with(Mechanize).and_return(true)
+  mechanize_browser
+end
+
 class TestDefinition
   include Fluent
 

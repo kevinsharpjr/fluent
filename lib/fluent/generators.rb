@@ -251,18 +251,6 @@ module Fluent
       end
     end
     
-    #def h1(identifier, locator)
-      
-    #end
-
-    #def h2(identifier, locator)
-      
-    #end
-
-    #def h3(identifier, locator)
-      
-    #end
-    
     alias_method :radio_button, :radio
     alias_method :textarea, :text_area
     alias_method :textfield, :text_field

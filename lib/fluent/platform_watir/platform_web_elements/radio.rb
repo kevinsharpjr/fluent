@@ -7,6 +7,8 @@ module Fluent
           web_element.set?
         end
 
+        alias_method :set?, :selected?
+        
         def select
           web_element.set
         end
