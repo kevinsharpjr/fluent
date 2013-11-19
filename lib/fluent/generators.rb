@@ -298,5 +298,18 @@ module Fluent
       end
     end
     
+    ELEMENT_LIST = [:text_field, :text_area, :select_list, :checkbox, :radio,
+                    :link, :button, :table, :cell, :div, :span, :image,
+                    :list_item, :ordered_list, :unordered_list, :form,
+                    :h1, :h2, :h3, :h4, :h5, :h6, :paragraph, :label]
+    
+    def self.generate_locators(caller)
+      ELEMENT_LIST.each do |element|
+        caller.send(:define_method, "#{element.to_s}_locate") do |*locator|
+          @platform.send "#{element.to_s}", locate_by(locator)
+        end
+      end
+    end
+    
   end
 end
