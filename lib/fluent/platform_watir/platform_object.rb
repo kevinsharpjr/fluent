@@ -90,6 +90,10 @@ module Fluent
           reference_web_element('link(locator)', WebElements::Link, locator)
         end
         
+        def links(locator)
+          reference_web_elements('links(locator)', WebElements::Link, locator)
+        end
+        
         def link_click(locator)
           access_web_element('link(locator).click', locator)
         end
@@ -98,12 +102,20 @@ module Fluent
           reference_web_element('button(locator)', WebElements::Button, locator)
         end
         
+        def buttons(locator)
+          reference_web_elements('buttons(locator)', WebElements::Button, locator)
+        end
+        
         def button_click(locator)
           access_web_element('button(locator).click', locator)
         end
         
         def text_field(locator)
           reference_web_element('text_field(locator)', WebElements::TextField, locator)
+        end
+        
+        def text_fields(locator)
+          reference_web_elements('text_fields(locator)', WebElements::TextField, locator)
         end
         
         def text_field_set(locator, value)
@@ -118,6 +130,10 @@ module Fluent
           reference_web_element('textarea(locator)', WebElements::TextArea, locator)
         end
         
+        def text_areas(locator)
+          reference_web_elements('textareas(locator)', WebElements::TextArea, locator)
+        end
+        
         def text_area_set(locator, value)
           access_web_element('textarea(locator).set(value)', locator, value)
         end
@@ -128,6 +144,10 @@ module Fluent
         
         def checkbox(locator)
           reference_web_element('checkbox(locator)', WebElements::CheckBox, locator)
+        end
+        
+        def checkboxes(locator)
+          reference_web_elements('checkboxes(locator)', WebElements::CheckBox, locator)
         end
         
         def checkbox_check_state(locator)
@@ -145,6 +165,10 @@ module Fluent
         def select_list(locator)
           reference_web_element('select_list(locator)', WebElements::SelectList, locator)
         end
+
+        def select_lists(locator)
+          reference_web_elements('select_lists(locator)', WebElements::SelectList, locator)
+        end
         
         def select_list_get_selected(locator)
           access_web_element('select_list(locator).selected_options[0].text', locator)
@@ -161,6 +185,10 @@ module Fluent
         def radio(locator)
           reference_web_element('radio(locator)', WebElements::Radio, locator)
         end
+
+        def radios(locator)
+          reference_web_elements('radios(locator)', WebElements::Radio, locator)
+        end
         
         def radio_select(locator)
           access_web_element('radio(locator).set', locator)
@@ -173,6 +201,10 @@ module Fluent
         def paragraph(locator)
           reference_web_element('p(locator)', WebElements::Paragraph, locator)
         end
+
+        def paragraphs(locator)
+          reference_web_elements('ps(locator)', WebElements::Paragraph, locator)
+        end
         
         def paragraph_text(locator)
           access_web_element('p(locator).text', locator)
@@ -182,6 +214,10 @@ module Fluent
           reference_web_element('div(locator)', WebElements::Div, locator)
         end
 
+        def divs(locator)
+          reference_web_elements('divs(locator)', WebElements::Div, locator)
+        end
+        
         def div_text(locator)
           access_web_element('div(locator).text', locator)
         end
@@ -189,13 +225,21 @@ module Fluent
         def span(locator)
           reference_web_element('span(locator)', WebElements::Span, locator)
         end
-
+        
+        def spans(locator)
+          reference_web_elements('spans(locator)', WebElements::Span, locator)
+        end
+        
         def span_text(locator)
           access_web_element('span(locator).text', locator)
         end
         
         def ordered_list(locator)
           reference_web_element('ol(locator)', WebElements::OrderedList, locator)
+        end
+
+        def ordered_lists(locator)
+          reference_web_elements('ols(locator)', WebElements::OrderedList, locator)
         end
         
         def ordered_list_text(locator)
@@ -205,13 +249,21 @@ module Fluent
         def unordered_list(locator)
           reference_web_element('ul(locator)', WebElements::UnorderedList, locator)
         end
-
+        
+        def unordered_lists(locator)
+          reference_web_elements('uls(locator)', WebElements::UnorderedList, locator)
+        end
+        
         def unordered_list_text(locator)
           access_web_element('ul(locator).text', locator)
         end
 
         def list_item(locator)
           reference_web_element('li(locator)', WebElements::ListItem, locator)
+        end
+
+        def list_items(locator)
+          reference_web_elements('lis(locator)', WebElements::ListItem, locator)
         end
 
         def list_item_text(locator)
@@ -221,7 +273,11 @@ module Fluent
         def table(locator)
           reference_web_element('table(locator)', WebElements::Table, locator)
         end
-
+        
+        def tables(locator)
+          reference_web_elements('tables(locator)', WebElements::Table, locator)
+        end
+        
         def table_text(locator)
           access_web_element('table(locator).text', locator)
         end
@@ -229,13 +285,21 @@ module Fluent
         def cell(locator)
           reference_web_element('td(locator)', WebElements::Cell, locator)
         end
-
+        
+        def cells(locator)
+          reference_web_elements('tds(locator)', WebElements::Cell, locator)
+        end
+        
         def cell_text(locator)
           access_web_element('td(locator).text', locator)
         end
         
         def label(locator)
           reference_web_element('label(locator)', WebElements::Label, locator)
+        end
+        
+        def labels(locator)
+          reference_web_elements('labels(locator)', WebElements::Label, locator)
         end
         
         def label_text(locator)
@@ -246,12 +310,20 @@ module Fluent
           reference_web_element('hidden(locator)', WebElements::Hidden, locator)
         end
 
+        def hiddens(locator)
+          reference_web_elements('hiddens(locator)', WebElements::Hidden, locator)
+        end
+        
         def hidden_value(locator)
           access_web_element('hidden(locator).value', locator)
         end
         
         def h1(locator)
           reference_web_element('h1(locator)', WebElements::Heading, locator)
+        end
+
+        def h1s(locator)
+          reference_web_elements('h1s(locator)', WebElements::Heading, locator)
         end
         
         def h1_text(locator)
@@ -262,12 +334,20 @@ module Fluent
           reference_web_element('h2(locator)', WebElements::Heading, locator)
         end
 
+        def h2s(locator)
+          reference_web_elements('h2s(locator)', WebElements::Heading, locator)
+        end
+
         def h2_text(locator)
           access_web_element('h2(locator).text', locator)
         end
 
         def h3(locator)
           reference_web_element('h3(locator)', WebElements::Heading, locator)
+        end
+
+        def h3s(locator)
+          reference_web_elements('h3s(locator)', WebElements::Heading, locator)
         end
 
         def h3_text(locator)
@@ -278,12 +358,20 @@ module Fluent
           reference_web_element('h4(locator)', WebElements::Heading, locator)
         end
 
+        def h4s(locator)
+          reference_web_elements('h4s(locator)', WebElements::Heading, locator)
+        end
+
         def h4_text(locator)
           access_web_element('h4(locator).text', locator)
         end
 
         def h5(locator)
           reference_web_element('h5(locator)', WebElements::Heading, locator)
+        end
+
+        def h5s(locator)
+          reference_web_elements('h5s(locator)', WebElements::Heading, locator)
         end
 
         def h5_text(locator)
@@ -294,6 +382,10 @@ module Fluent
           reference_web_element('h6(locator)', WebElements::Heading, locator)
         end
 
+        def h6s(locator)
+          reference_web_elements('h6s(locator)', WebElements::Heading, locator)
+        end
+
         def h6_text(locator)
           access_web_element('h6(locator).text', locator)
         end
@@ -302,8 +394,16 @@ module Fluent
           reference_web_element('form(locator)', WebElements::Form, locator)
         end
         
+        def forms(locator)
+          reference_web_elements('forms(locator)', WebElements::Form, locator)
+        end
+        
         def image(locator)
           reference_web_element('image(locator)', WebElements::Image, locator)
+        end
+        
+        def images(locator)
+          reference_web_elements('images(locator)', WebElements::Image, locator)
         end
         
         alias_method :radio_button, :radio
@@ -328,6 +428,14 @@ module Fluent
           encloser = locator.delete(:frame)
           element_object = driver.instance_eval("#{enclosed_by(encloser)}#{action}")
           object.new(element_object, :platform => :watir_webdriver)
+        end
+        
+        def reference_web_elements(action, object, locator)
+          encloser = locator.delete(:frame)
+          element_objects = driver.instance_eval("#{enclosed_by(encloser)}#{action}")
+          element_objects.map do |element|
+            object.new(element, :platform => :watir_webdriver)
+          end
         end
 
         # This method is called by any platform methods that require accessing

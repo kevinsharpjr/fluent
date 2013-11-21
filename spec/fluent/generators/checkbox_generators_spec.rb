@@ -4,11 +4,15 @@ class CheckboxGenerators
   include Fluent
 
   checkbox :toggle, id: 'toggle'
+  checkboxes :item, class: 'items' 
 end
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { CheckboxGenerators.new(watir_browser) }
+
+  let(:checkbox_object) { double('checkbox_object') }
+  let(:checkbox_definition) { Fluent::WebElements::CheckBox.new(checkbox_object, :platform => :watir_webdriver) }
 
   describe 'checkbox generators' do
     context 'when declared on a page definition' do
@@ -32,6 +36,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:toggle_checkbox_?)
         watir_definition.should respond_to(:toggle_checkbox!)
       end
+
+      it 'should generate methods for multiple checkboxes' do
+        watir_definition.should respond_to(:item_elements)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -40,6 +48,15 @@ describe Fluent::Generators do
         web_element = watir_definition.toggle_object
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::CheckBox
+      end
+
+      it 'should locate multiple checkboxes' do
+        watir_browser.should_receive(:checkboxes).and_return(watir_browser)
+        watir_browser.should_receive(:[]).and_return(checkbox_definition)
+        watir_browser.should_receive(:map).and_return(watir_browser)
+        web_elements = watir_definition.item_elements
+        web_elements.should_not be_nil
+        web_elements[0].should be_instance_of Fluent::WebElements::CheckBox
       end
 
       it 'should determine if a checkbox is checked' do

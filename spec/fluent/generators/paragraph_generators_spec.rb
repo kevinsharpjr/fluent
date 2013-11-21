@@ -4,11 +4,15 @@ class ParagraphGenerators
   include Fluent
 
   paragraph :purpose, id: 'purpose'
+  paragraphs :content, id: 'content'
 end
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { ParagraphGenerators.new(watir_browser) }
+
+  let(:paragraph_object) { double('paragraph_object') }
+  let(:paragraph_definition) { Fluent::WebElements::Paragraph.new(paragraph_object, :platform => :watir_webdriver) }
 
   describe 'paragraph generators' do
     context 'when declared on a page definition' do
@@ -29,6 +33,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:purpose_paragraph?)
         watir_definition.should respond_to(:purpose_paragraph_?)
       end
+
+      it 'should generate methods for multiple paragraphs' do
+        watir_definition.should respond_to(:content_elements)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -37,6 +45,15 @@ describe Fluent::Generators do
         web_element = watir_definition.purpose_object
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::Paragraph
+      end
+
+      it 'should locate multiple paragraphs' do
+        watir_browser.should_receive(:ps).and_return(watir_browser)
+        watir_browser.should_receive(:[]).and_return(paragraph_definition)
+        watir_browser.should_receive(:map).and_return(watir_browser)
+        web_elements = watir_definition.content_elements
+        web_elements.should_not be_nil
+        web_elements[0].should be_instance_of Fluent::WebElements::Paragraph
       end
 
       it 'should return the text of a paragraph' do

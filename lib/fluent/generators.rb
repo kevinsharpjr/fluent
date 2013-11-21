@@ -301,12 +301,24 @@ module Fluent
     ELEMENT_LIST = [:text_field, :text_area, :select_list, :checkbox, :radio,
                     :link, :button, :table, :cell, :div, :span, :image,
                     :list_item, :ordered_list, :unordered_list, :form,
-                    :h1, :h2, :h3, :h4, :h5, :h6, :paragraph, :label]
+                    :h1, :h2, :h3, :h4, :h5, :h6, :paragraph, :label, :hidden]
     
     def self.generate_locators(caller)
       ELEMENT_LIST.each do |element|
         caller.send(:define_method, "#{element.to_s}_locate") do |*locator|
           @platform.send "#{element.to_s}", locate_by(locator)
+        end
+      end
+    end
+    
+    element_set = ELEMENT_LIST.clone
+    element_set[element_set.find_index(:checkbox)] = :checkboxe
+    element_set.each do |selector|
+      define_method("#{selector}s") do |identifier, *locator|
+        define_method("#{identifier}_elements") do
+          platform_method = "#{selector.to_s}s" unless selector == :checkboxe
+          platform_method = "checkboxes" if selector == :checkboxe
+          platform.send platform_method, (locator.first ? locator.first.clone : {})
         end
       end
     end

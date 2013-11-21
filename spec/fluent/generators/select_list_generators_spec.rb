@@ -4,11 +4,15 @@ class SelectListGenerators
   include Fluent
 
   select_list :list, id: 'list'
+  select_lists :book, class: 'book'
 end
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { SelectListGenerators.new(watir_browser) }
+
+  let(:select_list_object) { double('select_list_object') }
+  let(:select_list_definition) { Fluent::WebElements::SelectList.new(select_list_object, :platform => :watir_webdriver) }
 
   describe 'select list generators' do
     context 'when declared on a page definition' do
@@ -33,6 +37,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:list_select_list_?)
         watir_definition.should respond_to(:list_select_list!)
       end
+
+      it 'should generate methods for multiple select lists' do
+        watir_definition.should respond_to(:book_elements)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -41,6 +49,15 @@ describe Fluent::Generators do
         web_element = watir_definition.list_object
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::SelectList
+      end
+
+      it 'should locate multiple select lists' do
+        watir_browser.should_receive(:select_lists).and_return(watir_browser)
+        watir_browser.should_receive(:[]).and_return(select_list_definition)
+        watir_browser.should_receive(:map).and_return(watir_browser)
+        web_elements = watir_definition.book_elements
+        web_elements.should_not be_nil
+        web_elements[0].should be_instance_of Fluent::WebElements::SelectList
       end
 
       it 'should select an option from the select list' do

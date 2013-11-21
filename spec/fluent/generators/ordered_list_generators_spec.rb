@@ -5,11 +5,15 @@ class OrderedListGenerators
   
   ol :list_short, id: 'list1'
   ordered_list :list, id: 'list2'
+  ordered_lists :facts, class: 'facts'
 end
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { OrderedListGenerators.new(watir_browser) }
+
+  let(:ordered_list_object) { double('ordered_list_object') }
+  let(:ordered_list_definition) { Fluent::WebElements::OrderedList.new(ordered_list_object, :platform => :watir_webdriver) }
 
   describe 'ordered list generators' do
     context 'when declared on a page definition' do
@@ -31,6 +35,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:list_ol?)
         watir_definition.should respond_to(:list_ol_?)
       end
+
+      it 'should generate methods for multiple ordered lists' do
+        watir_definition.should respond_to(:facts_elements)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -39,6 +47,15 @@ describe Fluent::Generators do
         web_element = watir_definition.list_ordered_list
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::OrderedList
+      end
+
+      it 'should locate multiple ordered lists' do
+        watir_browser.should_receive(:ols).and_return(watir_browser)
+        watir_browser.should_receive(:[]).and_return(ordered_list_definition)
+        watir_browser.should_receive(:map).and_return(watir_browser)
+        web_elements = watir_definition.facts_elements
+        web_elements.should_not be_nil
+        web_elements[0].should be_instance_of Fluent::WebElements::OrderedList
       end
 
       it 'should return the text of a ordered list' do
