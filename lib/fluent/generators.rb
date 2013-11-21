@@ -308,6 +308,10 @@ module Fluent
         caller.send(:define_method, "#{element.to_s}_locate") do |*locator|
           @platform.send "#{element.to_s}", locate_by(locator)
         end
+        
+        caller.send(:define_method, "#{element.to_s}_elements") do |*locator|
+          @platform.send("#{element}s", locator[0] ? locator[0] : {})
+        end
       end
     end
     

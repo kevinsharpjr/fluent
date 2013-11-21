@@ -150,6 +150,8 @@ module Fluent
           reference_web_elements('checkboxes(locator)', WebElements::CheckBox, locator)
         end
         
+        alias_method :checkboxs, :checkboxes
+        
         def checkbox_check_state(locator)
           access_web_element('checkbox(locator).set?', locator)
         end
