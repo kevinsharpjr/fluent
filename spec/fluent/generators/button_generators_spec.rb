@@ -4,12 +4,16 @@ class ButtonGenerators
   include Fluent
 
   button :submit, id: 'submit'
+  buttons :navigate, class: 'nav'
 end
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { ButtonGenerators.new(watir_browser) }
 
+  let(:button_object) { double('button_object') }
+  let(:button_definition) { Fluent::WebElements::Button.new(button_object, :platform => :watir_webdriver) }
+  
   describe 'button generators' do
     context 'when declared on a page definition' do
       it 'should generate methods for referencing the button' do
@@ -33,6 +37,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:submit_button_?)
         watir_definition.should respond_to(:submit_button!)
       end
+
+      it 'should generate methods for multiple buttons' do
+        watir_definition.should respond_to(:navigate_elements)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -43,6 +51,15 @@ describe Fluent::Generators do
         web_element.should be_instance_of Fluent::WebElements::Button
       end
 
+      it 'should locate multiple buttons' do
+        watir_browser.should_receive(:buttons).and_return(watir_browser)
+        watir_browser.should_receive(:[]).and_return(button_definition)
+        watir_browser.should_receive(:map).and_return(watir_browser)
+        web_elements = watir_definition.navigate_elements
+        web_elements.should_not be_nil
+        web_elements[0].should be_instance_of Fluent::WebElements::Button
+      end
+      
       it 'should click the button' do
         watir_browser.should_receive(:button).and_return(watir_browser)
         watir_browser.should_receive(:click)

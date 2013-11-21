@@ -4,12 +4,16 @@ class TextFieldGenerators
   include Fluent
 
   text_field :name, id: 'name'
+  text_fields :signup, class: 'signup'
 end
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { TextFieldGenerators.new(watir_browser) }
 
+  let(:text_field_object) { double('text_field_object') }
+  let(:text_field_definition) { Fluent::WebElements::TextField.new(text_field_object, :platform => :watir_webdriver) }
+  
   describe 'text field generators' do
     context 'when declared on a page definition' do
       it 'should generate methods for referencing the text field' do
@@ -31,6 +35,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:name_text_field_?)
         watir_definition.should respond_to(:name_text_field!)
       end
+
+      it 'should generate methods for multiple text fields' do
+        watir_definition.should respond_to(:signup_elements)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -41,6 +49,15 @@ describe Fluent::Generators do
         web_element.should be_instance_of Fluent::WebElements::TextField
       end
 
+      it 'should locate multiple text field' do
+        watir_browser.should_receive(:text_fields).and_return(watir_browser)
+        watir_browser.should_receive(:[]).and_return(text_field_definition)
+        watir_browser.should_receive(:map).and_return(watir_browser)
+        web_elements = watir_definition.signup_elements
+        web_elements.should_not be_nil
+        web_elements[0].should be_instance_of Fluent::WebElements::TextField
+      end
+      
       it 'should enter text into a text field' do
         watir_browser.should_receive(:text_field).and_return(watir_browser)
         watir_browser.should_receive(:set).with('testing')

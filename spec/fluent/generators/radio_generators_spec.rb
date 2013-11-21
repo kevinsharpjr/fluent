@@ -4,11 +4,15 @@ class RadioGenerators
   include Fluent
 
   radio :female, name: 'gender'
+  radios :group, id: 'group'
 end
 
 describe Fluent::Generators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { RadioGenerators.new(watir_browser) }
+
+  let(:radio_object) { double('radio_object') }
+  let(:radio_definition) { Fluent::WebElements::Radio.new(radio_object, :platform => :watir_webdriver) }
 
   describe 'radio generators' do
     context 'when declared on a page definition' do
@@ -33,6 +37,10 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:female_radio_?)
         watir_definition.should respond_to(:female_radio!)
       end
+
+      it 'should generate methods for multiple radios' do
+        watir_definition.should respond_to(:group_elements)
+      end
     end
 
     context 'when used by the watir platform' do
@@ -41,6 +49,15 @@ describe Fluent::Generators do
         web_element = watir_definition.female_radio
         web_element.should_not be_nil
         web_element.should be_instance_of Fluent::WebElements::Radio
+      end
+
+      it 'should locate multiple radios' do
+        watir_browser.should_receive(:radios).and_return(watir_browser)
+        watir_browser.should_receive(:[]).and_return(radio_definition)
+        watir_browser.should_receive(:map).and_return(watir_browser)
+        web_elements = watir_definition.group_elements
+        web_elements.should_not be_nil
+        web_elements[0].should be_instance_of Fluent::WebElements::Radio
       end
 
       it 'should determine if a radio is set' do
