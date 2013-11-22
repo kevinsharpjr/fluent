@@ -22,7 +22,7 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:logo_image)
       end
 
-      it 'should generate methods for interacting with the image' do
+      it 'should generate the common actions for checking the image' do
         watir_definition.should respond_to(:logo_exists?)
         watir_definition.should respond_to(:logo_visible?)
         watir_definition.should respond_to(:logo?)
@@ -32,7 +32,15 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:logo_image?)
         watir_definition.should respond_to(:logo_image_?)
       end
-
+      
+      it 'should generate specific methods for interacting with the image' do
+        watir_definition.should respond_to(:logo_loaded?)
+        watir_definition.should respond_to(:logo_height)
+        watir_definition.should respond_to(:logo_width)
+        watir_definition.should respond_to(:logo_src)
+        watir_definition.should respond_to(:logo_alt)
+      end
+      
       it 'should generate methods for multiple images' do
         watir_definition.should respond_to(:headers_elements)
       end
@@ -54,6 +62,39 @@ describe Fluent::Generators do
         web_elements.should_not be_nil
         web_elements[0].should be_instance_of Fluent::WebElements::Image
       end
+      
+      it 'should check if the image is loaded' do
+        watir_browser.should_receive(:image).and_return(image_definition)
+        image_object.should_receive(:loaded?).and_return(true)
+        watir_definition.logo_loaded?
+      end
+      
+      it 'should return the height of the image' do
+        watir_browser.should_receive(:image).and_return(image_definition)
+        image_object.should_receive(:height).twice.and_return(120)
+        watir_definition.logo_height
+        image_definition.height.should == 120
+      end
+      
+      it 'should return the width of the image' do
+        watir_browser.should_receive(:image).and_return(image_definition)
+        image_object.should_receive(:width).twice.and_return(100)
+        watir_definition.logo_width
+        image_definition.width.should == 100
+      end
+      
+      it 'should return the src attribute of the image' do
+        image_object.should_receive(:attribute_value).with("src")
+        watir_browser.should_receive(:image).and_return(image_object)
+        watir_definition.logo_src
+      end
+      
+      it 'should return the alt attribute of the image' do
+        image_object.should_receive(:attribute_value).with("alt")
+        watir_browser.should_receive(:image).and_return(image_object)
+        watir_definition.logo_alt
+      end
+      
     end
   end
 end

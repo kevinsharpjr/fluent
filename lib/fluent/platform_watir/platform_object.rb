@@ -408,6 +408,18 @@ module Fluent
           reference_web_elements('images(locator)', WebElements::Image, locator)
         end
         
+        def image_action(locator, action)
+          access_web_element("image(locator).#{action}", locator)
+        end
+        
+        def image_get_source(locator)
+          access_web_element("image(locator).attribute_value('src')", locator)
+        end
+        
+        def image_get_alt_text(locator)
+          access_web_element("image(locator).attribute_value('alt')", locator)
+        end
+        
         alias_method :radio_button, :radio
         alias_method :textarea, :text_area
         alias_method :textfield, :text_field

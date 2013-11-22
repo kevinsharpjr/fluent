@@ -236,6 +236,30 @@ module Fluent
     end
     
     def image(identifier, locator)
+      define_method("#{identifier}_loaded?") do
+        return platform.image_action(locator.clone, 'loaded?')
+      end
+
+      define_method("#{identifier}_height") do
+        return platform.image_action(locator.clone, 'height')
+      end
+
+      define_method("#{identifier}_width") do
+        return platform.image_action(locator.clone, 'width')
+      end
+
+      define_method("#{identifier}_dimensions") do
+        return platform.image_get_dimensions(locator.clone)
+      end
+
+      define_method("#{identifier}_src") do
+        return platform.image_get_source(locator.clone)
+      end
+
+      define_method("#{identifier}_alt") do
+        return platform.image_get_alt_text(locator.clone)
+      end
+      
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'img')
     end
