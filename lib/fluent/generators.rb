@@ -124,10 +124,14 @@ module Fluent
       define_method("check_#{identifier}") do
         return platform.checkbox_check(locator.clone)
       end
-
+      
+      alias_method "#{identifier}_check".to_sym, "check_#{identifier}".to_sym
+      
       define_method("uncheck_#{identifier}") do
         return platform.checkbox_uncheck(locator.clone)
       end
+
+      alias_method "#{identifier}_uncheck".to_sym, "uncheck_#{identifier}".to_sym
       
       common_definition_methods(identifier, locator, __method__)
     end
@@ -159,11 +163,14 @@ module Fluent
       define_method("select_#{identifier}") do
         return platform.radio_select(locator.clone)
       end
-
+      
+      alias_method "#{identifier}_set".to_sym, "select_#{identifier}".to_sym
+      alias_method "#{identifier}_select".to_sym, "select_#{identifier}".to_sym
+      
       define_method("#{identifier}_selected?") do
         return platform.radio_check_state(locator.clone)
       end
-
+      
       alias_method "#{identifier}_set?".to_sym, "#{identifier}_selected?".to_sym
       alias_method "set_#{identifier}".to_sym, "select_#{identifier}".to_sym
       

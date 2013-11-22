@@ -33,7 +33,7 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:logo_image_?)
       end
       
-      it 'should generate specific methods for interacting with the image' do
+      it 'should generate specific actions for interacting with the image' do
         watir_definition.should respond_to(:logo_loaded?)
         watir_definition.should respond_to(:logo_height)
         watir_definition.should respond_to(:logo_width)
