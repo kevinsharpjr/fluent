@@ -22,20 +22,30 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:submit_button)
       end
 
-      it 'should generate methods for interacting with the button' do
-        watir_definition.should respond_to(:submit)
+      it 'should generate the common actions for checking the button' do
         watir_definition.should respond_to(:submit_exists?)
         watir_definition.should respond_to(:submit_visible?)
-        watir_definition.should respond_to(:submit_enabled?)
         watir_definition.should respond_to(:submit?)
         watir_definition.should respond_to(:submit_?)
-        watir_definition.should respond_to(:submit!)
-        watir_definition.should respond_to(:submit_button_exists?)
-        watir_definition.should respond_to(:submit_button_visible?)
-        watir_definition.should respond_to(:submit_button_enabled?)
         watir_definition.should respond_to(:submit_button?)
         watir_definition.should respond_to(:submit_button_?)
+        watir_definition.should respond_to(:submit_button_exists?)
+        watir_definition.should respond_to(:submit_button_visible?)
+      end
+
+      it 'should generate common actions for enabled state' do
+        watir_definition.should respond_to(:submit_enabled?)
+        watir_definition.should respond_to(:submit!)
         watir_definition.should respond_to(:submit_button!)
+        watir_definition.should respond_to(:submit_button_enabled?)
+      end
+
+      it 'should generate the common action for getting text' do
+        watir_definition.should respond_to(:submit_text)
+      end
+
+      it 'should generate specific actions for interacting with the button' do
+        watir_definition.should respond_to(:submit)
       end
 
       it 'should generate methods for multiple buttons' do
@@ -64,6 +74,12 @@ describe Fluent::Generators do
         watir_browser.should_receive(:button).and_return(watir_browser)
         watir_browser.should_receive(:click)
         watir_definition.submit
+      end
+      
+      it 'should get the text from a button' do
+        watir_browser.should_receive(:button).and_return(watir_browser)
+        watir_browser.should_receive(:text).and_return('Login')
+        watir_definition.submit_text.should == 'Login'
       end
 
       it 'should determine if a button exists' do

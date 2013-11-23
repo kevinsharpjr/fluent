@@ -329,6 +329,12 @@ module Fluent
       alias_method "#{identifier}_#{method}?".to_sym, "#{identifier}_exists?".to_sym
       alias_method "#{identifier}_#{method}_?".to_sym, "#{identifier}_visible?".to_sym
       
+      if Fluent.can_display_text?(method)
+        define_method("#{identifier}_text") do
+          platform.send(method, locator.clone).text
+        end
+      end
+      
       if Fluent.can_be_enabled?(method)
         define_method("#{identifier}_enabled?") do
           platform.send(method, locator.clone).enabled?
