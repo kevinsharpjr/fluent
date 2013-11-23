@@ -22,18 +22,29 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:name_text_field)
       end
 
-      it 'should generate methods for interacting with the text field' do
-        watir_definition.should respond_to(:name)
-        watir_definition.should respond_to(:name=)
+      it 'should generate the common actions for checking the text field' do
         watir_definition.should respond_to(:name_exists?)
         watir_definition.should respond_to(:name_visible?)
-        watir_definition.should respond_to(:name_enabled?)
         watir_definition.should respond_to(:name?)
         watir_definition.should respond_to(:name_?)
-        watir_definition.should respond_to(:name!)
         watir_definition.should respond_to(:name_text_field?)
         watir_definition.should respond_to(:name_text_field_?)
+        watir_definition.should respond_to(:name_text_field_exists?)
+        watir_definition.should respond_to(:name_text_field_visible?)
+      end
+
+      it 'should generate common actions for enabled state' do
+        watir_definition.should respond_to(:name_enabled?)
+        watir_definition.should respond_to(:name!)
         watir_definition.should respond_to(:name_text_field!)
+        watir_definition.should respond_to(:name_text_field_enabled?)
+      end
+
+      it 'should generate specific actions for interacting with the text field' do
+        watir_definition.should respond_to(:name)
+        watir_definition.should respond_to(:name=)
+        watir_definition.should respond_to(:name_set)
+        watir_definition.should respond_to(:name_get)
       end
 
       it 'should generate methods for multiple text fields' do
@@ -59,15 +70,17 @@ describe Fluent::Generators do
       end
       
       it 'should enter text into a text field' do
-        watir_browser.should_receive(:text_field).and_return(watir_browser)
-        watir_browser.should_receive(:set).with('testing')
+        watir_browser.should_receive(:text_field).twice.and_return(watir_browser)
+        watir_browser.should_receive(:set).twice.with('testing')
         watir_definition.name = 'testing'
+        watir_definition.name_set 'testing'
       end
 
       it 'should retrieve text from the text field' do
-        watir_browser.should_receive(:text_field).and_return(watir_browser)
-        watir_browser.should_receive(:value).and_return('testing')
+        watir_browser.should_receive(:text_field).twice.and_return(watir_browser)
+        watir_browser.should_receive(:value).twice.and_return('testing')
         watir_definition.name.should == 'testing'
+        watir_definition.name_get.should == 'testing'
       end
 
       it 'should determine if a text field exists' do

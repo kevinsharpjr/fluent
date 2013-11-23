@@ -95,9 +95,13 @@ module Fluent
         return platform.text_field_get(locator.clone)
       end
       
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
+      
       define_method("#{identifier}=") do |value|
         return platform.text_field_set(locator.clone, value)
       end
+      
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'textfield')
@@ -108,9 +112,13 @@ module Fluent
         return platform.text_area_get(locator.clone)
       end
 
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
+      
       define_method("#{identifier}=") do |value|
         return platform.text_area_set(locator.clone, value)
       end
+
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'textarea')

@@ -22,8 +22,7 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:summary_text_area)
       end
 
-      it 'should generate methods for interacting with the text area' do
-        watir_definition.should respond_to(:summary)
+      it 'should generate the common actions for checking the text field' do
         watir_definition.should respond_to(:summary_exists?)
         watir_definition.should respond_to(:summary_visible?)
         watir_definition.should respond_to(:summary?)
@@ -32,6 +31,22 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:summary_text_area_visible?)
         watir_definition.should respond_to(:summary_text_area?)
         watir_definition.should respond_to(:summary_text_area_?)
+        watir_definition.should respond_to(:summary_text_area_exists?)
+        watir_definition.should respond_to(:summary_text_area_visible?)
+      end
+
+      it 'should generate common actions for enabled state' do
+        watir_definition.should respond_to(:summary_enabled?)
+        watir_definition.should respond_to(:summary!)
+        watir_definition.should respond_to(:summary_text_area!)
+        watir_definition.should respond_to(:summary_text_area_enabled?)
+      end
+
+      it 'should generate specific actions for interacting with the text field' do
+        watir_definition.should respond_to(:summary)
+        watir_definition.should respond_to(:summary=)
+        watir_definition.should respond_to(:summary_set)
+        watir_definition.should respond_to(:summary_get)
       end
 
       it 'should generate methods for multiple text areas' do
@@ -57,15 +72,17 @@ describe Fluent::Generators do
       end
       
       it 'should retrieve text from the text area' do
-        watir_browser.should_receive(:textarea).and_return(watir_browser)
-        watir_browser.should_receive(:value).and_return('testing')
+        watir_browser.should_receive(:textarea).twice.and_return(watir_browser)
+        watir_browser.should_receive(:value).twice.and_return('testing')
         watir_definition.summary.should == 'testing'
+        watir_definition.summary_get.should == 'testing'
       end
 
       it 'should enter text into a text area' do
-        watir_browser.should_receive(:textarea).and_return(watir_browser)
-        watir_browser.should_receive(:set).with('testing')
+        watir_browser.should_receive(:textarea).twice.and_return(watir_browser)
+        watir_browser.should_receive(:set).twice.with('testing')
         watir_definition.summary = 'testing'
+        watir_definition.summary_set 'testing'
       end
     end
   end
