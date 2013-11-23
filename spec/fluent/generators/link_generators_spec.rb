@@ -21,17 +21,24 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:contact_element)
         watir_definition.should respond_to(:contact_link)
       end
-      
-      it 'should generate methods for interacting with the link' do
-        watir_definition.should respond_to(:contact)
+
+      it 'should generate the common actions for checking the link' do
         watir_definition.should respond_to(:contact_exists?)
         watir_definition.should respond_to(:contact_visible?)
         watir_definition.should respond_to(:contact?)
         watir_definition.should respond_to(:contact_?)
-        watir_definition.should respond_to(:contact_link_exists?)
-        watir_definition.should respond_to(:contact_link_visible?)
         watir_definition.should respond_to(:contact_link?)
         watir_definition.should respond_to(:contact_link_?)
+        watir_definition.should respond_to(:contact_link_exists?)
+        watir_definition.should respond_to(:contact_link_visible?)
+      end
+
+      it 'should generate the common action for getting text' do
+        watir_definition.should respond_to(:contact_text)
+      end
+      
+      it 'should generate specific actions for interacting with the link' do
+        watir_definition.should respond_to(:contact)
       end
       
       it 'should generate methods for multiple links' do
@@ -59,6 +66,12 @@ describe Fluent::Generators do
       it 'should click the link' do
         watir_browser.stub_chain(:link, :click)
         watir_definition.contact
+      end
+
+      it 'should retrieve text from the link' do
+        watir_browser.should_receive(:link).and_return(watir_browser)
+        watir_browser.should_receive(:text).and_return('Welcome')
+        watir_definition.contact_text.should == 'Welcome'
       end
 
       it 'should determine if a link exists' do

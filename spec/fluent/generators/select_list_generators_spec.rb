@@ -22,22 +22,33 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:list_select_list)
       end
 
-      it 'should generate methods for interacting with the select list' do
+      it 'should generate the common actions for checking the select list' do
+        watir_definition.should respond_to(:list_exists?)
+        watir_definition.should respond_to(:list_visible?)
+        watir_definition.should respond_to(:list?)
+        watir_definition.should respond_to(:list_?)
+        watir_definition.should respond_to(:list_select_list?)
+        watir_definition.should respond_to(:list_select_list_?)
+        watir_definition.should respond_to(:list_select_list_exists?)
+        watir_definition.should respond_to(:list_select_list_visible?)
+      end
+
+      it 'should generate common actions for enabled state' do
+        watir_definition.should respond_to(:list_enabled?)
+        watir_definition.should respond_to(:list!)
+        watir_definition.should respond_to(:list_select_list!)
+        watir_definition.should respond_to(:list_select_list_enabled?)
+      end
+
+      it 'should generate specific actions for interacting with the select list' do
         watir_definition.should respond_to(:list)
         watir_definition.should respond_to(:list=)
         watir_definition.should respond_to(:list_value?)
         watir_definition.should respond_to(:list_options?)
-        watir_definition.should respond_to(:list_exists?)
-        watir_definition.should respond_to(:list_visible?)
-        watir_definition.should respond_to(:list_enabled?)
-        watir_definition.should respond_to(:list?)
-        watir_definition.should respond_to(:list_?)
-        watir_definition.should respond_to(:list!)
-        watir_definition.should respond_to(:list_select_list?)
-        watir_definition.should respond_to(:list_select_list_?)
-        watir_definition.should respond_to(:list_select_list!)
+        watir_definition.should respond_to(:list_set)
+        watir_definition.should respond_to(:list_get)
       end
-
+      
       it 'should generate methods for multiple select lists' do
         watir_definition.should respond_to(:book_elements)
       end
@@ -61,17 +72,19 @@ describe Fluent::Generators do
       end
 
       it 'should select an option from the select list' do
-        watir_browser.should_receive(:select_list).and_return watir_browser
-        watir_browser.should_receive(:select).with('testing')
+        watir_browser.should_receive(:select_list).twice.and_return watir_browser
+        watir_browser.should_receive(:select).twice.with('testing')
         watir_definition.list = 'testing'
+        watir_definition.list_set 'testing'
       end
 
       it 'should retrieve the current selected option from the select list' do
         selected = 'testing'
-        selected.should_receive(:text).and_return('testing')
-        watir_browser.should_receive(:select_list).and_return(watir_browser)
-        watir_browser.should_receive(:selected_options).and_return([selected])
+        selected.should_receive(:text).twice.and_return('testing')
+        watir_browser.should_receive(:select_list).twice.and_return(watir_browser)
+        watir_browser.should_receive(:selected_options).twice.and_return([selected])
         watir_definition.list.should == 'testing'
+        watir_definition.list_get.should == 'testing'
       end
       
       it 'should retrieve the current value of a selected option' do

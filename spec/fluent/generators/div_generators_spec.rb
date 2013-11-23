@@ -22,16 +22,23 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:section_div)
       end
 
-      it 'should generate methods for interacting with the div' do
-        watir_definition.should respond_to(:section)
+      it 'should generate the common actions for checking the div' do
         watir_definition.should respond_to(:section_exists?)
         watir_definition.should respond_to(:section_visible?)
         watir_definition.should respond_to(:section?)
         watir_definition.should respond_to(:section_?)
-        watir_definition.should respond_to(:section_div_exists?)
-        watir_definition.should respond_to(:section_div_visible?)
         watir_definition.should respond_to(:section_div?)
         watir_definition.should respond_to(:section_div_?)
+        watir_definition.should respond_to(:section_div_exists?)
+        watir_definition.should respond_to(:section_div_visible?)
+      end
+
+      it 'should generate specific actions for interacting with the div' do
+        watir_definition.should respond_to(:section)
+      end
+      
+      it 'should retrieve text from the div' do
+        watir_definition.should respond_to(:section_text)
       end
 
       it 'should generate methods for multiple divs' do

@@ -95,9 +95,13 @@ module Fluent
         return platform.text_field_get(locator.clone)
       end
       
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
+      
       define_method("#{identifier}=") do |value|
         return platform.text_field_set(locator.clone, value)
       end
+      
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'textfield')
@@ -108,9 +112,13 @@ module Fluent
         return platform.text_area_get(locator.clone)
       end
 
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
+      
       define_method("#{identifier}=") do |value|
         return platform.text_area_set(locator.clone, value)
       end
+
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'textarea')
@@ -124,10 +132,14 @@ module Fluent
       define_method("check_#{identifier}") do
         return platform.checkbox_check(locator.clone)
       end
-
+      
+      alias_method "#{identifier}_check".to_sym, "check_#{identifier}".to_sym
+      
       define_method("uncheck_#{identifier}") do
         return platform.checkbox_uncheck(locator.clone)
       end
+
+      alias_method "#{identifier}_uncheck".to_sym, "uncheck_#{identifier}".to_sym
       
       common_definition_methods(identifier, locator, __method__)
     end
@@ -137,12 +149,15 @@ module Fluent
         return platform.select_list_get_selected(locator.clone)
       end
 
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
       alias_method "#{identifier}_option?".to_sym, "#{identifier}".to_sym
       
       define_method("#{identifier}=") do |value|
         return platform.select_list_set(locator.clone, value)
       end
 
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
+      
       define_method("#{identifier}_options?") do
         web_object = self.send("#{identifier}_object")
         (web_object && web_object.options) ? web_object.options.collect(&:text) : []
@@ -159,11 +174,14 @@ module Fluent
       define_method("select_#{identifier}") do
         return platform.radio_select(locator.clone)
       end
-
+      
+      alias_method "#{identifier}_set".to_sym, "select_#{identifier}".to_sym
+      alias_method "#{identifier}_select".to_sym, "select_#{identifier}".to_sym
+      
       define_method("#{identifier}_selected?") do
         return platform.radio_check_state(locator.clone)
       end
-
+      
       alias_method "#{identifier}_set?".to_sym, "#{identifier}_selected?".to_sym
       alias_method "set_#{identifier}".to_sym, "select_#{identifier}".to_sym
       
@@ -236,6 +254,30 @@ module Fluent
     end
     
     def image(identifier, locator)
+      define_method("#{identifier}_loaded?") do
+        return platform.image_action(locator.clone, 'loaded?')
+      end
+
+      define_method("#{identifier}_height") do
+        return platform.image_action(locator.clone, 'height')
+      end
+
+      define_method("#{identifier}_width") do
+        return platform.image_action(locator.clone, 'width')
+      end
+
+      define_method("#{identifier}_dimensions") do
+        return platform.image_get_dimensions(locator.clone)
+      end
+
+      define_method("#{identifier}_src") do
+        return platform.image_get_source(locator.clone)
+      end
+
+      define_method("#{identifier}_alt") do
+        return platform.image_get_alt_text(locator.clone)
+      end
+      
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'img')
     end
@@ -286,6 +328,12 @@ module Fluent
       
       alias_method "#{identifier}_#{method}?".to_sym, "#{identifier}_exists?".to_sym
       alias_method "#{identifier}_#{method}_?".to_sym, "#{identifier}_visible?".to_sym
+      
+      if Fluent.can_display_text?(method)
+        define_method("#{identifier}_text") do
+          platform.send(method, locator.clone).text
+        end
+      end
       
       if Fluent.can_be_enabled?(method)
         define_method("#{identifier}_enabled?") do

@@ -22,20 +22,31 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:female_radio)
       end
 
-      it 'should generate methods for interacting with the radio' do
+      it 'should generate the common actions for checking the radio' do
+        watir_definition.should respond_to(:female_exists?)
+        watir_definition.should respond_to(:female_visible?)
+        watir_definition.should respond_to(:female?)
+        watir_definition.should respond_to(:female_?)
+        watir_definition.should respond_to(:female_radio?)
+        watir_definition.should respond_to(:female_radio_?)
+        watir_definition.should respond_to(:female_radio_exists?)
+        watir_definition.should respond_to(:female_radio_visible?)
+      end
+      
+      it 'should generate common actions for enabled state' do
+        watir_definition.should respond_to(:female_enabled?)
+        watir_definition.should respond_to(:female!)
+        watir_definition.should respond_to(:female_radio!)
+        watir_definition.should respond_to(:female_radio_enabled?)
+      end
+
+      it 'should generate specific actions for interacting with the radio' do
         watir_definition.should respond_to(:select_female)
         watir_definition.should respond_to(:set_female)
         watir_definition.should respond_to(:female_set?)
+        watir_definition.should respond_to(:female_set)
+        watir_definition.should respond_to(:female_select)
         watir_definition.should respond_to(:female_selected?)
-        watir_definition.should respond_to(:female_exists?)
-        watir_definition.should respond_to(:female_visible?)
-        watir_definition.should respond_to(:female_enabled?)
-        watir_definition.should respond_to(:female?)
-        watir_definition.should respond_to(:female_?)
-        watir_definition.should respond_to(:female!)
-        watir_definition.should respond_to(:female_radio?)
-        watir_definition.should respond_to(:female_radio_?)
-        watir_definition.should respond_to(:female_radio!)
       end
 
       it 'should generate methods for multiple radios' do
@@ -68,8 +79,10 @@ describe Fluent::Generators do
       end
 
       it 'should set a radio' do
-        watir_browser.should_receive(:radio).twice.and_return(watir_browser)
-        watir_browser.should_receive(:set).twice.and_return(watir_browser)
+        watir_browser.should_receive(:radio).exactly(4).times.and_return(watir_browser)
+        watir_browser.should_receive(:set).exactly(4).times.and_return(watir_browser)
+        watir_definition.female_set
+        watir_definition.female_select
         watir_definition.select_female
         watir_definition.set_female
       end

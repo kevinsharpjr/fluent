@@ -22,19 +22,30 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:toggle_checkbox)
       end
 
-      it 'should generate methods for interacting with the text checkbox' do
+      it 'should generate the common actions for checking the checkbox' do
+        watir_definition.should respond_to(:toggle_exists?)
+        watir_definition.should respond_to(:toggle_visible?)
+        watir_definition.should respond_to(:toggle?)
+        watir_definition.should respond_to(:toggle_?)
+        watir_definition.should respond_to(:toggle_checkbox?)
+        watir_definition.should respond_to(:toggle_checkbox_?)
+        watir_definition.should respond_to(:toggle_checkbox_exists?)
+        watir_definition.should respond_to(:toggle_checkbox_visible?)
+      end
+
+      it 'should generate common actions for enabled state' do
+        watir_definition.should respond_to(:toggle_enabled?)
+        watir_definition.should respond_to(:toggle!)
+        watir_definition.should respond_to(:toggle_checkbox!)
+        watir_definition.should respond_to(:toggle_checkbox_enabled?)
+      end
+      
+      it 'should generate specific actions for interacting with the checkbox' do
         watir_definition.should respond_to(:toggle_checked?)
         watir_definition.should respond_to(:check_toggle)
         watir_definition.should respond_to(:uncheck_toggle)
-        watir_definition.should respond_to(:toggle_exists?)
-        watir_definition.should respond_to(:toggle_visible?)
-        watir_definition.should respond_to(:toggle_enabled?)
-        watir_definition.should respond_to(:toggle?)
-        watir_definition.should respond_to(:toggle_?)
-        watir_definition.should respond_to(:toggle!)
-        watir_definition.should respond_to(:toggle_checkbox?)
-        watir_definition.should respond_to(:toggle_checkbox_?)
-        watir_definition.should respond_to(:toggle_checkbox!)
+        watir_definition.should respond_to(:toggle_check)
+        watir_definition.should respond_to(:toggle_uncheck)
       end
 
       it 'should generate methods for multiple checkboxes' do
