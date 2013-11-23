@@ -22,7 +22,7 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:summary_text_area)
       end
 
-      it 'should generate the common actions for checking the text field' do
+      it 'should generate the common actions for checking the text area' do
         watir_definition.should respond_to(:summary_exists?)
         watir_definition.should respond_to(:summary_visible?)
         watir_definition.should respond_to(:summary?)
@@ -42,7 +42,7 @@ describe Fluent::Generators do
         watir_definition.should respond_to(:summary_text_area_enabled?)
       end
 
-      it 'should generate specific actions for interacting with the text field' do
+      it 'should generate specific actions for interacting with the text area' do
         watir_definition.should respond_to(:summary)
         watir_definition.should respond_to(:summary=)
         watir_definition.should respond_to(:summary_set)

@@ -149,12 +149,15 @@ module Fluent
         return platform.select_list_get_selected(locator.clone)
       end
 
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
       alias_method "#{identifier}_option?".to_sym, "#{identifier}".to_sym
       
       define_method("#{identifier}=") do |value|
         return platform.select_list_set(locator.clone, value)
       end
 
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
+      
       define_method("#{identifier}_options?") do
         web_object = self.send("#{identifier}_object")
         (web_object && web_object.options) ? web_object.options.collect(&:text) : []
