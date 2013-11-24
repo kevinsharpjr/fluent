@@ -17,23 +17,19 @@ module Fluent
     alias_method :use_values,   :using
     
     def use_text_data_with(key, value)
-      puts "setting text data"
       self.send "#{key}_set", value
     end
     
     def use_check_data_with(key, value)
-      puts "checking data"
       return self.send "#{key}_check" if value
       return self.send "#{key}_uncheck"
     end
     
     def use_select_data_with(key, value)
-      puts "selecting data"
       self.send "#{key}_select" if value
     end
 
     def use_set_data_with(key, value)
-      puts "setting data"
       self.send "set_#{key}" if value
     end    
     
