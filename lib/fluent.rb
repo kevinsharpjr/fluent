@@ -7,6 +7,7 @@ require 'fluent/enclosers'
 require 'fluent/evaluators'
 require 'fluent/generators'
 require 'fluent/locators'
+require 'fluent/data_setter'
 
 require 'watir-webdriver'
 require 'selenium-webdriver'
@@ -17,6 +18,7 @@ module Fluent
   include Evaluators
   include Enclosers
   include Locators
+  include DataSetter
   
   # Browser drivers will be:
   # [Watir::Browser] or [Selenium::WebDriver::Driver]

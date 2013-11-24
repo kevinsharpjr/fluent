@@ -31,7 +31,11 @@ class TestDefinition
   
   look_for :name
   
-  text_field :name, id: 'name'
+  text_field  :name,       id: 'name'
+  text_area   :summary,    id: 'summary'
+  checkbox    :applyTax,   id: 'applyTax'
+  radio       :includeTax, id: 'includeTax'
+  select_list :concepts,   id: 'concepts'
   
   within_frame(id: 'frame') do |frame|
     text_field :framedName, id: 'framedName', frame: frame

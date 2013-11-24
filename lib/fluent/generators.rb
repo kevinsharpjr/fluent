@@ -152,11 +152,11 @@ module Fluent
       alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
       alias_method "#{identifier}_option?".to_sym, "#{identifier}".to_sym
       
-      define_method("#{identifier}=") do |value|
+      define_method("#{identifier}_set") do |value|
         return platform.select_list_set(locator.clone, value)
       end
-
-      alias_method "#{identifier}_set", "#{identifier}=".to_sym
+      
+      alias_method "#{identifier}_select", "#{identifier}_set".to_sym
       
       define_method("#{identifier}_options?") do
         web_object = self.send("#{identifier}_object")
@@ -171,19 +171,15 @@ module Fluent
     end
     
     def radio(identifier, locator)
-      define_method("select_#{identifier}") do
+      define_method("set_#{identifier}") do
         return platform.radio_select(locator.clone)
       end
+
+      alias_method "#{identifier}_set".to_sym, "set_#{identifier}".to_sym
       
-      alias_method "#{identifier}_set".to_sym, "select_#{identifier}".to_sym
-      alias_method "#{identifier}_select".to_sym, "select_#{identifier}".to_sym
-      
-      define_method("#{identifier}_selected?") do
+      define_method("#{identifier}_set?") do
         return platform.radio_check_state(locator.clone)
       end
-      
-      alias_method "#{identifier}_set?".to_sym, "#{identifier}_selected?".to_sym
-      alias_method "set_#{identifier}".to_sym, "select_#{identifier}".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'radio_button')
