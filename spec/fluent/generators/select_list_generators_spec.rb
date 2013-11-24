@@ -42,11 +42,12 @@ describe Fluent::Generators do
 
       it 'should generate specific actions for interacting with the select list' do
         watir_definition.should respond_to(:list)
-        watir_definition.should respond_to(:list=)
+        #watir_definition.should respond_to(:list=)
         watir_definition.should respond_to(:list_value?)
         watir_definition.should respond_to(:list_options?)
         watir_definition.should respond_to(:list_set)
         watir_definition.should respond_to(:list_get)
+        watir_definition.should respond_to(:list_select)
       end
       
       it 'should generate methods for multiple select lists' do
@@ -72,9 +73,8 @@ describe Fluent::Generators do
       end
 
       it 'should select an option from the select list' do
-        watir_browser.should_receive(:select_list).twice.and_return watir_browser
-        watir_browser.should_receive(:select).twice.with('testing')
-        watir_definition.list = 'testing'
+        watir_browser.should_receive(:select_list).and_return watir_browser
+        watir_browser.should_receive(:select).with('testing')
         watir_definition.list_set 'testing'
       end
 
