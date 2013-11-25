@@ -10,8 +10,10 @@ module Fluent
       return default_data_path if self.respond_to? :default_data_path
     end
     
+    # A rescue might be good here for situations where the file
+    # cannot be found.
     def load(file)
-      @data_file = YAML.load_file "#{data_path}/#{file}" 
+      @data_source = YAML.load_file "#{data_path}/#{file}" 
     end
     
   end
