@@ -261,11 +261,7 @@ module Fluent
       define_method("#{identifier}_width") do
         return platform.image_action(locator.clone, 'width')
       end
-
-      define_method("#{identifier}_dimensions") do
-        return platform.image_get_dimensions(locator.clone)
-      end
-
+      
       define_method("#{identifier}_src") do
         return platform.image_get_source(locator.clone)
       end
