@@ -13,10 +13,15 @@ module Fluent
     end
     
     def data_for(key, specified={})
-      record = key.to_s
-      DataBuilder.load('default.yml')
-      
-      puts "DataBuilder.data_source = #{DataBuilder.data_source}"
+      if key.is_a?(String) && key.match(%r{/})
+        file, record = key.split('/')
+        DataBuilder.load("#{file}.yml")
+      else
+        record = key.to_s
+        DataBuilder.load('default.yml') #unless DataBuilder.data_source
+      end
+
+      Fluent::trace("DataBuilder.data_source = #{DataBuilder.data_source}")
       
       data = DataBuilder.data_source[record]
       raise ArgumentError, "Undefined key for data: #{key}" unless data
