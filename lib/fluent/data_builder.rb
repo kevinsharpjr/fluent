@@ -3,8 +3,6 @@ require 'fluent/data_reader'
 module Fluent
   module DataBuilder
     extend DataReader
-
-    # http://www.cheezyworld.com/2012/02/23/page-object-0-6-2-released/
     
     class << self
       attr_accessor :data_source
@@ -14,7 +12,7 @@ module Fluent
       'common/data'
     end
     
-    def data_for(key, data={})
+    def data_for(key, specified={})
       record = key.to_s
       DataBuilder.load('default.yml')
       
@@ -22,7 +20,8 @@ module Fluent
       
       data = DataBuilder.data_source[record]
       raise ArgumentError, "Undefined key for data: #{key}" unless data
-      data
+      
+      data.merge(specified)
     end
     
     alias_method :data_from,       :data_for

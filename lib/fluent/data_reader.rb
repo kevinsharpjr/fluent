@@ -10,8 +10,9 @@ module Fluent
       return default_data_path if self.respond_to? :default_data_path
     end
     
-    # A rescue might be good here for situations where the file
-    # cannot be found.
+    # The data_source name here must match the name used for the
+    # class accessor in the data builder. It is this data_source
+    # variable that connects the reader and the builder.
     def load(file)
       @data_source = YAML.load_file "#{data_path}/#{file}" 
     end
