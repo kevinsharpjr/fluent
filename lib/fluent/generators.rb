@@ -95,9 +95,13 @@ module Fluent
         return platform.text_field_get(locator.clone)
       end
       
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
+      
       define_method("#{identifier}=") do |value|
         return platform.text_field_set(locator.clone, value)
       end
+      
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'textfield')
@@ -108,9 +112,13 @@ module Fluent
         return platform.text_area_get(locator.clone)
       end
 
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
+      
       define_method("#{identifier}=") do |value|
         return platform.text_area_set(locator.clone, value)
       end
+
+      alias_method "#{identifier}_set", "#{identifier}=".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'textarea')
@@ -124,10 +132,14 @@ module Fluent
       define_method("check_#{identifier}") do
         return platform.checkbox_check(locator.clone)
       end
-
+      
+      alias_method "#{identifier}_check".to_sym, "check_#{identifier}".to_sym
+      
       define_method("uncheck_#{identifier}") do
         return platform.checkbox_uncheck(locator.clone)
       end
+
+      alias_method "#{identifier}_uncheck".to_sym, "uncheck_#{identifier}".to_sym
       
       common_definition_methods(identifier, locator, __method__)
     end
@@ -137,12 +149,15 @@ module Fluent
         return platform.select_list_get_selected(locator.clone)
       end
 
+      alias_method "#{identifier}_get".to_sym, "#{identifier}".to_sym
       alias_method "#{identifier}_option?".to_sym, "#{identifier}".to_sym
       
-      define_method("#{identifier}=") do |value|
+      define_method("#{identifier}_set") do |value|
         return platform.select_list_set(locator.clone, value)
       end
-
+      
+      alias_method "#{identifier}_select", "#{identifier}_set".to_sym
+      
       define_method("#{identifier}_options?") do
         web_object = self.send("#{identifier}_object")
         (web_object && web_object.options) ? web_object.options.collect(&:text) : []
@@ -156,16 +171,15 @@ module Fluent
     end
     
     def radio(identifier, locator)
-      define_method("select_#{identifier}") do
+      define_method("set_#{identifier}") do
         return platform.radio_select(locator.clone)
       end
 
-      define_method("#{identifier}_selected?") do
+      alias_method "#{identifier}_set".to_sym, "set_#{identifier}".to_sym
+      
+      define_method("#{identifier}_set?") do
         return platform.radio_check_state(locator.clone)
       end
-
-      alias_method "#{identifier}_set?".to_sym, "#{identifier}_selected?".to_sym
-      alias_method "set_#{identifier}".to_sym, "select_#{identifier}".to_sym
       
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'radio_button')
@@ -236,6 +250,26 @@ module Fluent
     end
     
     def image(identifier, locator)
+      define_method("#{identifier}_loaded?") do
+        return platform.image_action(locator.clone, 'loaded?')
+      end
+
+      define_method("#{identifier}_height") do
+        return platform.image_action(locator.clone, 'height')
+      end
+
+      define_method("#{identifier}_width") do
+        return platform.image_action(locator.clone, 'width')
+      end
+      
+      define_method("#{identifier}_src") do
+        return platform.image_get_source(locator.clone)
+      end
+
+      define_method("#{identifier}_alt") do
+        return platform.image_get_alt_text(locator.clone)
+      end
+      
       common_definition_methods(identifier, locator, __method__)
       common_definition_methods(identifier, locator, 'img')
     end
@@ -250,18 +284,6 @@ module Fluent
         common_definition_methods(identifier, locator, method)
       end
     end
-    
-    #def h1(identifier, locator)
-      
-    #end
-
-    #def h2(identifier, locator)
-      
-    #end
-
-    #def h3(identifier, locator)
-      
-    #end
     
     alias_method :radio_button, :radio
     alias_method :textarea, :text_area
@@ -299,6 +321,12 @@ module Fluent
       alias_method "#{identifier}_#{method}?".to_sym, "#{identifier}_exists?".to_sym
       alias_method "#{identifier}_#{method}_?".to_sym, "#{identifier}_visible?".to_sym
       
+      if Fluent.can_display_text?(method)
+        define_method("#{identifier}_text") do
+          platform.send(method, locator.clone).text
+        end
+      end
+      
       if Fluent.can_be_enabled?(method)
         define_method("#{identifier}_enabled?") do
           platform.send(method, locator.clone).enabled?
@@ -307,6 +335,35 @@ module Fluent
         alias_method "#{identifier}!".to_sym, "#{identifier}_enabled?".to_sym
         alias_method "#{identifier}_#{method}_enabled?".to_sym, "#{identifier}_enabled?".to_sym
         alias_method "#{identifier}_#{method}!".to_sym, "#{identifier}_exists?".to_sym
+      end
+    end
+    
+    ELEMENT_LIST = [:text_field, :text_area, :select_list, :checkbox, :radio,
+                    :link, :button, :table, :cell, :div, :span, :image,
+                    :list_item, :ordered_list, :unordered_list, :form,
+                    :h1, :h2, :h3, :h4, :h5, :h6, :paragraph, :label, :hidden]
+    
+    def self.generate_locators(caller)
+      ELEMENT_LIST.each do |element|
+        caller.send(:define_method, "#{element.to_s}_locate") do |*locator|
+          @platform.send "#{element.to_s}", locate_by(locator)
+        end
+        
+        caller.send(:define_method, "#{element.to_s}_elements") do |*locator|
+          @platform.send("#{element}s", locator[0] ? locator[0] : {})
+        end
+      end
+    end
+    
+    element_set = ELEMENT_LIST.clone
+    element_set[element_set.find_index(:checkbox)] = :checkboxe
+    element_set.each do |selector|
+      define_method("#{selector}s") do |identifier, *locator|
+        define_method("#{identifier}_elements") do
+          platform_method = "#{selector.to_s}s" unless selector == :checkboxe
+          platform_method = "checkboxes" if selector == :checkboxe
+          platform.send platform_method, (locator.first ? locator.first.clone : {})
+        end
       end
     end
     

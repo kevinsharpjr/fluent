@@ -1,6 +1,21 @@
 Change Log and History
 ======================
 
+Version 0.6.0 / 2013-11-26
+--------------------------
+
+This release introduces a few new features:
+
+* The ability go handle multiple elements is now in place. This allows you to get a collection of elements, such as "all links on a page" or "all text fields with a class of 'signup'" and so on.
+
+* The ability to make direct locator calls for elements that are not declared on a page definition is now in place. This allows you to directly use the same kind of locator feature that watir-webdriver provides.
+
+* A data setter module has been added, which will allow you to have data collections specified on a page or activity definition and then use those data collections as the basis for default data that is supplied to actions. That default data can be overridden.
+
+* A data builder module has been added, which allows test data to be extracted from YAML files. Data sets can be given "friendly" names, which correspond to key names in the .yml files. The data builder and data setter modules have been designed to work together to make it easier to specify data conditions as part of actions taking place in the context of a page or activity definition.
+
+* The generators module has been cleaned up a bit to allow for more streamlined actions on elements. For example, only select lists now allow the "select_" prefix or "_select" suffix. Radio buttons alone can have a "set_" prefix. Text fields and select lists now can respond to "_get" and "_set" suffixes, to allow for more consistency of expression.
+
 Version 0.5.0 / 2013-11-17
 --------------------------
 

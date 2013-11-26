@@ -6,6 +6,9 @@ require 'fluent/platforms'
 require 'fluent/enclosers'
 require 'fluent/evaluators'
 require 'fluent/generators'
+require 'fluent/locators'
+require 'fluent/data_setter'
+require 'fluent/data_builder'
 
 require 'watir-webdriver'
 require 'selenium-webdriver'
@@ -15,6 +18,9 @@ module Fluent
   include Platforms
   include Evaluators
   include Enclosers
+  include Locators
+  include DataSetter
+  include DataBuilder
   
   # Browser drivers will be:
   # [Watir::Browser] or [Selenium::WebDriver::Driver]
@@ -88,11 +94,20 @@ module Fluent
   end
   
   def self.can_be_enabled
-    @can_be_enabled ||= [:button, :text_field, :checkbox, :select_list, :radio]
+    @can_be_enabled ||= [:button, :text_field, :text_area, :checkbox, :select_list, :radio]
+  end
+  
+  def self.can_display_text
+    @can_display_text ||= [:button, :link, :list_item, :ordered_list, :unordered_list,
+                           :label, :div, :span, :cell, :table, :h1, :h2, :h3, :h4, :h5, :h6]
   end
   
   def self.can_be_enabled?(method)
     can_be_enabled.include? method.to_sym
+  end
+  
+  def self.can_display_text?(method)
+    can_display_text.include? method.to_sym
   end
   
   private

@@ -15,6 +15,14 @@ def mock_browser_for_selenium
   selenium_browser
 end
 
+def mock_browser_for_mechanize
+  mechanize_browser = double('mechanize')
+  mechanize_browser.stub(:is_a?).with(Watir::Browser).and_return(false)
+  mechanize_browser.stub(:is_a?).with(Selenium::WebDriver::Driver).and_return(false)
+  mechanize_browser.stub(:is_a?).with(Mechanize).and_return(true)
+  mechanize_browser
+end
+
 class TestDefinition
   include Fluent
 
@@ -23,7 +31,11 @@ class TestDefinition
   
   look_for :name
   
-  text_field :name, id: 'name'
+  text_field  :name,       id: 'name'
+  text_area   :summary,    id: 'summary'
+  checkbox    :applyTax,   id: 'applyTax'
+  radio       :includeTax, id: 'includeTax'
+  select_list :concepts,   id: 'concepts'
   
   within_frame(id: 'frame') do |frame|
     text_field :framedName, id: 'framedName', frame: frame
