@@ -7,12 +7,8 @@ module Fluent
     # file. The key will be treated as a method. Since no such method
     # will exist, the method_missing call will handle finding the key
     # in a file.
-    #
-    # Concern: This will get called for *anything* that makes a call to
-    # something that may be a method and that is not found. Not sure if
-    # this will be a performance issue.
     def method_missing(*args, &block)
-      Fluent::DataConfig.load 'config-data.yml' unless @data_source
+      determine_data_source unless @data_source
       
       key = args.first
       #puts "@data_source = #{@data_source}"
@@ -20,12 +16,22 @@ module Fluent
       value = @data_source[key.to_s]
       value = args[1] unless value
       
-      puts "value = #{value}"
-      puts "args[1] = #{args[1]}"
+      #puts "value = #{value}"
+      #puts "args[1] = #{args[1]}"
       
       value
     end
-
+    
+    def determine_data_source
+      @data_source = nil
+      @data_source = YAML.load_file "#{data_path}/#{ENV['FLUENT_CONFIG_FILE']}" if ENV['FLUENT_CONFIG_FILE']
+      
+      #puts "Data path: #{data_path}"
+      #puts "Data source: #{@data_source}"
+      
+      Fluent::DataConfig.load 'config-data.yml' if @data_source.nil?
+    end
+    
   end
 
   module DataConfig
