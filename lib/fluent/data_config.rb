@@ -12,12 +12,14 @@ module Fluent
     # something that may be a method and that is not found. Not sure if
     # this will be a performance issue.
     def method_missing(*args, &block)
+      Fluent::DataConfig.load 'config-data.yml' unless @data_source
+      
       key = args.first
-      puts "@data_source = #{@data_source}" unless @data_source.empty?
+      puts "@data_source = #{@data_source}"
 
       value = @data_source[key.to_s]
-
-      puts "value = #{value}" unless value.empty?
+      
+      puts "value = #{value}"
       
       value
     end
@@ -38,5 +40,5 @@ module Fluent
     
   end
 
-
+  
 end
