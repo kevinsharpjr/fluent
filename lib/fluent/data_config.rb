@@ -11,23 +11,20 @@ module Fluent
       determine_data_source unless @data_source
       
       key = args.first
-      #puts "@data_source = #{@data_source}"
 
       value = @data_source[key.to_s]
       value = args[1] unless value
       
-      #puts "value = #{value}"
-      #puts "args[1] = #{args[1]}"
-      
       value
     end
     
+    # Determines what data source to use. If this is being called, it
+    # means no data source was specified. If an environment variable
+    # has been set, that will be used. If no data source can be
+    # established, a default data file will be referenced.
     def determine_data_source
       @data_source = nil
       @data_source = YAML.load_file "#{data_path}/#{ENV['FLUENT_CONFIG_FILE']}" if ENV['FLUENT_CONFIG_FILE']
-      
-      #puts "Data path: #{data_path}"
-      #puts "Data source: #{@data_source}"
       
       Fluent::DataConfig.load 'config-data.yml' if @data_source.nil?
     end
