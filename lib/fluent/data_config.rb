@@ -15,11 +15,13 @@ module Fluent
       Fluent::DataConfig.load 'config-data.yml' unless @data_source
       
       key = args.first
-      puts "@data_source = #{@data_source}"
+      #puts "@data_source = #{@data_source}"
 
       value = @data_source[key.to_s]
+      value = args[1] unless value
       
       puts "value = #{value}"
+      puts "args[1] = #{args[1]}"
       
       value
     end
