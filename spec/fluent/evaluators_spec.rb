@@ -81,8 +81,13 @@ describe Fluent::Evaluators do
         watir_browser.should_receive(:wait_until).with(30, nil)
         watir_definition.wait_until
       end
-      
-      
+
+      it 'should return the web element that has focus' do
+        watir_browser.should_receive(:execute_script).and_return(watir_browser)
+        watir_browser.should_receive(:tag_name).twice.and_return(:input)
+        watir_browser.should_receive(:type).and_return(:submit)
+        watir_definition.focused.class.should == Fluent::WebElements::Button
+      end
     end
   end
 end

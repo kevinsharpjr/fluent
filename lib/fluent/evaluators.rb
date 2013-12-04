@@ -47,6 +47,12 @@ module Fluent
       sleep value
     end
     
+    def focused
+      platform.focused
+    end
+
+    alias_method :what_has_focus?, :focused
+    
     # Attempts to wait for pending jQuery requests and indicate if the
     # requests did not occur in a given time period.
     #
