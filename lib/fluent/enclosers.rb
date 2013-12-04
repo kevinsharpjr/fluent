@@ -43,7 +43,10 @@ module Fluent
     def within_window(locator, &block)
       platform.within_window(locator, &block)
     end
-
+    
+    alias_method :select_window, :within_window
+    alias_method :attach_to, :within_window
+    
     # Used to identify a web element as existing within an enclosing object
     # like a modal dialog box. What this does is override the normal call to
     # showModalDialog and opens a window instead. In order to use this new
