@@ -7,6 +7,12 @@ describe Fluent::Evaluators do
   
   describe 'browser-level actions' do
     context 'a definition using watir-webdriver' do
+      it 'should visit a page' do
+        watir_browser.should_receive(:goto).twice.with('http://localhost:9292')
+        watir_definition.visit('http://localhost:9292')
+        watir_definition.navigate_to('http://localhost:9292')
+      end
+      
       it 'should get the active url' do
         watir_browser.should_receive(:url).twice.and_return('http://localhost:9292')
         watir_definition.url.should == 'http://localhost:9292'

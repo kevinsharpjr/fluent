@@ -2,6 +2,12 @@ module Fluent
   module Evaluators
 
     ## Browser-Level Actions ##
+
+    def visit(url)
+      platform.visit(url)
+    end
+
+    alias_method :navigate_to, :visit
     
     def url
       platform.url
