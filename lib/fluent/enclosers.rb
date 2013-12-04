@@ -43,5 +43,21 @@ module Fluent
     def within_window(locator, &block)
       platform.within_window(locator, &block)
     end
+
+    # Used to identify a web element as existing within an enclosing object
+    # like a modal dialog box. What this does is override the normal call to
+    # showModalDialog and opens a window instead. In order to use this new
+    # window, you have to attach to it.
+    def within_modal(&block)
+      convert_modal_to_window = %Q{
+        window.showModalDialog = function(sURL, vArguments, sFeatures) {
+          window.dialogArguments = vArguments;
+          modalWin = window.open(sURL, 'modal', sFeatures);
+          return modalWin;
+        }
+      }
+      driver.execute_script(convert_modal_to_window)
+      yield if block_given?
+    end
   end
 end

@@ -46,5 +46,10 @@ describe Fluent::Enclosers do
       watir_browser.should_receive(:use)
       watir_definition.within_window(url: 'results.html')
     end
+
+    it 'should be able to convert a modal popup to a window' do
+      watir_browser.should_receive(:execute_script)
+      watir_definition.within_modal {}
+    end
   end
 end
