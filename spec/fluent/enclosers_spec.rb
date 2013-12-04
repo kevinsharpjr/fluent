@@ -34,5 +34,17 @@ describe Fluent::Enclosers do
       watir_definition.will_prompt('Testing') do
       end
     end
+
+    it 'should be able to attach to a window by using the title' do
+      watir_browser.should_receive(:window).with(:title => /Display\ Results/).and_return(watir_browser)
+      watir_browser.should_receive(:use)
+      watir_definition.within_window(title: 'Display Results')
+    end
+
+    it 'should be able to attach to a window by using the url' do
+      watir_browser.should_receive(:window).with(:url => /results\.html/).and_return(watir_browser)
+      watir_browser.should_receive(:use)
+      watir_definition.within_window(url: 'results.html')
+    end
   end
 end

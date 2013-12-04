@@ -84,6 +84,11 @@ module Fluent
           result
         end
         
+        def within_window(locator, &block)
+          identifier = {locator.keys.first => /#{Regexp.escape(locator.values.first)}/}
+          driver.window(identifier).use(&block)
+        end
+        
         ## Generator Actions ##
         
         def link(locator)

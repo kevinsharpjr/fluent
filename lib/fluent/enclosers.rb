@@ -31,5 +31,17 @@ module Fluent
     def will_prompt(response, &block)
       platform.will_prompt(response, &block)
     end
+
+    # Used to identify a web element or action on a web element as existing
+    # within an enclosing window object. The window can be referenced using
+    # either the title attribute of the window or a direct URL. The URL does
+    # not have to be the entire URL; it can just be a page name.
+    #
+    # @param locator [Hash] the :title or :url of the window
+    # @param block [Proc] any code that should be executed as an
+    # action on or within the window
+    def within_window(locator, &block)
+      platform.within_window(locator, &block)
+    end
   end
 end
