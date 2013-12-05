@@ -5,5 +5,7 @@ module Fluent
     class TitleNotMatched < StandardError; end
     class UrlNotMatched < StandardError; end
     class UnableToCreatePlatform < StandardError; end
+    class WorkflowPathNotFound < StandardError; end
+    class WorkflowActionNotFound < StandardError; end
   end
 end

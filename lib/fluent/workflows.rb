@@ -45,8 +45,8 @@ module Fluent
       # purpose of the [0].
       path = Workflow.def_caller.paths[0][path_name[:using]]
       
-      # TODO
-      # Should raise an error here if the path cannot be established.
+      raise Fluent::Errors::WorkflowPathNotFound,
+            "Workflow path '#{path_name[:using].to_s}' not found." unless path
       
       path
     end
@@ -59,9 +59,8 @@ module Fluent
       definitions.each do |definition, action, *args|
         active = on(definition)
         
-        # TODO
-        # Should raise an error if the action is not defined on the
-        # reference.
+        raise Fluent::Errors::WorkflowActionNotFound,
+              "Workflow action '#{action}' not defined on #{definition}." unless active.respond_to? action
         
         active.send action unless args
         active.send action, *args if args
