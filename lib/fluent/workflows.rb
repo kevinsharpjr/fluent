@@ -34,6 +34,8 @@ module Fluent
       
       workflow_start = path_name[:from] ? path_workflow.find_index { |item| item[0] == how[:from]} : 0
       puts "*** Workflow Start: #{workflow_start}"
+      
+      perform_workflow(path_workflow[workflow_start..workflow_goal])
     end
     
     def workflow_path_for(path_name)
@@ -51,6 +53,19 @@ module Fluent
     
     def work_item_index_for(path_workflow, definition)
       path_workflow.find_index { |item| item[0] == definition }
+    end
+    
+    def perform_workflow(definitions)
+      definitions.each do |definition, action, *args|
+        active = on(definition)
+        
+        # TODO
+        # Should raise an error if the action is not defined on the
+        # reference.
+        
+        active.send action unless args
+        active.send action, *args if args
+      end
     end
     
   end
