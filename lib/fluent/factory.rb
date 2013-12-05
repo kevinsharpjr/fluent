@@ -1,6 +1,9 @@
+require 'fluent/workflows'
+
 module Fluent
   module Factory
-
+    include Workflow
+    
     # Creates a definition context for actions. If an existing context
     # exists, that context will be re-used.
     #

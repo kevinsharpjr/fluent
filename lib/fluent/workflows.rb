@@ -10,8 +10,16 @@ module Fluent
   end
 
   module Workflow
-    extend WorkflowPaths
     
+    def self.included(caller)
+      Fluent.trace("#{caller.class} #{caller} is using workflows.")
+      caller.extend Fluent::WorkflowPaths
+      @def_caller = caller
+    end
+    
+    def self.def_caller
+      @def_caller
+    end
     
   end
 end
