@@ -9,8 +9,6 @@ namespace :spec do
     options += %w(--format nested --out spec/reports/fluent-test-report.txt)
     options += %w(--format html --out spec/reports/fluent-test-report.html)
     
-    config.pattern = 'spec/**/*_spec.rb'
-    config.ruby_opts = '-I lib'
     config.rspec_opts = options
   end
 end

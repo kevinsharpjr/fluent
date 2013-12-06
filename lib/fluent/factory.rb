@@ -1,6 +1,9 @@
+require 'fluent/workflows'
+
 module Fluent
   module Factory
-
+    include Workflow
+    
     # Creates a definition context for actions. If an existing context
     # exists, that context will be re-used.
     #
@@ -11,7 +14,11 @@ module Fluent
     def on(definition, visit=false, &block)
       definition = get_object_for(definition) if definition.is_a? String
       
-      return @active if @active.kind_of?(definition)
+      if @active.kind_of?(definition)
+        block.call @active if block
+        return @active
+      end
+      
       @active = definition.new(@driver, visit)
       block.call @active if block
       

@@ -53,6 +53,13 @@ module Fluent
           driver.wait_until(timeout, message, &block)
         end
         
+        def focused
+          web_element = driver.execute_script('return document.activeElement')
+          type = web_element.type.to_sym if web_element.tag_name.to_sym == :input
+          object_class = ::Fluent::WebElements.get_class_for(web_element.tag_name, type)
+          object_class.new(web_element, :platform => :watir_webdriver)
+        end
+        
         ## Encloser Actions ##
         
         def will_alert(&block)
@@ -82,6 +89,11 @@ module Fluent
           result = driver.wd.execute_script('return window.__lastWatirPrompt')
           result && result.dup.each_key { |k| result[k.to_sym] = result.delete(k) }
           result
+        end
+        
+        def within_window(locator, &block)
+          identifier = {locator.keys.first => /#{Regexp.escape(locator.values.first)}/}
+          driver.window(identifier).use(&block)
         end
         
         ## Generator Actions ##

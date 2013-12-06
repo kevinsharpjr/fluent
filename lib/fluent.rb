@@ -7,8 +7,10 @@ require 'fluent/enclosers'
 require 'fluent/evaluators'
 require 'fluent/generators'
 require 'fluent/locators'
+require 'fluent/workflows'
 require 'fluent/data_setter'
 require 'fluent/data_builder'
+require 'fluent/data_config'
 
 require 'watir-webdriver'
 require 'selenium-webdriver'
@@ -21,6 +23,7 @@ module Fluent
   include Locators
   include DataSetter
   include DataBuilder
+  include DataConfig
   
   # Browser drivers will be:
   # [Watir::Browser] or [Selenium::WebDriver::Driver]

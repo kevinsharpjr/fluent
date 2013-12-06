@@ -2,6 +2,12 @@ module Fluent
   module Evaluators
 
     ## Browser-Level Actions ##
+
+    def visit(url)
+      platform.visit(url)
+    end
+
+    alias_method :navigate_to, :visit
     
     def url
       platform.url
@@ -46,6 +52,12 @@ module Fluent
     def wait_for_app(value=1)
       sleep value
     end
+    
+    def focused
+      platform.focused
+    end
+
+    alias_method :what_has_focus?, :focused
     
     # Attempts to wait for pending jQuery requests and indicate if the
     # requests did not occur in a given time period.
