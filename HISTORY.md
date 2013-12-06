@@ -1,6 +1,17 @@
 Change Log and History
 ======================
 
+Version 0.7.0 / 2013-12-06
+--------------------------
+
+This release adds some key new features:
+
+* The ability to create workflows and have those workflows automatically executed. The workflow mechanism relies entirely on the factory module in order to create the context by which a set of actions can be taken against a page definition or activity definition.
+
+* Two new enclosers have been added: "within_modal" and "within_window". These allow you to work within the context of a modal box or a different browser window.
+
+* A data configuration module has been added that allows you to more easily call upon environment or configuration data as part of your test execution.
+
 Version 0.6.0 / 2013-11-26
 --------------------------
 

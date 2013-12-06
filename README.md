@@ -5,6 +5,7 @@ Fluent
 [![Dependency Status](https://gemnasium.com/jnyman/fluent.png)](https://gemnasium.com/jnyman/fluent)
 [![Gem Version](https://badge.fury.io/rb/fluent.png)](http://badge.fury.io/rb/fluent)
 [![Coverage Status](https://coveralls.io/repos/jnyman/fluent/badge.png?branch=master)](https://coveralls.io/r/jnyman/fluent)
+[![Code Climate](https://codeclimate.com/github/jnyman/fluent.png)](https://codeclimate.com/github/jnyman/fluent)
 
 Fluent provides a semantic domain-specific language that can be used to construct a fluent interface for test execution libraries.
 
