@@ -21,21 +21,28 @@ module Fluent
       @def_caller
     end
     
+    # This provides a workflow for a given workflow path, using a
+    # specific definition that is part of that workflow path.
+    #
     # @param definition [Object] definition object using the workflow
     # @param path_name [Hash] the name of the path to be used
-    def workflow_for(definition, path_name = {:using => :default})
+    # @param block [Proc] a block to be executed as part of the workflow
+    # @return [Object] the definition being interacted with
+    def workflow_for(definition, path_name = {:using => :default}, &block)
       path_name[:using] = :default unless path_name[:using]
       
       path_workflow = workflow_path_for(path_name)
       puts "*** Path Workflow: #{path_workflow}"
       
-      workflow_goal = work_item_index_for(path_workflow, definition) #- 1
+      workflow_goal = work_item_index_for(path_workflow, definition)
       puts "*** Workflow Goal: #{workflow_goal}"
       
       workflow_start = path_name[:from] ? path_workflow.find_index { |item| item[0] == how[:from]} : 0
       puts "*** Workflow Start: #{workflow_start}"
       
       perform_workflow(path_workflow[workflow_start..workflow_goal])
+      
+      on(definition, &block)
     end
     
     def workflow_path_for(path_name)

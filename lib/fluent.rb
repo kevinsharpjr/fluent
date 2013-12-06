@@ -24,7 +24,6 @@ module Fluent
   include DataSetter
   include DataBuilder
   include DataConfig
-  #include Workflow
   
   # Browser drivers will be:
   # [Watir::Browser] or [Selenium::WebDriver::Driver]

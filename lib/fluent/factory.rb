@@ -14,7 +14,11 @@ module Fluent
     def on(definition, visit=false, &block)
       definition = get_object_for(definition) if definition.is_a? String
       
-      return @active if @active.kind_of?(definition)
+      if @active.kind_of?(definition)
+        block.call @active if block
+        return @active
+      end
+      
       @active = definition.new(@driver, visit)
       block.call @active if block
       
