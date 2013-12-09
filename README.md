@@ -1,11 +1,11 @@
 Fluent
 ======
 
-[![Build Status](https://secure.travis-ci.org/jnyman/fluent.png)](http://travis-ci.org/jnyman/fluent)
-[![Dependency Status](https://gemnasium.com/jnyman/fluent.png)](https://gemnasium.com/jnyman/fluent)
 [![Gem Version](https://badge.fury.io/rb/fluent.png)](http://badge.fury.io/rb/fluent)
+[![Build Status](https://secure.travis-ci.org/jnyman/fluent.png)](http://travis-ci.org/jnyman/fluent)
 [![Coverage Status](https://coveralls.io/repos/jnyman/fluent/badge.png?branch=master)](https://coveralls.io/r/jnyman/fluent)
 [![Code Climate](https://codeclimate.com/github/jnyman/fluent.png)](https://codeclimate.com/github/jnyman/fluent)
+[![Dependency Status](https://gemnasium.com/jnyman/fluent.png)](https://gemnasium.com/jnyman/fluent)
 
 Fluent provides a semantic domain-specific language that can be used to construct a fluent interface for test execution libraries.
 
@@ -33,9 +33,8 @@ Contributing
 2. Create a branch for your change.
 3. Make your feature additions or bug fixes in your branch.
 4. Create unit tests (in spec) for your changes.
-5. Create acceptance tests (in specs) for your changes.
-6. Commit your changes.
-7. Push to the branch.
-8. Create a new [pull request](https://help.github.com/articles/using-pull-requests).
+5. Commit your changes.
+6. Push to the branch.
+7. Create a new [pull request](https://help.github.com/articles/using-pull-requests).
 
 Do note that pull requests are very welcome and are considered better than bug reports. Please create a topic branch for every separate change that you make. When you make commits, do not change the rakefile, version or history information.
