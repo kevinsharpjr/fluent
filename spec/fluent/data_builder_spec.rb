@@ -8,7 +8,7 @@ describe Fluent::DataBuilder do
     end
     
     it 'should default to a directory named common' do
-      Fluent::DataBuilder.data_path.should == 'common/data'
+      Fluent::DataBuilder.data_path.should == 'data'
     end
 
     it 'should store a data source directory' do

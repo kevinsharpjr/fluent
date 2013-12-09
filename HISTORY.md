@@ -1,6 +1,11 @@
 Change Log and History
 ======================
 
+Version 0.7.1 / 2013-12-09
+--------------------------
+
+This is a minor patch release to essentially change the default directories for the DataBuilder and DataConfig modules. These defaults were set to "common/data" but now the DataBuilder default directory is just "data" and the DataConfig default directory is "config". These defaults can still be overridden. 
+
 Version 0.7.0 / 2013-12-06
 --------------------------
 

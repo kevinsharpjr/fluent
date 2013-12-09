@@ -6,7 +6,7 @@ module Fluent
       data.each do |key, value|
         use_select_data_with(key, value) if value_selectable_for(key) and object_enabled_for(key)
         use_check_data_with(key, value)  if value_checkable_for(key)  and object_enabled_for(key)
-        use_set_data_with(key, value)    if value_settable_for(key)  and object_enabled_for(key)
+        use_set_data_with(key, value)    if value_settable_for(key)   and object_enabled_for(key)
         use_text_data_with(key, value)   if text_settable_for(key)    and object_enabled_for(key)
       end
     end

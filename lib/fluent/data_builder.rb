@@ -9,7 +9,7 @@ module Fluent
     end
     
     def self.default_data_path
-      'common/data'
+      'data'
     end
     
     def data_for(key, specified={})
