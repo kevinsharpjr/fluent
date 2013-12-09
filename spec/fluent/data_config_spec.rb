@@ -4,7 +4,7 @@ describe Fluent::DataConfig do
   
   context 'when configuring the data path' do
     it 'should default to a directory named common' do
-      Fluent::DataConfig.data_path.should == 'common/data'
+      Fluent::DataConfig.data_path.should == 'config'
     end
   end
 

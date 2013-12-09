@@ -40,7 +40,7 @@ module Fluent
     end
     
     def self.default_data_path
-      'common/data'
+      'config'
     end
     
   end
