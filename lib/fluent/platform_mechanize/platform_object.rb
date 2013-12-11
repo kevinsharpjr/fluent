@@ -15,6 +15,10 @@ module Fluent
           driver.get(url).body
         end
         
+        def markup
+          driver.current_page.body
+        end
+        
         def get_cookie_value(name)
           for cookie in driver.cookie_jar.cookies 
             if cookie.name == "DotomiUser"
