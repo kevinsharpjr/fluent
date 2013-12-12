@@ -18,11 +18,10 @@ module Fluent
         
         def get_cookie_value(name)
           for cookie in @driver.cookies.to_a
-            if cookie[:name] == "DotomiUser"
-              return /\d*/.match(cookie[:value]).to_s.to_i
+            if cookie[:name] == name
+              return cookie[:value]
             end
           end
-          -1
         end
         
         def url
