@@ -1,6 +1,11 @@
 Change Log and History
 ======================
 
+Version 0.7.2 / 2013-12-12
+--------------------------
+
+A minor patch release that adds some platform methods for Mechanize.
+
 Version 0.7.1 / 2013-12-09
 --------------------------
 
