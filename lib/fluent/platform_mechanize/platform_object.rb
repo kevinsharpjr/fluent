@@ -25,7 +25,6 @@ module Fluent
               return cookie.value
             end
           end
-          null
         end
       end
     end
