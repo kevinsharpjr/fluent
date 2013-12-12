@@ -12,9 +12,20 @@ module Fluent
         ## Browser-Level Actions ##
 
         def visit(url)
-          driver.get(url)
+          driver.get(url).body
         end
-
+        
+        def markup
+          driver.current_page.body
+        end
+        
+        def get_cookie_value(name)
+          for cookie in driver.cookie_jar.cookies 
+            if cookie.name == name
+              return cookie.value
+            end
+          end
+        end
       end
     end
   end
