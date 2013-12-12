@@ -12,7 +12,7 @@ module Fluent
         ## Browser-Level Actions ##
 
         def visit(url)
-          driver.get(url).body
+          driver.get(url)
         end
         
         def markup

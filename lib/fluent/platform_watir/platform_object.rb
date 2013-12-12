@@ -13,7 +13,6 @@ module Fluent
         
         def visit(url)
           driver.goto(url.to_s)
-          driver.html
         end
         
         def get_cookie_value(name)
