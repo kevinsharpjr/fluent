@@ -12,7 +12,15 @@ module Fluent
         ## Browser-Level Actions ##
         
         def visit(url)
-          driver.goto(url)
+          driver.goto(url.to_s)
+        end
+        
+        def get_cookie_value(name)
+          for cookie in @driver.cookies.to_a
+            if cookie[:name] == name
+              return cookie[:value]
+            end
+          end
         end
         
         def url

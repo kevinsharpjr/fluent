@@ -6,6 +6,10 @@ module Fluent
     def visit(url)
       platform.visit(url)
     end
+    
+    def get_cookie_value(name)
+      platform.get_cookie_value(name)
+    end
 
     alias_method :navigate_to, :visit
     
