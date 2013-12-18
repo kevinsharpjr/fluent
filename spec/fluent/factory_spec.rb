@@ -22,7 +22,7 @@ end
 describe Fluent::Factory do
   before(:each) do
     @factory = TestFactory.new
-    @factory.driver = mock_browser_for_watir   
+    @factory.driver = mock_browser_for_watir
   end
   
   it 'should create a new definition object and view it, using on_view' do
@@ -75,54 +75,27 @@ describe Fluent::Factory do
   end
   
   it 'should use an existing context using on after using on_set' do
-    @factory.driver.should_not_receive(:goto)
-    @factory.on_set DefinitionTest do |page|
-      page.should be_instance_of DefinitionTest
-      @obj1 = page
-    end
-    @factory.on DefinitionTest2 do |page|
-      page.should be_instance_of DefinitionTest2
-      @obj2 = page
-    end
-    @factory.on DefinitionTest do |page|
-      page.should be_instance_of DefinitionTest
-      @obj3 = page
-    end
+    obj1 = @factory.on_set DefinitionTest
+    obj2 = @factory.on DefinitionTest2
+    obj3 = @factory.on DefinitionTest
     
-    @obj1.should_not == @obj2
-    @obj1.should == @obj3
+    obj1.should_not == obj2
+    obj1.should == obj3
   end
   
   it 'should use an existing context using on_new of different class after using on_set' do
-    @factory.driver.should_not_receive(:goto)
-    @factory.on_set DefinitionTest do |page|
-      page.should be_instance_of DefinitionTest
-      @obj1 = page
-    end
-    @factory.on_new DefinitionTest2 do |page|
-      page.should be_instance_of DefinitionTest2
-      @obj2 = page
-    end
-    @factory.on DefinitionTest do |page|
-      page.should be_instance_of DefinitionTest
-      @obj3 = page
-    end
+    obj1 = @factory.on_set DefinitionTest
+    obj2 = @factory.on_new DefinitionTest2
+    obj3 = @factory.on DefinitionTest
     
-    @obj1.should_not == @obj2
-    @obj1.should == @obj3
+    obj1.should_not == obj2
+    obj1.should == obj3
   end
   
   it 'should clear existing context using on_new after using on_set' do
-    @factory.driver.should_not_receive(:goto)
-    @factory.on_set DefinitionTest do |page|
-      page.should be_instance_of DefinitionTest
-      @obj1 = page
-    end
-    @factory.on_new DefinitionTest do |page|
-      page.should be_instance_of DefinitionTest
-      @obj2 = page
-    end
-    @obj1.should_not == @obj2
+    obj1 = @factory.on_set DefinitionTest
+    obj2 = @factory.on_new DefinitionTest
+    obj1.should_not == obj2
   end
   
   it 'should set a reference to be used outside the factory' do
