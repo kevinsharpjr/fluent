@@ -7,10 +7,6 @@ module Fluent
         include_platform_specifics_for platform
       end
 
-      def option_xpath
-        './/child::option'
-      end
-      
       def include_platform_specifics_for(platform)
         super
         if platform[:platform] == :watir_webdriver

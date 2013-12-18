@@ -108,8 +108,7 @@ describe Fluent::Generators do
         list_element = double('select_list')
         options = [list_element, list_element]
         web_element = Fluent::WebElements::SelectList.new(list_element, :platform => :watir_webdriver)
-        list_element.should_receive(:wd).and_return(list_element)
-        list_element.should_receive(:find_elements).with(:xpath, './/child::option').and_return(options)
+        list_element.should_receive(:options).and_return(options)
         web_element[0].should be_instance_of Fluent::WebElements::Option
       end
       
@@ -117,8 +116,9 @@ describe Fluent::Generators do
         list_element = double('select_list')
         options = [list_element, list_element]
         web_element = Fluent::WebElements::SelectList.new(list_element, :platform => :watir_webdriver)
-        list_element.should_receive(:wd).and_return(list_element)
-        list_element.should_receive(:find_elements).with(:xpath, './/child::option').and_return(options)
+        #list_element.should_receive(:wd).and_return(list_element)
+        #list_element.should_receive(:find_elements).with(:xpath, './/child::option').and_return(options)
+        list_element.should_receive(:options).and_return(options)
         web_element.options.size.should == 2
       end
       
