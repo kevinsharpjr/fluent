@@ -31,6 +31,17 @@ describe Fluent::Evaluators do
         result = mechanize_definition.get_cookie_value('test')
         result.should == 'cookie'
       end
+
+      it 'should return nothing if a cookie value is not found' do
+        data = {:name => 'test', :value => 'cookie', :path => '/'}
+        jar = Mechanize::CookieJar.new
+        cookie = Mechanize::Cookie.new(data)
+        jar.add(URI('http://localhost:9292/'), cookie)
+
+        mechanize_browser.should_receive(:cookie_jar).and_return(jar)
+        result = mechanize_definition.get_cookie_value('testing')
+        result.nil?.should be_true
+      end
     end
 
     context 'a definition using watir-webdriver' do
@@ -83,7 +94,7 @@ describe Fluent::Evaluators do
         cookie = [{:name => 'test', :value =>'cookie', :path => '/'}]
         watir_browser.should_receive(:cookies).and_return(nil)
         result = watir_definition.get_cookie_value('testing')
-        result.should be_empty
+        result.nil?.should be_true
       end
     end
   end
