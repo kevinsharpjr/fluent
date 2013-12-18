@@ -4,8 +4,35 @@ require 'mock_app'
 describe Fluent::Evaluators do
   let(:watir_browser)    { mock_browser_for_watir }
   let(:watir_definition) { TestDefinition.new(watir_browser) }
-  
+
+  let(:mechanize_browser) { mock_browser_for_mechanize }
+  let(:mechanize_definition) { TestDefinition.new(mechanize_browser) }
+
   describe 'browser-level actions' do
+    context 'a definition using mechanize' do
+      it 'should visit a page' do
+        mechanize_browser.should_receive(:get).with('http://localhost:9292')
+        mechanize_definition.visit('http://localhost:9292')
+      end
+
+      it 'should return all the markup on a page' do
+        page = Mechanize::Page.new(URI('http://localhost:9292/'), { 'content-type' => 'text/html' }, '<h1>Content</h1>', '200')
+        mechanize_browser.should_receive(:current_page).and_return(page)
+        mechanize_definition.markup.should == '<h1>Content</h1>'
+      end
+
+      it 'should be able to get a cookie value' do
+        data = {:name => 'test', :value => 'cookie', :path => '/'}
+        jar = Mechanize::CookieJar.new
+        cookie = Mechanize::Cookie.new(data)
+        jar.add(URI('http://localhost:9292/'), cookie)
+
+        mechanize_browser.should_receive(:cookie_jar).and_return(jar)
+        result = mechanize_definition.get_cookie_value('test')
+        result.should == 'cookie'
+      end
+    end
+
     context 'a definition using watir-webdriver' do
       it 'should visit a page' do
         watir_browser.should_receive(:goto).twice.with('http://localhost:9292')
@@ -43,6 +70,20 @@ describe Fluent::Evaluators do
         watir_browser.should_receive(:save_screenshot).twice
         watir_definition.screenshot('testing.png')
         watir_definition.save_screenshot('testing.png')
+      end
+
+      it 'should be able to get a cookie value' do
+        cookie = [{:name => 'test', :value => 'cookie', :path => '/'}]
+        watir_browser.should_receive(:cookies).and_return(cookie)
+        result = watir_definition.get_cookie_value('test')
+        result.should == 'cookie'
+      end
+
+      it 'should return nothing if a cookie value is not found' do
+        cookie = [{:name => 'test', :value =>'cookie', :path => '/'}]
+        watir_browser.should_receive(:cookies).and_return(nil)
+        result = watir_definition.get_cookie_value('testing')
+        result.should be_empty
       end
     end
   end
