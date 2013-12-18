@@ -20,12 +20,14 @@ module Fluent
         end
         
         def get_cookie_value(name)
-          for cookie in driver.cookie_jar.cookies 
+          for cookie in driver.cookie_jar.cookies
             if cookie.name == name
               return cookie.value
             end
           end
+          nil
         end
+
       end
     end
   end

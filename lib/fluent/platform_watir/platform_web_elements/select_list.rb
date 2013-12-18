@@ -34,7 +34,7 @@ module Fluent
         #
         # @return [Object] Fluent::WebElements::Option
         def [](index)
-          ::Fluent::WebElements::Option.new(options[index], :platform => :watir_webdriver)
+          options[index]
         end
         
         # Provides an array of Option objects that are contained within
@@ -42,12 +42,7 @@ module Fluent
         #
         # @return [Array] Fluent::WebElements::Option objects
         def options
-          elements = []
-          options = web_element.wd.find_elements(:xpath, option_xpath)
-          options.each do |option|
-            elements << ::Fluent::WebElements::Option.new(option, :platform => :watir_webdriver)
-          end
-          elements
+          web_element.options.map { |option| ::Fluent::WebElements::Option.new(option, :platform => :watir_webdriver) }
         end
         
       end

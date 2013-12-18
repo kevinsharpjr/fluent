@@ -1,6 +1,17 @@
 Change Log and History
 ======================
 
+Version 0.7.3 / 2013-12-18
+--------------------------
+
+A few small changes and one big change. As for the small changes:
+
+* Select lists or any elements that have selectable items no longer rely on xpath, but instead on native option objects.
+
+* The get_cookie_value platform method now returns nil for both Mechanize and Watir. This means that if you look for a key name in a cookie and that key name is not found, a nil is returned.
+
+The larger change involves adding a new context factory method called on_set(). This new factory method allows you to set the context of a given definition so that it can be reused even if other definitions have already been used. A call to the on_new() factory method will always clear out the context.
+
 Version 0.7.2 / 2013-12-12
 --------------------------
 

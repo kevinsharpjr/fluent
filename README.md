@@ -37,4 +37,8 @@ Contributing
 6. Push to the branch.
 7. Create a new [pull request](https://help.github.com/articles/using-pull-requests).
 
-Do note that pull requests are very welcome and are considered better than bug reports. Please create a topic branch for every separate change that you make. When you make commits, do not change the rakefile, version or history information.
+A few notes:
+
+* Pull requests are very welcome and are considered better than bug reports. Please create a feature branch for every separate change that you make. When you make commits, do not change the rakefile, version or history information.
+
+* If you are contributing changes, make sure you do so on the `develop` branch. So if you fork, make sure you also check out the `develop' branch and make your feature branches off of that.
