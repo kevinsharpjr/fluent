@@ -13,6 +13,13 @@ class DefinitionTest
   url_is 'http://localhost:9292'
 end
 
+class DefinitionTestNewContext
+  include Fluent
+  
+  url_is 'http://localhost:9292'
+end
+  
+  
 describe Fluent::Factory do
   before(:each) do
     @factory = TestFactory.new
@@ -52,6 +59,80 @@ describe Fluent::Factory do
     obj1 = @factory.on_view DefinitionTest
     obj2 = @factory.on_new DefinitionTest
     obj1.should_not == obj2
+  end
+
+  it 'should create a new definition object, using on_set' do
+    @factory.driver.should_not_receive(:goto)
+    @factory.on_set DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+    end
+  end
+
+  it 'should use an existing object reference with on_set' do
+    @factory.driver.should_receive(:goto)
+    obj1 = @factory.on_view DefinitionTest
+    obj2 = @factory.on_set DefinitionTest
+    obj1.should == obj2
+  end
+
+  it 'should use an existing context using on after using on_set' do
+    @factory.driver.should_not_receive(:goto)
+    
+    @factory.on_set DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+      @obj1 = page
+    end
+    
+    @factory.on DefinitionTestNewContext do |page|
+      page.should be_instance_of DefinitionTestNewContext
+      @obj2 = page
+    end
+    
+    @factory.on DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+      @obj3 = page
+    end
+
+    @obj1.should_not == @obj2
+    @obj1.should == @obj3
+  end
+
+  it 'should use an existing context using on_new of different class after using on_set' do
+    @factory.driver.should_not_receive(:goto)
+
+    @factory.on_set DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+      @obj1 = page
+    end
+
+    @factory.on_new DefinitionTestNewContext do |page|
+      page.should be_instance_of DefinitionTestNewContext
+      @obj2 = page
+    end
+
+    @factory.on DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+      @obj3 = page
+    end
+
+    @obj1.should_not == @obj2
+    @obj1.should == @obj3
+  end
+
+  it 'should clear existing context using on_new after using on_set' do
+    @factory.driver.should_not_receive(:goto)
+
+    @factory.on_set DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+      @obj1 = page
+    end
+
+    @factory.on_new DefinitionTest do |page|
+      page.should be_instance_of DefinitionTest
+      @obj2 = page
+    end
+
+    @obj1.should_not == @obj2
   end
   
   it 'should set a reference to be used outside the factory' do
